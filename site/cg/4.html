@@ -1,0 +1,2448 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/cg/4.html">
+      
+      
+        <link rel="prev" href="./3.html">
+      
+      
+        <link rel="next" href="./5.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Rasterization - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rasterization" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rasterization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ge/index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机图形学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rasterization
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="4.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rasterization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#viewport-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport Transformation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-raster-displays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Different Raster Displays
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasterizing-a-triangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rasterizing a Triangle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasterization-on-real-displays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rasterization on Real Displays
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antialiasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antialiasing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Theory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sampling Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blurringpre-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blurring(Pre-filtering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frequency Domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeating-frequency-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeating Frequency Contents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#antialiasing-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing in Practice
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antialiasing in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msaa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSAA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#antialiasing-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing Today
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visibility-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visibility / Occlusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visibility &#x2f; Occlusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#painters-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Painter's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#z-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z-Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geometry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ray Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Materials and Appearances
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics in Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cameras, Lenses and Light Fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color and Perception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../ge/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#viewport-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport Transformation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-raster-displays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Different Raster Displays
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasterizing-a-triangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rasterizing a Triangle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasterization-on-real-displays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rasterization on Real Displays
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antialiasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antialiasing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Theory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sampling Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blurringpre-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blurring(Pre-filtering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frequency Domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeating-frequency-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeating Frequency Contents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#antialiasing-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing in Practice
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antialiasing in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msaa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSAA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#antialiasing-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antialiasing Today
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visibility-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visibility / Occlusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visibility &#x2f; Occlusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#painters-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Painter's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#z-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z-Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/cg/4.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/cg/4.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="rasterization">Rasterization</h1>
+<h2 id="viewport-transformation">Viewport Transformation</h2>
+<p>"<strong>MVP</strong>" 分别指代了上一讲的三个变换：</p>
+<ul>
+<li>模型变换(<strong>M</strong>odel transformation)（放置物体）</li>
+<li>视图变换(<strong>V</strong>iew transformation)（放置相机）</li>
+<li>投影变换(<strong>P</strong>rojection transformation)<ul>
+<li>正射投影（长方体 -&gt; <span class="arithmatex">\([-1, 1]^3\)</span> 的正则立方体）</li>
+<li>透视投影（视锥 -&gt; 正则立方体）</li>
+</ul>
+</li>
+</ul>
+<p>所以通过上一讲的各种变换，我们最终得到了一个正则立方体。那我们要这个正则立方体干什么呢？将它画在一块<strong>屏幕</strong>(screen)上。屏幕的定义是：</p>
+<ul>
+<li>一个<strong>像素</strong>(pixels)数组<ul>
+<li>pixel 一词是由 picture（图像）和 element（元素）两个单词构成的</li>
+<li>目前假定一个像素就是一个颜色一致的小方形</li>
+<li>像素的颜色是由（<span style="color: red">红色</span>，<span style="color: green">绿色</span>，<span style="color: blue">蓝色</span>）混合而成的</li>
+</ul>
+</li>
+<li>数组的大小就是<strong>分辨率</strong>(resolution)</li>
+<li>一种典型的光栅显示器(raster display)<ul>
+<li>raster 一词在德语就是 screen 的意思</li>
+<li>而它的动词形式 rasterize（光栅化）的意思就是“画在屏幕上”</li>
+</ul>
+</li>
+</ul>
+<p>由“屏幕”延伸出来的一个概念是<strong>屏幕空间</strong>(screen space)</p>
+<blockquote>
+<p>注：以下定义和虎书上的有略微的不同。</p>
+</blockquote>
+<div style="text-align: center">
+    <img src="images/lec4/1.png" width=30%>
+</div>
+
+<ul>
+<li>像素的索引形式为 (x, y)，其中 x, y 均为整数</li>
+<li>像素的索引范围为 (0, 0) 到 (width - 1, height - 1)</li>
+<li>像素 (x, y) 的中心为 (x + 0.5, y + 0.5)</li>
+<li>屏幕的覆盖范围为 (0, 0) 到 (width, height)</li>
+</ul>
+<p>正则立方体被画在屏幕上的时候，</p>
+<ul>
+<li>不考虑 z</li>
+<li>
+<p>仅在 xy 平面上变换：<span class="arithmatex">\([-1, 1]^2 \rightarrow [0, \text{width}] \times [0, \text{height}]\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec4/2.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>视口(viewport)变换矩阵：</p>
+<div class="arithmatex">\[
+M_{viewport} = \begin{pmatrix}\frac{\text{width}}{2} &amp; 0 &amp; 0 &amp; \frac{\text{width}}{2} \\ 0 &amp; \frac{\text{height}}{2} &amp; 0 &amp; \frac{\text{height}}{2} \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1\end{pmatrix}
+\]</div>
+</li>
+</ul>
+<h2 id="different-raster-displays">Different Raster Displays</h2>
+<ul>
+<li>
+<p>示波器(oscilloscope)</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/3.png" width=50%>
+</div></p>
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=rtR63-ecUNo">🔗视频链接：用示波器绘制蘑菇</a></p>
+<p><div style="text-align: center">
+    <img src="images/lec4/4.png" width=50%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E9%98%B4%E6%9E%81%E5%B0%84%E7%BA%BF%E7%AE%A1"><strong>阴极射线管</strong></a>(cathode ray tube, CRT)——示波器背后的装置</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/5.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>早期的电视和显示器就是基于光栅显示 CRT</p>
+<ul>
+<li>
+<p>显示器上的内容通过 CRT 一行行扫描显示出来</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/6.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>隔行扫描：先扫完奇数行，后扫偶数行，工作量减少一半，人眼的视觉停留导致不易察觉</p>
+<ul>
+<li>现在的视频压缩上仍然沿用这一思想</li>
+<li>问题：严重的画面撕裂，特别是对高速运动的画面，会出现“鬼影”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>帧缓冲区(frame buffer)：光栅显示器的内存（在现代计算机中就是显存）</p>
+<ul>
+<li>显示器显示的图像就是内存中保存的内容</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec4/7.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>平板显示器(flat panel display)</p>
+<ul>
+<li>
+<p>低分辨率液晶显示器(low-res LCD display)</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/8.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>彩色 LCD, OLED, ...</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/9.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p>LCD（液晶显示器(liquid crystal display)）像素</p>
+<ul>
+<li>原理：通过扭转偏振(polarization)来阻挡或传递光线</li>
+<li>背光照明（例如荧光灯(fluorescent)或 LED）</li>
+<li>通过部分扭转达到合适的亮度</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec4/10.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>LED（发光二极管(light emitting diode)）阵列显示器</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/11.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>电泳(electrophoretic)（电子墨水）显示屏</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/12.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="rasterizing-a-triangle">Rasterizing a Triangle</h2>
+<p><strong>光栅化</strong>(rasterization)的意思就是将物体绘制在光栅显示器上，</p>
+<ul>
+<li>
+<p>可以用多边形的网格(polygon meshes)</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/13.png" width=70%>
+</div></p>
+<blockquote>
+<p>图中的老虎并不是真的，而是通过 CG 技术绘制出来的。</p>
+</blockquote>
+</li>
+<li>
+<p>也可以用三角形的网格(triangle meshes)</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/14.png" width=30%>
+    <img src="images/lec4/15.png" width=30%>
+</div></p>
+</li>
+</ul>
+<p>通常我们将三角形作为基本的形状图元(fundamental shape primitives)，这是因为：</p>
+<ul>
+<li>三角形是最基础的多边形，并且任何多边形都可以被拆分成多个三角形</li>
+<li>一些独特的性质<ul>
+<li>保证是一个平面(planar)</li>
+<li>三角形的内外部定义清晰</li>
+<li>在三角形顶点上的插值由明确定义的方法（<strong>重心插值</strong>(barycentric inrerpolation)），也就是说只要知道三角形三个顶点的属性，就能知道三角形内任何一点的属性</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>现在我们的目标是用像素来近似表示一个三角形。用更规范的语言表述为：找到一个函数，满足</p>
+<ul>
+<li>输入：三角形顶点投影在屏幕上的位置</li>
+<li>输出：一个用于近似表示三角形的像素集合</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec4/16.png" width=50%>
+</div>
+
+<p>一种简单的光栅化方法是<strong>采样</strong>(sampling)，即对于一个连续的函数上，在特定点上计算函数值，从而<strong>离散化</strong>(discretize)一个函数。下面用 C++ 代码表示这一过程：</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">xmax</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</code></pre></div>
+<p>采样是图形学中的一个核心思想，我们可以采样时间（1D）、面积（2D）、方向（2D）和体积（3D）。而光栅化就是一种 2D 采样：</p>
+<div style="text-align: center">
+    <img src="images/lec4/17.png" width=30%>
+</div>
+
+<p>如果仅考虑像素中心在三角形范围内的像素，结果如下：</p>
+<div style="text-align: center">
+    <img src="images/lec4/18.png" width=30%>
+    <img src="images/lec4/19.png" width=30%>
+</div>
+
+<p>我们需要定义一个二元函数 <code>inside(tri, x, y)</code>，来判断一个点 <code>(x, y)</code>（<code>x</code>, <code>y</code> 不必是整数）是否在三角形内。如果是的话，函数返回1，否则返回0。所以光栅化的过程就相当于采样一个 2D 的指示器函数。</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">xmax</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ymax</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">y</span><span class="p">)</span>
+<span class="w">        </span><span class="n">image</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inside</span><span class="p">(</span><span class="n">tri</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div>
+<div style="text-align: center">
+    <img src="images/lec4/20.png" width=50%>
+</div>
+
+<p>接下来的问题是：<code>inside</code> 函数如何实现？这时，前面介绍过的<a href="2.html#cross-product">叉积</a>就派上用场了！判断一个点是否在三角形内，只要看这个点是否在构成三角形的沿同一方向（比如逆时针）的三条向量的同一侧，如果是的话就说明这个点在三角形内；只要出现异侧的情况，就说明点在三角形外。</p>
+<div style="text-align: center">
+    <img src="images/lec4/21.png" width=50%>
+</div>
+
+<p>像下图所示的（字面意义上的）边界情况就比较复杂：这个点到底算三角形1的，还是算三角形2的？这个就由自己定义，只要合理就行。像 OpenGL，DirectX 等图形学 API 的定义会更加复杂，所以我们不会深究。</p>
+<div style="text-align: center">
+    <img src="images/lec4/22.png" width=30%>
+</div>
+
+<p>要想更快地检查三角形所在的所有屏幕像素，我们可以根据已知的三角形三顶点的坐标来确定一个<strong>包围盒</strong>(bounding box)，即包围三角形的最小矩形。</p>
+<div style="text-align: center">
+    <img src="images/lec4/23.png" width=40%>
+</div>
+
+<p>还有一种更快的遍历方法叫做<strong>递增三角形遍历</strong>(incremental triangle traversal)，它更适合那种旋转一定角度的瘦长的三角形（自行脑补一下）。</p>
+<div style="text-align: center">
+    <img src="images/lec4/24.png" width=40%>
+</div>
+
+<hr />
+<p>如果显示器直接显示采样出来的信号，结果如下：</p>
+<div style="text-align: center">
+    <img src="images/lec4/28.png" width=30%>
+    <img src="images/lec4/29.png" width=30%>
+</div>
+
+<p>虽然像素的排列遵循原来的三角形，但形状上还是差的有点多，边缘一点也不平整，出现了一种叫做<strong>锯齿</strong>(jaggies)的东西。图形带锯齿的现象又称为<strong>走样</strong>(aliasing)，之后会介绍如何处理该问题。</p>
+<h2 id="rasterization-on-real-displays">Rasterization on Real Displays</h2>
+<p>下面展示了真实的 LCD 屏幕像素：</p>
+<div style="text-align: center">
+    <img src="images/lec4/25.png" width=50%>
+</div>
+
+<ul>
+<li>注意到这两部手机的像素的几何形状有一定差异，并且和之前假设的“像素是一个小块”有着很大的不同</li>
+<li>右图这种像素排列叫做 Bayer pattern，不难发现绿色的点多于红色和蓝色的点，因为人眼对绿色最为敏感</li>
+</ul>
+<p>此外，在彩色打印机上，显示方法会更复杂：</p>
+<div style="text-align: center">
+    <img src="images/lec4/26.png" width=50%>
+</div>
+
+<p>但不管如何，之后我们还是假设显示器的像素就是一个匀色的小方块。</p>
+<div style="text-align: center">
+    <img src="images/lec4/27.png" width=50%>
+</div>
+
+<h2 id="antialiasing">Antialiasing</h2>
+<h3 id="sampling-theory">Sampling Theory</h3>
+<h4 id="sampling-artifacts">Sampling Artifacts</h4>
+<p>采样在 CG 中是普遍存在的：</p>
+<ul>
+<li>光栅化：在 2D 坐标上采样</li>
+<li>
+<p>照片(photograph)：在图像传感器平面上采样</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/30.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>视频：在时间上采样</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/31.png" width=50%>
+</div></p>
+</li>
+</ul>
+<p>正因为被广泛使用，采样在实际运用时会遇到各种问题，称为<strong>采样瑕疵</strong>(sampling artifact(errors/mistakes/inacurracies))，包括了：</p>
+<ul>
+<li><strong>锯齿</strong>(jaggies)：空间上的采样<ul>
+<li>也是走样的一个例子</li>
+</ul>
+</li>
+<li>
+<p><strong>摩尔纹</strong>(Moiré patterns)：图像上出现的扭曲条纹，原因在于<strong>欠采样</strong>(undersampling)</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/32.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>车轮错觉</strong>(wagon wheel illusion)（假动作(false motion)）：时间上的采样</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/33.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+<p>这些采样瑕疵出现的原因都可以总结为：<strong>信号变化速度太快（高频率），而采样速度太慢了</strong>。</p>
+<h4 id="blurringpre-filtering">Blurring(Pre-filtering)</h4>
+<p>还是以红色三角形为例，</p>
+<ul>
+<li>
+<p>如果直接在原图像采样，光栅化后的三角形就有很多锯齿，像素要么是红色，要么是白色</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/34.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>在采样前先做一步<strong>预滤波</strong>(pre-filter)（又称<strong>模糊</strong>(blur)）后，原来光栅化后三角形的锯齿颜色就是渐变色的，看起来就没那么明显了，从而实现反走样的效果</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/35.png" width=50%>
+</div></p>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">例1</label><label for="__tabbed_1_2">例2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">直接采样</label><label for="__tabbed_2_2">通过模糊实现反走样</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/36.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/37.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+</div>
+<div class="tabbed-block">
+<p>比对模糊前后的两张图：</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/38.png" width=50%>
+</div></p>
+<p>如果先采样后模糊（滤波），其效果如下面左图所示。所以<strong>模糊一定要在采样之前做</strong>！</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/39.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>到目前为止，也许读者会有以下疑惑：</p>
+<ul>
+<li>为什么欠采样会导致走样呢？</li>
+<li>为什么先预滤波再采样能够实现反走样呢？</li>
+</ul>
+<p>下面就来探究背后的原因，以及如何实现反走样的光栅化。</p>
+<h4 id="frequency-domain">Frequency Domain</h4>
+<p>说到<strong>频率</strong>(frequency)，自然无法回避中学学过的三角函数：</p>
+<div style="text-align: center">
+    <img src="images/lec4/40.png" width=40%>
+</div>
+
+<p>另外要介绍的一个重要概念是<strong>傅里叶变换</strong>(Fourier transform)，它可以让一个函数表示为多个正弦和余弦函数之和。</p>
+<div style="text-align: center">
+    <img src="images/lec4/41.png" width=70%>
+</div>
+
+<p>傅里叶变换的作用就是把一个信号（<strong>空间域</strong>(spatial domain)）分解为一个个频率（<strong>频域</strong>(frequency domain)）。</p>
+<div style="text-align: center">
+    <img src="images/lec4/42.png" width=60%>
+</div>
+
+<details class="info">
+<summary>一些函数的傅里叶变换</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:5"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">正弦函数</label><label for="__tabbed_3_2">常数函数</label><label for="__tabbed_3_3">狄拉克(Dirac)函数</label><label for="__tabbed_3_4">盒函数</label><label for="__tabbed_3_5">高斯函数</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/70.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/71.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/72.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/73.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/74.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>从下图可以看出，更高的频率需要更快的采样，否则就会出现根据采样结果重构而成的信号和原信号相差过大（更像是低频信号）的问题。</p>
+<div style="text-align: center">
+    <img src="images/lec4/43.png" width=60%>
+</div>
+
+<p>也就是说，正是<strong>欠采样</strong>导致了频率走样的现象。这里的「<strong>走样</strong>」(aliasing)就是指对于给定的采样率，无法根据采样结果区分两种频率的信号。</p>
+<hr />
+<p>而滤波要做的就是移除某些特定频率的内容。对于下面两幅图，右图是左图在频域上的表现，越亮表示频率越低。</p>
+<div style="text-align: center">
+    <img src="images/lec4/44.png" width=60%>
+</div>
+
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">只移除低频内容（<strong>高通滤波器</strong>(high-pass filter)）</label><label for="__tabbed_4_2">只移除高频内容（<strong>低通滤波器</strong>(low-pass filter)）</label><label for="__tabbed_4_3">同时移除低频和高频内容</label><label for="__tabbed_4_4">同时移除低频和高频内容（但改变范围）</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/45.png" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/46.png" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/47.png" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec4/48.png" width=60%>
+</div></p>
+</div>
+</div>
+</div>
+<h4 id="convolution">Convolution</h4>
+<p>从另一个角度看，滤波做的事就是一种<strong>卷积</strong>(convolution)。我们可以将卷积简单理解为“求平均数”：对于一排点，逐点地在滑动窗口(sliding window)（即<strong>滤波器</strong>(filter)）内求平均值。</p>
+<div style="text-align: center">
+    <img src="images/lec4/49.png" width=60%>
+</div>
+
+<div class="admonition theorem">
+<p class="admonition-title">卷积定理(convolution theorem)</p>
+<p>空间域上的卷积 = 频域上的乘法，空间域上的乘法 = 频域上的卷积</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/75.png" width=50%>
+</div></p>
+</div>
+<p>由此带来以下选择：</p>
+<ul>
+<li>选择1：在空间域上用卷积滤波</li>
+<li>选择2（选择1的等价操作，更麻烦，一般不会这么做）：<ul>
+<li>先变换到频域上（傅里叶变换）</li>
+<li>再乘以卷积核的傅里叶变换</li>
+<li>最后转换回空间域上（逆向傅里叶变换）</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec4/50.png" width=60%>
+</div></p>
+<p>注意到滤波器上各元素之和为1——做过归一化处理，确保图像亮度不会有明显改变。</p>
+</details>
+<p>在 2D 的图像上，滤波器也是 2D 的，而且一般也是方形的，故称为<strong>盒滤波器</strong>(box filter)（又称均值滤波器(mean filter)）。</p>
+<div style="text-align: center">
+    <img src="images/lec4/51.png" width=30%>
+</div>
+
+<p>这样的“盒函数”是一种<strong>低通滤波器</strong>：</p>
+<div style="text-align: center">
+    <img src="images/lec4/52.png" width=60%>
+</div>
+
+<p>滤波器越大，能通过的频率就越低。可以这样想，假如滤波器和图像本身一样大，那么滤波后的图像就只有模糊的一点，而频率越低图像越平滑/模糊；又比如滤波器只有一个像素那么大，那么滤波后的图像就和原图像一致，也就是说任何大小的频率都通过了。</p>
+<div style="text-align: center">
+    <img src="images/lec4/53.png" width=60%>
+</div>
+
+<h4 id="repeating-frequency-contents">Repeating Frequency Contents</h4>
+<p>现在再从频域的角度看采样——采样就是在重复频域上的内容。来看下面几幅图：</p>
+<div style="text-align: center">
+    <img src="images/lec4/54.png" width=50%>
+</div>
+
+<ul>
+<li>(b) 图是 (a) 图傅里叶变换后的结果</li>
+<li>要将 (a) 图上的连续函数变成一系列离散的点（采样），就需要将这个函数和另一个函数（(c) 图）相乘，而这另一个函数仅在某些位置上有值，其他地方均为0。我们称这样的函数为<strong>冲激函数</strong></li>
+<li>冲激函数经过傅里叶变换后会变成另一种冲激函数（(d) 图）</li>
+<li>空间域上的乘积 = 频域上的卷积，所以 (b) 和 (d) 卷积的结果如 (f) 图所示，发现采样做的事就是拷贝多份原函数的频谱</li>
+</ul>
+<p>不同的采样率会影响这些重复频谱之间的间隔：<strong>采样越快，这些频谱的间隔越大（频率大）</strong>，反之就越小，频谱就有可能重叠在一起。这种混叠正是走样产生的原因。</p>
+<div style="text-align: center">
+    <img src="images/lec4/55.png" width=50%>
+</div>
+
+<h4 id="solutions">Solutions</h4>
+<p>综上，我们可以总结出以下减少走样瑕疵的路径：</p>
+<ul>
+<li><strong>增加采样率</strong><ul>
+<li>从而增大重复频谱在频域上的间隔</li>
+<li>具体做法：采用分辨率更大的显示器、传感器或帧缓冲区...</li>
+<li>但这种方法成本高昂，且有可能需要很高的分辨率，受物理性质限制</li>
+</ul>
+</li>
+<li><strong>反走样</strong><ul>
+<li>在重复生成频谱前，让频谱变窄</li>
+<li>即<strong>在采样前先滤去高频内容</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="antialiasing-in-practice">Antialiasing in Practice</h3>
+<p>反走样 = 先限制，再重复</p>
+<div style="text-align: center">
+    <img src="images/lec4/56.png" width=60%>
+</div>
+
+<p>反走样的具体实现如下：</p>
+<ul>
+<li>通过单像素框模糊，对 f(x, y) 做<strong>卷积</strong></li>
+<li>然后在每个像素的中心上<strong>采样</strong></li>
+</ul>
+<p>在光栅化一个三角形时，一个像素面积内的 f(x, y) 的平均值 = inside(triangle, x, y)（三角形覆盖的像素面积）。</p>
+<div style="text-align: center">
+    <img src="images/lec4/57.png" width=60%>
+</div>
+
+<h4 id="msaa">MSAA</h4>
+<p>如果要对被三角形覆盖的每个像素求平均值，那么计算量太大了。所以人们想到了一种近似方法，叫做<strong>多重采样反走样</strong>(multisample antialiasing)，它用更多的采样点实现反走样（所以又称<strong>超采样</strong>(supersampling)）。具体的工作原理为：通过在像素内多个位置采样并求它们的均值来近似一个单像素框滤波器的效果（简单理解为将原本的一个像素划分成多块更小的像素，然后在这些小像素上采样）。</p>
+<div style="text-align: center">
+    <img src="images/lec4/58.png" width=20%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>这是在使用最基础的点采样（每个像素仅采样一次）的结果。</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/59.png" width=50%>
+</div></p>
+<p>现在我们要使用超采样。第一步是将每个像素进行 NxN（这里是 2x2）的采样。</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/60.png" width=50%>
+</div></p>
+<p>第二步是计算在每个像素“内”的 NxN 采样的平均值。</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/61.png" width=50%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec4/62.png" width=50%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec4/63.png" width=50%>
+</div></p>
+<p>这是最终呈现在显示器上的信号。</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/64.png" width=50%>
+</div></p>
+</details>
+<h4 id="antialiasing-today">Antialiasing Today</h4>
+<p>使用 MSAA 的代价就是增大了计算量，比如将一个像素划分为 4x4 的小格，就会增加 16 倍的计算量。</p>
+<p>下面介绍一些在工业界得到广泛应用的反走样算法：</p>
+<ul>
+<li><strong>FXAA</strong>（快速近似反走样(fast approximate antialiasing)：找出锯齿（图像匹配），换成无锯齿的边界，和采样无关</li>
+<li><strong>TAA</strong>（时间反走样(temporal antialiasing)）：复用上一帧的感知结果，将上一帧的像素值应用在当前帧上</li>
+</ul>
+<p>还有一个经常和反走样放在一起，和反走样不太一样但概念十分相似的东西，叫做<strong>超分辨率</strong>(super resolution)，它要做的是将低分辨率的图变成高分辨率，这中间也存在采样率不足的问题。一种常见的解决方案是 <strong>DLSS</strong>（深度学习超采样(deep learning super sampling)），顾名思义就是通过深度学习的方式，让机器从低分辨率的图片中预测高分辨率图片的细节。</p>
+<h2 id="visibility-occlusion">Visibility / Occlusion</h2>
+<p>通过前面的学习，我们知道如何将一个三角形画在屏幕上。现在考虑多个三角形，它们相对相机的距离不同，那么怎么把它们画在屏幕上，并且做到近的三角形遮挡远的三角形。</p>
+<h3 id="painters-algorithm">Painter's Algorithm</h3>
+<p>第一种算法的灵感来自绘制油画的画家。他们一般会先画远处的风景，再画近处的物体，这些物体会覆盖远景。所以这个算法叫做<strong>画家算法</strong>(painter's algorithm)：从后往前绘制图形，近的图形会<strong>覆写</strong>(overwrite)帧缓冲区原有的内容。</p>
+<div style="text-align: center">
+    <img src="images/lec4/65.png" width=50%>
+</div>
+
+<p>不过这个简单的算法存在以下问题：</p>
+<ul>
+<li>需要先对三角形按深度排序（若有 <span class="arithmatex">\(n\)</span> 个三角形，复杂度为 <span class="arithmatex">\(O(n \log n)\)</span>）</li>
+<li>
+<p>存在无法通过深度排序的三角形，如下图所示的三个互相重叠的三角形</p>
+<p><div style="text-align: center">
+    <img src="images/lec4/66.png" width=30%>
+</div></p>
+</li>
+</ul>
+<h3 id="z-buffer">Z-Buffer</h3>
+<p>所以接下来介绍 CG 中常用的一种算法，叫做<strong>深度缓存</strong>(deep buffer / z-buffer)。它的思想是：</p>
+<ul>
+<li><strong>对于每个像素</strong>，存储当前最小的深度（z 坐标值）</li>
+<li>需要用一个额外的缓冲区存储深度值<ul>
+<li>原有的帧缓存存储像素的颜色值</li>
+<li>深度缓存存储像素的深度值</li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">注</p>
+<p>为简洁起见，我们假设 <strong>z 值始终为正</strong>，且 z 越小表示离相机越近，越大表示离相机越远。</p>
+</div>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec4/67.png" width=50%>
+</div></p>
+<p>右图表示深度缓存中每个像素的深度值，可以看到越近的地方颜色越黑，表示值越小。</p>
+</details>
+<p>下面给出深度缓存算法的伪代码：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Initialize</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">infinity</span>
+<span class="c1">// During rasterization:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">triangle</span><span class="w"> </span><span class="n">T</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">T</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">z</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">zbuffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">])</span><span class="w">              </span><span class="c1">// closest sample so far</span>
+<span class="w">            </span><span class="n">framebuffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rgb</span><span class="p">;</span><span class="w">        </span><span class="c1">// update color</span>
+<span class="w">            </span><span class="n">zbuffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">              </span><span class="c1">// update depth</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="p">;</span><span class="w">                </span><span class="c1">// do nothing, this sample is occlusded</span>
+</code></pre></div>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec4/68.png" width=50%>
+</div></p>
+<ul>
+<li>原图（左上角）每个像素的深度值假设是无穷大的</li>
+<li>红色三角形的每个像素的深度值均为 5，都比初始图像小，因此能够完全覆盖原图（右上角）</li>
+<li>现在又引入一个蓝色三角形，它的部分像素深度值比 5 大（远），部分比 5 小（近），这些深度值小的像素点就能覆盖原来红色三角形所在的像素，剩下的会被红色三角形遮挡</li>
+</ul>
+</details>
+<p>深度缓存算法的复杂度：</p>
+<ul>
+<li>若有 <span class="arithmatex">\(n\)</span> 个三角形，复杂度为 <span class="arithmatex">\(O(n)\)</span>（假设每个三角形覆盖常数个像素）</li>
+<li>之所以是线性时间，是因为深度缓存只记录当前像素点最小的深度值，不需要为所有的深度值做排序</li>
+<li>即便三角形的绘制顺序不同，也不影响使用该算法得到的最终结果</li>
+<li>因此它是 CG 中最重要的可见性(visibility)算法之一，几乎在所有的 GPU 上都得到实现</li>
+<li>可结合 MSAA 使用（见作业2）</li>
+<li>缺点：处理不了透明物体</li>
+</ul>
+<details class="abstract">
+<summary>总结前两讲学过的内容</summary>
+<p><div style="text-align: center">
+    <img src="images/lec4/69.png" width=50%>
+</div></p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./3.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Transformation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Transformation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./5.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Shading">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Shading
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

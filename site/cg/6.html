@@ -1,0 +1,2669 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/cg/6.html">
+      
+      
+        <link rel="prev" href="./5.html">
+      
+      
+        <link rel="next" href="./7.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Geometry - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#geometry" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Geometry
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ge/index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机图形学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rasterization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geometry
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="6.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geometry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#various-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Various Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Various Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implicit-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implicit Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebraic Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-set-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level Set Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fractals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fractals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explicit Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polygon-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polygon Mesh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wavefront-object-file-obj-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Wavefront Object File (.obj) Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bezier-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bézier Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bézier Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#de-casteljaus-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De Casteljau’s Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebraic Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piecewise-bezier-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Piecewise Bézier Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Surfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bezier-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bézier Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mesh-operations-geometry-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh Operations: Geometry Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mesh Operations: Geometry Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subdivision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subdivision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Subdivision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catmull-clark-subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catmull-Clark Subdivision
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mesh-simplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh Simplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ray Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Materials and Appearances
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics in Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cameras, Lenses and Light Fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color and Perception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../ge/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#various-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Various Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Various Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implicit-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implicit Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebraic Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-set-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level Set Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fractals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fractals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explicit Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polygon-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polygon Mesh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wavefront-object-file-obj-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Wavefront Object File (.obj) Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bezier-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bézier Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bézier Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#de-casteljaus-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De Casteljau’s Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebraic Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piecewise-bezier-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Piecewise Bézier Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Surfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bezier-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bézier Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mesh-operations-geometry-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh Operations: Geometry Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mesh Operations: Geometry Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subdivision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subdivision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Subdivision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catmull-clark-subdivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catmull-Clark Subdivision
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mesh-simplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh Simplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/cg/6.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/cg/6.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="geometry">Geometry</h1>
+<blockquote>
+<p>"I hate meshes. <br>
+I cannot believe how hard this is. <br>
+Geometry is hard." <br></p>
+</blockquote>
+<div style="text-align: right">
+<blockquote>
+<p>— David Baraff <br>
+Senior Research Scientist <br>
+Pixar Animation Studios <br></p>
+</blockquote>
+</div>
+<h2 id="examples">Examples</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:9"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">例1</label><label for="__tabbed_1_2">例2</label><label for="__tabbed_1_3">例3</label><label for="__tabbed_1_4">例4</label><label for="__tabbed_1_5">例5</label><label for="__tabbed_1_6">例6</label><label for="__tabbed_1_7">例7</label><label for="__tabbed_1_8">例8</label><label for="__tabbed_1_9">例9</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/1.png" width=50%>
+</div></p>
+<p>各种形态的玻璃杯</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/2.png" width=50%>
+</div></p>
+<p>汽车外形</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/3.png" width=50%>
+</div></p>
+<p>发动机</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/4.png" width=50%>
+</div></p>
+<p>衣服（布料）</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/5.png" width=50%>
+</div></p>
+<p>水滴飞溅</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/6.png" width=50%>
+</div></p>
+<p>城市外观</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/7.png" width=50%>
+</div></p>
+<p>拖把狗（？）</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/8.png" width=30%>
+</div></p>
+<p>新冠病毒</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/9.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+<h2 id="various-representations">Various Representations</h2>
+<p><img align="right" alt="" src="images/lec6/10.png" width="40%" /></p>
+<p>表示几何体的方式有：</p>
+<ul>
+<li><strong>隐式的</strong>(implicit)表示<ul>
+<li>代数曲面(algebraic surface)</li>
+<li>水平集(level set)</li>
+<li>距离函数(distance function)</li>
+<li>...</li>
+</ul>
+</li>
+<li><strong>显式的</strong>(explicit)表示<ul>
+<li>点云(point cloud)</li>
+<li>多边形网格(polygon mesh)</li>
+<li>细分(subdivision)，NURBS</li>
+</ul>
+</li>
+</ul>
+<p>每种选择都有自己最适合的任务或几何类型。</p>
+<h3 id="implicit-representations">Implicit Representations</h3>
+<p><img align="right" alt="" src="images/lec6/11.png" width="20%" /></p>
+<p>隐式表示法基于对点的分类，即描述出关于点的特定关系。用更熟悉的话来说，就是能够用一个方程来表示一组点，即 <span class="arithmatex">\(f(x, y, z) = 0\)</span>（在三维空间中）。比如所有点都在球面上，那就可以用方程 <span class="arithmatex">\(x^2 + y^2 + z^2 = 1\)</span> 来表示。</p>
+<p>可以用方程表示更复杂的几何体——比如 <span class="arithmatex">\(f(x, y, z) = (2 - \sqrt{x^2 + y^2})^2 + z^2 - 1 = 0\)</span> 可以表示在圆环上的点。</p>
+<div style="text-align: center">
+    <img src="images/lec6/12.png" width=40%>
+</div>
+
+<p><img align="right" alt="" src="images/lec6/13.png" width="20%" /></p>
+<p>一些任务很难用这种隐式法表示。然而，隐式法擅长的是区分一个点在几何体的内部还是外部。比如检验点 <span class="arithmatex">\((3/4, 1/2, 1/4)\)</span> 是否在几何体 <span class="arithmatex">\(f(x, y, z) = x^2 + y^2 + z^2 - 1\)</span> 的内部时，只需将坐标值带进去计算，看函数值的正负即可。由于结果为 <span class="arithmatex">\(-1/8 &lt; 0\)</span>，因此该点在几何体的内部。</p>
+<h4 id="algebraic-surfaces">Algebraic Surfaces</h4>
+<p>对于简单的几何体，可以直接用关于 x, y, z 的多项式表示。几何体的表面就是多项式的零集合。</p>
+<div style="text-align: center">
+    <img src="images/lec6/15.png" width=70%>
+</div>
+
+<p>而对于复杂的形体，我们可以尝试结合多个隐式表示的几何体（利用布尔运算）来构造复杂几何体，这种方法叫做<strong>构造实体几何</strong>(constructive solid geometry)。</p>
+<div style="text-align: center">
+    <img src="images/lec6/16.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/17.png" width=40%>
+</div></p>
+</details>
+<h4 id="distance-functions">Distance Functions</h4>
+<p>另一种组合简单几何体的方法是使用<strong>距离函数</strong>(distance function)逐渐混合两个几何体的表面。距离函数能提供从任意位置到物体的最小距离（可以是<strong>符号</strong>距离，一般定义表面外一点到表面的距离为正，表面内一点到表面的距离为负）。</p>
+<div style="text-align: center">
+    <img src="images/lec6/18.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>将两个对象的边界混合起来（使用线性插值）</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/19.png" width=50%>
+</div></p>
+</details>
+<p>可以将任意两个距离函数 d1, d2 混合起来：</p>
+<div style="text-align: center">
+    <img src="images/lec6/20.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>以下场景就是利用纯距离函数形成的：</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/21.png" width=60%>
+</div></p>
+<p><a href="https://iquilezles.org/www/articles/raymarchingdf/raymarchingdf.htm">🔗链接</a></p>
+</details>
+<h4 id="level-set-methods">Level Set Methods</h4>
+<p><img align="right" alt="" src="images/lec6/22.png" width="20%" /></p>
+<p>上述方法的局限性在于：一个封闭形式的函数很难描述所有复杂的形体。因此这里给出另一种解决方案：用网格存储一系列近似函数值。随后可用前面介绍过的插值法找出函数值 = 0 的地方，这些地方就是几何体的表面。这种方法能为我们提供更显式的形体控制（就像一个纹理）。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">例1：医学数据（比如 CR, MRI, etc.）</label><label for="__tabbed_2_2">例2：物理模拟</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/23.png" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/24.png" width=60%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h4 id="fractals">Fractals</h4>
+<p><strong>分形</strong>(fractals)的特点是自相似，即部分和整体长得非常像，类似递归函数。自然界中不少现象和分形有关。但这样的形状难以控制。</p>
+<div style="text-align: center">
+    <img src="images/lec6/25.png" width=70%>
+</div>
+
+<div class="admonition abstract">
+<p class="admonition-title">总结</p>
+<ul>
+<li>优点<ul>
+<li>紧凑的描述（比如一个函数）</li>
+<li>方便特定的查询</li>
+<li>适用于计算光线与表面的相交（之后介绍）</li>
+<li>对于简单形体，精确描述/无采样误差</li>
+<li>易于处理拓扑结构的变化（例如流体）</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>难以描述很复杂的形体</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="explicit-representations">Explicit Representations</h3>
+<p>不同于隐式法，显式表示法会<strong>直接给出</strong>，或通过<strong>参数映射</strong>(parameter mapping)的方式表示出每个点，即：
+$$
+f: \mathbb{R}^2 \rightarrow \mathbb{R}^3; (u, v) \mapsto (x, y, z)
+$$</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/14.png" width=50%>
+</div></p>
+</details>
+<p>和隐式法相反，显式法在采样上相对更容易，因为每个点的坐标表示是已知的，只要代入具体数值就能算出来。比如对于前面介绍的圆环，还可以这么表示：<span class="arithmatex">\(f(u, v) = ((2 + \cos u) \cos v, (2 + \cos u) \sin v, \sin u)\)</span>，因此只要知道 <span class="arithmatex">\((u, v)\)</span> 的值就能直接得到圆环面上一点准确的坐标值了。</p>
+<p>然而，显式法在判断点在几何体的内部/外部上就相当乏力了。比如对于以下问题：判断点 <span class="arithmatex">\((3/4, 1/2, 1/4)\)</span> 是否在几何体 <span class="arithmatex">\(f(u, v) = (\cos u \sin v, \sin u \sin v, \cos v)\)</span> 的内部，一下子很难想到该怎么做。实际上这个问题就等同于隐式法一节给出的那个例子。</p>
+<p>接下来介绍各类显式法的应用。</p>
+<div style="text-align: center">
+    <img src="images/lec6/26.png" width=60%>
+</div>
+
+<h4 id="point-cloud">Point Cloud</h4>
+<p><img align="right" alt="" src="images/lec6/27.png" width="20%" /></p>
+<ul>
+<li>最简单的表示法：用一堆点 (x, y, z) 表示（存储在列表中）</li>
+<li>便于表示任何类型的几何体</li>
+<li>对于很大的数据集（每个像素包含远不止一个点）而言很有用</li>
+<li>经常被转换为多边形网格</li>
+<li>难以在欠采样的区域绘制（如右图雕塑模型下半部分）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/28.png" width=60%>
+</div>
+
+<h4 id="polygon-mesh">Polygon Mesh</h4>
+<ul>
+<li>存储顶点和多边形（通常是三角形或四边形）</li>
+<li>更易于进行处理/模拟，以及自适应采样</li>
+<li>需要更复杂的数据结构</li>
+<li>可能是图形学中最常见的表示</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/29.png" width=50%>
+</div>
+
+<h4 id="the-wavefront-object-file-obj-format">The Wavefront Object File (.obj) Format</h4>
+<p><a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">Wavefront 目标文件</a>是一种标准几何定义文件格式，通常用于描述三维模型的几何数据。</p>
+<ul>
+<li>在图形学的研究经常被用到</li>
+<li>该文件是一种文本文件，指定顶点、法线、纹理坐标系，以及它们的<strong>连通性</strong>(connectivities)</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/30.png" width=60%>
+</div></p>
+<ul>
+<li>这个文件表示的是一个立方体的模型</li>
+<li>从左往右，分别指定了顶点（3-10行）、纹理坐标（12-25行）、法线（27-34行）、连通性（36-47行）的数据</li>
+<li>立方体有六个面，故有六条法线，所以这里部分法线数据是冗余的</li>
+<li>对于连通性那块的每一行，每个数据分别表示“顶点/纹理坐标/法线”（从 1 开始的索引），每行表示三个点的关系</li>
+</ul>
+</details>
+<h2 id="curves">Curves</h2>
+<!-- ???+ example "例子"
+
+    === "相机路径(camera path)"
+
+        ![type:video](images/lec6/31.mp4)
+
+        [原视频链接](https://youtu.be/rIJMuQPwr3E)
+
+    === "动画曲线(animation curves)"
+
+        ![type:video](images/lec6/32.mp4)
+
+        这是用 [Maya](https://www.autodesk.com/products/maya/overview) 构建的三维模型。由于视频过长，我将画质压到了 144P，所以超级糊，请见谅！（或者直接去油管看，[链接](https://youtu.be/b-o5wtZlJPc)）
+
+    === "向量字体(vector fonts)"
+
+        <div style="text-align: center">
+            <img src="images/lec6/33.png" width=60%>
+        </div>
+
+        这个例子在前几讲介绍过。这种字体无论怎么缩放始终保持光滑，原因在于它是用逐段三次贝塞尔曲线表示的，下面会马上介绍的！ -->
+
+<h3 id="bezier-curves">Bézier Curves</h3>
+<p><strong>贝塞尔曲线</strong>(Bézier curves)由一系列控制点定义。下面展示的是一段三次贝塞尔曲线：</p>
+<div style="text-align: center">
+    <img src="images/lec6/34.png" width=50%>
+</div>
+
+<ul>
+<li>曲线不必经过所有控制点，但一定会经过起点和终点</li>
+<li>起点和终点处的切线方向是固定的，分别是从起点到第二个点的向量（<span class="arithmatex">\(\bm{t_0}\)</span>），以及从倒数第二个点到终点的向量方向（<span class="arithmatex">\(\bm{t_1}\)</span>）</li>
+<li>至于向量中的系数3，暂时不要深究，稍后会做解释</li>
+</ul>
+<h4 id="de-casteljaus-algorithm">De Casteljau’s Algorithm</h4>
+<p>根据已知的控制点找出贝塞尔曲线的算法是<strong>德卡斯特里奥算法</strong>(De Casteljau Algorithm)。下面以二次贝塞尔曲线为例介绍如何求解：</p>
+<ul>
+<li>
+<p>考虑（三个）控制点</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/35.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>创建时域 [0, 1]；对于时域上的一点 t，先在一条边上使用线性插值插入一个点</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/36.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>另一条边也这么做</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/37.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>递归地重复上述操作，直至只剩下一条线段，此时就确定 t 对应在曲线上的位置</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/38.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>对 [0, 1] 上的每个 t，执行上述算法，得到一条完整的曲线</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/39.png" width=30%>
+</div></p>
+</li>
+</ul>
+<p>对三次贝塞尔曲线（四个控制点）也可采用相同的递归线性插值方法：</p>
+<div style="text-align: center">
+    <img src="images/lec6/40.png" width=50%>
+</div>
+
+<details class="play">
+<summary>动画演示</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/41.gif" width=50%>
+</div></p>
+<p>来源：<a href="https://acko.net/files/fullfrontal/fullfrontal/wdcode/online.html">https://acko.net/files/fullfrontal/fullfrontal/wdcode/online.html</a>（幻灯片做得很酷炫，很难想象是 2013 年制作的）</p>
+</details>
+<h4 id="algebraic-formula">Algebraic Formula</h4>
+<p>接下来从代数角度看贝塞尔曲线的求解过程。通过德卡斯特里奥算法，我们得到了一堆按金字塔形状排布的系数，其中金字塔顶端的系数就是最终要求的点。</p>
+<div style="text-align: center">
+    <img src="images/lec6/42.png" width=60%>
+</div>
+
+<p>以二次贝塞尔曲线为例，将每个系数的表达式展开，得到：</p>
+<div style="text-align: center">
+    <img src="images/lec6/43.png" width=30%>
+</div>
+
+<div class="arithmatex">\[
+\begin{align*}
+\bm{b}_0^1(t) &amp; = (1 - t)\bm{b}_0 + t\bm{b}_1 \\
+\bm{b}_1^1(t) &amp; = (1 - t)\bm{b}_1 + t\bm{b}_2 \\
+\bm{b}_0^2(t) &amp; = (1 - t)\bm{b}_0^1 + t\bm{b}_1^1 \\
+&amp; = (1 - t)^2\bm{b}_0 + (1 - t)t \bm{b}_1 + t^2\bm{b}_2 \\
+\end{align*}
+\]</div>
+<p>一般地，我们可以用<a href="https://en.wikipedia.org/wiki/Bernstein_polynomial"><strong>伯恩斯坦多项式</strong></a>(Bernstein polynomial)表示 n 阶贝塞尔曲线：
+$$
+\bm{b}^n (t) = \bm{b}^n_0 (t) = \sum\limits_{j=0}^n \bm{b}_j B_j^n (t)
+$$</p>
+<ul>
+<li><span class="arithmatex">\(\bm{b}^n (t)\)</span>：n 阶贝塞尔曲线（n 阶向量多项式）</li>
+<li><span class="arithmatex">\(\bm{b}_j\)</span>：贝塞尔控制点（<span class="arithmatex">\(\mathbb{R}^N\)</span> 范围内的向量）</li>
+<li>
+<p><span class="arithmatex">\(B_j^n (t)\)</span>：伯恩斯坦多项式（n 阶标量多项式）</p>
+<div class="arithmatex">\[
+B_j^n (t) = \begin{pmatrix}n \\ i\end{pmatrix} t^i (1 - t)^{n - i}
+\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(n = 3\)</span> 时，伯恩斯坦多项式的函数曲线如下，可以看到这些曲线是对称的</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/44.png" width=30%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>假设 <span class="arithmatex">\(n = 3\)</span> 且在 <span class="arithmatex">\(\mathbb{R}^3\)</span> 范围内，即控制点位于三维空间，分别为：
+$$
+\bm{b}_0 = (0, 2, 3), \bm{b}_1 = (2, 3, 5), \bm{b}_2 = (6, 7, 9), \bm{b}_3 = (3, 4, 5)
+$$</p>
+<p>这些点定义了一条三次贝塞尔曲线，它是一个关于 <span class="arithmatex">\(t\)</span> 的三次多项式：
+$$
+\bm{b}^n (t) = \bm{b}_0 (1 - t)^3 + \bm{b}_1 3t(1 - t)^2 + \bm{b}_2 3t^2 (1 - t) + \bm{b}_3 t^3
+$$</p>
+</details>
+<h4 id="properties">Properties</h4>
+<ul>
+<li>端点插值<ul>
+<li>对于三次贝塞尔曲线，<span class="arithmatex">\(\bm{b}(0) = \bm{b}_0, \bm{b}(1) = \bm{b}_3\)</span></li>
+</ul>
+</li>
+<li>端点的切线和两段的线段平行<ul>
+<li>对于三次贝塞尔曲线，<span class="arithmatex">\(\bm{b}'(0) = 3(\bm{b}_1 - \bm{b}_0), \bm{b}'(1) = 3(\bm{b}_3 - \bm{b}_2)\)</span></li>
+</ul>
+</li>
+<li>关于仿射变换：可通过变换控制点来变换贝塞尔曲线</li>
+<li>
+<p>关于<strong>凸包</strong>(convex hull)：贝塞尔曲线一定位于控制点构成的凸包内</p>
+<ul>
+<li>可以这样理解凸包：假如木板上有一组钉好的钉子（位置随意），现在用一根橡皮筋包住这些钉子——先将橡皮筋拉大，覆盖所有的钉子，然后松手，皮筋收紧时也能包住所有的点，此时这根皮筋就是这组钉子的凸包</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/45.png" width=30%>
+</div></p>
+</li>
+</ul>
+<h4 id="piecewise-bezier-curves">Piecewise Bézier Curves</h4>
+<p><img align="right" alt="" src="images/lec6/46.png" width="30%" /></p>
+<p>贝塞尔曲线的一个缺陷是：当曲线阶数过高时，即有很多控制点时，反而很难控制曲线的弯曲。比如对于右图所示情况，曲线本应该按控制点排布弯来弯去的，但实际上没有什么弯曲。</p>
+<p>改进措施就是不要用一段高阶贝塞尔曲线，而是将多段低阶贝塞尔曲线串起来，这种技术就叫做<strong>逐段贝塞尔曲线</strong>(piecewise Bézier curve)。其中的<strong>逐段三次贝塞尔曲线</strong>是一种很常用的方法，被广泛应用在字体、路径、Illustrator 和 Keynote 中，如下图所示。</p>
+<div style="text-align: center">
+    <img src="images/lec6/47.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>Demo</summary>
+<p>可以到这个<a href="https://math.hws.edu/eck/cs424/notes2013/canvas/bezier.html">网站</a>上操控逐段三次贝塞尔曲线。</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/48.png" width=30%>
+</div></p>
+</details>
+<hr />
+<p>假设两条相邻的贝塞尔曲线为：<span class="arithmatex">\(\mathbf{a}: [k, k+1] \rightarrow \mathbb{R}^N, \mathbf{b}: [k+1, k+2] \rightarrow \mathbb{R}^N\)</span>（整数的划分）。</p>
+<div style="text-align: center">
+    <img src="images/lec6/49.png" width=50%>
+</div>
+
+<p>考虑它们的<strong>连续性</strong>(continuity)：</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(C^0\)</span> 连续：<span class="arithmatex">\(\mathbf{a}_n = \mathbf{b}_0\)</span>（即第一段的尾和第二段的首是同一个点）</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/50.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><span class="arithmatex">\(C^1\)</span> 连续：<span class="arithmatex">\(\mathbf{a}_n = \mathbf{b}_0 = \dfrac{1}{2}(\mathbf{a}_{n-1} + \mathbf{b}_1)\)</span>（在 <span class="arithmatex">\(C^0\)</span> 连续的基础上，还要保证该点是邻居点连线的中点）</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/51.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>实际应用中可能还会用到更高阶的连续，但这里就不介绍了</p>
+</li>
+</ul>
+<h3 id="splines">Splines</h3>
+<p><strong>样条</strong>(splines)是一条通过一组给定的点，并具有一定数量的连续导数的连续曲线。简言之，就是一条可控的曲线。</p>
+<div style="text-align: center">
+    <img src="images/lec6/52.png" width=60%>
+</div>
+
+<p>其中一种经典的样条叫做 <strong>B 样条</strong>(B-spline)（<strong>基样条</strong>(basis spline)的缩写）。它要求比贝塞尔曲线更多的信息，并满足所有贝塞尔曲线具备的性质（即 B 样条是贝塞尔曲线的超集）。不过我们不会展开解释 B 样条以及相关概念（比如 <a href="https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">NURBS</a>）的原理。</p>
+<p>另外也不会介绍曲线相关的运算，比如增减曲线阶数等。感兴趣的读者可观看胡事民教授的课程：<a href="https://www.bilibili.com/video/av66548502?from=search&amp;seid=65256805876131485">https://www.bilibili.com/video/av66548502?from=search&amp;seid=65256805876131485</a></p>
+<h2 id="surfaces">Surfaces</h2>
+<h3 id="bezier-surfaces">Bézier Surfaces</h3>
+<p>将贝塞尔曲线扩展到曲面上</p>
+<div style="text-align: center">
+    <img src="images/lec6/53.png" width=50%>
+
+</div>
+
+<p>我们可以使用两次贝塞尔曲线，以类似双线性插值的方式得到贝塞尔曲面。比如一个三维的贝塞尔曲面就可以通过两条三次贝塞尔曲线得到，此时需要 4x4 个控制点。</p>
+<div style="text-align: center">
+    <img src="images/lec6/54.png" width=30%>
+</div>
+
+<details class="play">
+<summary>动画演示</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/55.gif" width=60%>
+</div></p>
+</details>
+<p>对于双三次贝塞尔曲面块(bi-cubic Bezier surface patch)</p>
+<ul>
+<li>输入：4x4 的控制点</li>
+<li>输出：由在 <span class="arithmatex">\([0, 1]^2\)</span> 内被 <span class="arithmatex">\((u, v)\)</span> 参数化的二维曲面</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/56.png" width=50%>
+</div>
+
+<p>贝塞尔曲面的求解方法是使用<strong>可分离的一维德卡斯特里奥算法</strong>(separable 1D De Casteljau algorithm)。</p>
+<ul>
+<li>目标：求解关于 <span class="arithmatex">\((u, v)\)</span> 的曲面位置</li>
+<li>使用德卡斯特里奥算法，对4条贝塞尔曲线的每条线求解一个点 <span class="arithmatex">\(u\)</span>。这为“移动”的贝塞尔曲线提供了 4 个控制点</li>
+<li>再使用一维的德卡斯特里奥算法求解“移动”曲线上的点 <span class="arithmatex">\(v\)</span></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/57.png" width=50%>
+</div>
+
+<div style="text-align: center">
+    <img src="images/lec6/58.png" width=60%>
+</div>
+
+<h3 id="mesh-operations-geometry-processing">Mesh Operations: Geometry Processing</h3>
+<p>网格运算包括：</p>
+<ul>
+<li>
+<p><strong>网格细分</strong>(mesh subdivision)（升采样(upsampling)）：提升分辨率</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/60.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>网格简化</strong>(mesh simplification)（降采样(downsampling)）：降低分辨率，但保留形状/外观</p>
+<ul>
+<li>牛耳、牛角都有截断，可见简化后模型质量下降</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/61.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>网格正则化</strong>(mesh regularization)：修改采样分布（几乎全部使用正三角形）以提升模型质量</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/62.png" width=40%>
+</div></p>
+</li>
+</ul>
+<h4 id="subdivision">Subdivision</h4>
+<h5 id="loop-subdivision">Loop Subdivision</h5>
+<blockquote>
+<p>这里的 "Loop" 不是循环的意思，而是算法发明者的姓氏。</p>
+</blockquote>
+<p><strong>Loop 细分</strong>（<del>Loop 不知道翻译成什么（悲）</del>）是一种常见的用于三角形网格的细分法则。执行步骤大致如下：</p>
+<ol>
+<li>创建更多的三角形（顶点）</li>
+<li>调整这些三角形的位置</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec6/63.png" width=60%>
+</div>
+
+<p>先来看如何“创建更多的三角形”：</p>
+<ul>
+<li>
+<p>将一个三角形划分为四个小三角形（此时会产生新的顶点）</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/64.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>根据权重赋予新的顶点位置，其中新旧顶点的更新策略有所不同</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/65.png" width=50%>
+</div></p>
+<ul>
+<li>
+<p>新顶点（两个三角形中间的白色顶点）：更新至 <span class="arithmatex">\(\dfrac{3}{8} (A + B) + \dfrac{1}{8} (C + D)\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/66.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>旧顶点（图中度为6的顶点）：更新至 <span class="arithmatex">\((1 - nu) \cdot \text{original\_position} + u \cdot \text{neighbor\_pos\_sum}\)</span></p>
+<ul>
+<li>其中 <span class="arithmatex">\(n\)</span> 为度，<span class="arithmatex">\(u = \begin{cases}\frac{3}{16} &amp; \text{if } n = 3 \\ \frac{3}{8n} &amp; \text{otherwise} \end{cases}\)</span></li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/67.png" width=40%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/68.png" width=50%>
+</div></p>
+</details>
+<h5 id="catmull-clark-subdivision">Catmull-Clark Subdivision</h5>
+<p>前面介绍的细分法只能用于三角形网格。对于更一般的情况，我们要用 <strong>Catmull-Clark 细分</strong>来做。下面用伪代码的形式展示过程：</p>
+<div class="highlight"><pre><span></span><code>Each subdivision loop:
+    Add vertex in each face
+    Add midpoint on each edge
+    Connect all new vertices
+</code></pre></div>
+<p>以下图为例，我们来执行一遍上述细分。</p>
+<div style="text-align: center">
+    <img src="images/lec6/69.png" width=30%>
+</div>
+
+<ul>
+<li>三角形标注区域为<strong>非四边形面</strong>(non-quad face)</li>
+<li>圆点标注地点为<strong>奇异点</strong>(extraordinary vertex)（度 != 4）</li>
+</ul>
+<p>细分后的结果如下：</p>
+<div style="text-align: center">
+    <img src="images/lec6/70.png" width=30%>
+</div>
+
+<p>可以看到，每个非四边形会引入一个奇异点，并且经过一次细分后，非四边形面就会消失。下面两张图是继续细分后的结果：</p>
+<div style="text-align: center">
+    <img src="images/lec6/71.png" width=30%>
+    <img src="images/lec6/72.png" width=30%>
+</div>
+
+<p>对于四边形网格，Catmull-Clark 细分的更新法则如下：</p>
+<ul>
+<li>
+<p>面上的点：<span class="arithmatex">\(f = \dfrac{v_1 + v_2 + v_3 + v_4}{4}\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/73.png" width=20%>
+</div></p>
+</li>
+<li>
+<p>边上的点：<span class="arithmatex">\(e = \dfrac{v_1 + v_2 + f_1 + f_2}{4}\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/74.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>顶点上的点：<span class="arithmatex">\(v = \dfrac{f_1 + f_2 + f_3 + f_4 + 2(m_1 + m_2 + m_3 + m_4) + 4p}{16}\)</span></p>
+<ul>
+<li>其中 <span class="arithmatex">\(m\)</span> 为边的中点，<span class="arithmatex">\(p\)</span> 为旧的顶点上的点</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/75.png" width=30%>
+</div></p>
+</li>
+</ul>
+<!-- ???+ example "例子"
+
+    === "例1"
+
+        <div style="text-align: center">
+            <img src="images/lec6/76.png" width=60%>
+        </div>
+
+    === "例2"
+
+        皮克斯动画《棋逢敌手》(Geri's Game) 里用到了这种细分技术。
+
+        ![type:video](images/lec6/77.mp4) -->
+
+<h4 id="mesh-simplication">Mesh Simplication</h4>
+<p>网格简化的目标是减少网格元素数量，并维持整体模型形状不变。</p>
+<div style="text-align: center">
+    <img src="images/lec6/78.png" width=60%>
+</div>
+
+<p>简化的管教操作是<strong>边坍缩</strong>(edge collapsing)，也就是将多个顶点汇聚成一个顶点（这样操作后就会删去一些边）。</p>
+<div style="text-align: center">
+    <img src="images/lec6/79.png" width=50%>
+</div>
+
+<p>那我们如何保证边坍缩后模型形状没有太大的变化呢？一种简单的想法是求顶点的平均值，作为边坍缩后顶点的位置。但这样得到的结果会严重损害模型的质量，因此不可行。一种常用的做法是使用<strong>二次误差度量</strong>(quadric error metrics)。</p>
+<ul>
+<li>它能够衡量因简化引入的几何误差</li>
+<li>二次误差：新生成的顶点需要最小化该点到之前几个相关三角形面距离的平方和（L2 距离）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/80.png" width=40%>
+</div>
+
+<p>知道如何坍缩一条边，但如何选择坍缩哪条边呢？显然我们要找坍缩后二次误差度量最小的那条边。具体可以这么做：用一个优先队列（最小堆）维护所有边的二次误差（分数），然后每轮迭代中取<strong>分数最小的边</strong>坍缩（贪心算法）。经验证，这样就能得到很不错的结果。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">例1</label><label for="__tabbed_3_2">例2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec6/81.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>闫令琪老师学生时期的作业，可通过下面的滑条调整三角形网格的个数。</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/82.png" width=40%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./5.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Shading">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Shading
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./7.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Ray Tracing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Ray Tracing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
