@@ -1,0 +1,1704 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/rtr/2.html">
+      
+      
+        <link rel="prev" href="./1.html">
+      
+      
+        <link rel="next" href="./3.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Recap of CG Basics - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#recap-of-cg-basics" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Recap of CG Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ge/index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实时渲染
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    实时渲染
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recap of CG Basics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recap of CG Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-gpu-hardware-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic GPU Hardware Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opengl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenGL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opengl-shading-language-glsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenGL Shading Language (GLSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenGL Shading Language (GLSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-shaders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging Shaders
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rendering-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rendering Equation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-Time Shadows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-Time Environment Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-Time Global Illumination
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-Time Physically-Based Materials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-Time Ray Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A Glimpse of Industrial Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../ge/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-gpu-hardware-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic GPU Hardware Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opengl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenGL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opengl-shading-language-glsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenGL Shading Language (GLSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenGL Shading Language (GLSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-shaders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging Shaders
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rendering-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rendering Equation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    实时渲染
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/rtr/2.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/rtr/2.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="recap-of-cg-basics">Recap of CG Basics</h1>
+<h2 id="basic-gpu-hardware-pipeline">Basic GPU Hardware Pipeline</h2>
+<p>首先来回顾一下渲染管线的内容：</p>
+<div style="text-align: center">
+    <img src="images/lec2/1.png" width=80%>
+</div>
+
+<ul>
+<li>
+<p>通过<strong>模型、视图、投影变换</strong>(model, view, projection transforms)，以及最后的视口(viewport)变换，将 3D 空间中的物体表示在屏幕上</p>
+<p><div style="text-align: center">
+    <img src="images/lec2/2.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>然后对三角形进行<strong>光栅化</strong>，用一组片元(fragment)（有时也可直接称为像素）表示三角形</p>
+<p><div style="text-align: center">
+    <img src="images/lec2/3.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>深度缓冲区可见性测试</strong>(z-buffer visibility tests)，记录三角形的远近（深度）</p>
+<p><div style="text-align: center">
+    <img src="images/lec2/4.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>着色</strong>(shading)</p>
+<ul>
+<li>比如 Blinn-Phong 反射模型，看起来还不错，但缺少真实感，原因在于环境光只是个常数，没有考虑间接光照、阴影等</li>
+<li>这一过程在 GPU 上跑会快很多，原因是多个单元可以并行处理</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec2/5.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>纹理映射</strong>(texture mapping)和<strong>插值</strong>(interpolation)：根据三角形三个顶点的纹理坐标，插值计算得到三角形内任意一点的纹理坐标（重心坐标）</p>
+<p><div style="text-align: center">
+    <img src="images/lec2/6.png" width=40%>
+</div></p>
+</li>
+</ul>
+<h2 id="opengl">OpenGL</h2>
+<p><strong>OpenGL</strong> 是一组从 CPU 调用 GPU 管道的 API。因此用什么语言实现 OpenGL 都没关系，我们更关心 GPU 是怎么执行的，这确保了它的<strong>跨平台</strong>(cross-platform)特性。</p>
+<blockquote>
+<p>类似的现代图形学 API 有 DirectX, Vulkan 等。</p>
+</blockquote>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>碎片化(fragmented)：由社区维护，因而存在众多不同版本，这些版本有着不同的特性</li>
+<li>C 语言风格（意味着没有 OOP 的概念），不易使用</li>
+<li>难以调试（不过这一问题在最近有所改善）</li>
+</ul>
+</div>
+<p>如果学过 GAMES101，那么 OpenGL 还是比较容易掌握的，因为课中提到的每一步在 OpenGL 都有对应的实现，比如要实现投影变换只需调用它提供的 API 即可。</p>
+<hr />
+<p>我们可以把整个渲染过程类比画一幅油画。</p>
+<ol>
+<li>放置物体/模型</li>
+<li>设置画架(easel)的位置</li>
+<li>将画布(canvas)附在画架上</li>
+<li>在画布上绘画</li>
+<li>（（保持位置不变，绘制更多油画）将其他画布附在画架上，并继续作画）</li>
+<li>（使用先前的绘画作为参考）</li>
+</ol>
+<p>实际上 OpenGL 也是严格遵循这六个步骤的。现在我们要用 OpenGL 渲染一个 3D 场景，流程如下：</p>
+<ol>
+<li>
+<p>放置物体/模型：</p>
+<ul>
+<li><strong>模型描述</strong>(model specification)：用户指定了对象的顶点、法线、纹理坐标，存储在<strong>顶点缓冲对象</strong>(vertex buffer object, <strong>VBO</strong>)中，发送给 GPU（与 <code>.obj</code> 文件的存储方式很像）</li>
+<li><strong>模型变换</strong>(model transformation)：使用 OpenGL 函数来获取矩阵，比如 <code>glTranslate</code>, <code>glMultMatrix</code> 等，无需自己编写任何东西</li>
+</ul>
+</li>
+<li>
+<p>设置画架的位置：<strong>视图变换</strong></p>
+<ul>
+<li>创建或使用<strong>帧缓冲区</strong>(framebuffer)</li>
+<li>
+<p>只需简单调用就能设置相机（视图变换矩阵），例如 <code>gluPerspective</code></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">gluperspective</span><span class="p">(</span><span class="w"> </span>
+<span class="w">    </span><span class="n">GLdouble</span><span class="w"> </span><span class="n">fovy</span><span class="p">,</span>
+<span class="w">    </span><span class="n">GLdouble</span><span class="w"> </span><span class="n">aspect</span><span class="p">,</span>
+<span class="w">    </span><span class="n">GLdouble</span><span class="w"> </span><span class="n">zNear</span><span class="p">,</span>
+<span class="w">    </span><span class="n">GLdouble</span><span class="w"> </span><span class="n">zFar</span>
+<span class="p">);</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>将画布附在画架上 / 5. 保持位置不变，绘制更多油画：OpenGL 中的<strong>一次渲染过程</strong>(one rendering <strong>pass</strong>)</p>
+<ul>
+<li>指定要使用的帧缓冲区</li>
+<li>输出一个或多个纹理（着色、深度等）</li>
+<li>渲染（片段着色器定义每个纹理上的内容）</li>
+<li>多渲染目标(multiple render target)：只要指定一个帧缓冲区就能渲染出很多不同的纹理</li>
+<li>实时渲染中不会立马将渲染结果显示在屏幕上，因为如果当前帧来不及渲染完的话，就会出现画面撕裂的问题，即同一时刻出现上下两半不同的渲染结果<ul>
+<li>游戏中通过选中「垂直同步」选项避免这一问题</li>
+<li>一般的解决方案是将渲染结果暂时存在缓冲区中，等确保没问题后再一起渲染（双重缓冲）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在画布上绘画：如何<strong>着色</strong>，这时要用到顶点着色器和片元着色器</p>
+<ul>
+<li>并行处理每个<strong>顶点</strong>：OpenGL 调用用户指定的<strong>顶点着色器</strong>，变换顶点（模型视图、投影）及其他操作</li>
+<li>OpenGL 光栅化每个<strong>图元</strong>(primitives)，为每个像素生成一个片元</li>
+<li>
+<p>并行处理每个<strong>片元</strong>：</p>
+<ul>
+<li>OpenGL 调用用户指定的<strong>片元着色器</strong>，进行着色与光照计算</li>
+<li>OpenGL 还默认处理深度缓冲区测试，也可以自己写</li>
+</ul>
+</li>
+<li>
+<p>我们最需要关注的操作是自定义顶点和片段着色器，因为即便在 GUI（比如游戏引擎的编辑器）中，其他操作也都封装好了</p>
+</li>
+</ul>
+</li>
+</ol>
+<div class="admonition abstract">
+<p class="admonition-title">总结</p>
+<p>在每一趟(pass)中，</p>
+<ul>
+<li>指定对象、相机、MVP 矩阵等</li>
+<li>指定帧缓冲区和输入/输出纹理</li>
+<li>指定顶点/片元着色器</li>
+<li>当所有内容都在 GPU 上设置完毕后就可以开始渲染啦！</li>
+</ul>
+<p>最后还有多趟渲染没讲。实际上之前在 CG 课中学过的<a href="../cg/5.html#shadow-mapping"><strong>阴影映射</strong></a>就是一个很经典的两趟渲染。</p>
+</div>
+<h2 id="opengl-shading-language-glsl">OpenGL Shading Language (GLSL)</h2>
+<p>顾名思义，<strong>着色语言</strong>(shading language)就是一种描述着色器怎么运作，怎么操作的语言，比如如何对顶点、片元着色。它采用一种和 C 类似的语法，但有更多的限制（其实也有更多好用的东西）。</p>
+<details class="info">
+<summary>着色语言的历史</summary>
+<blockquote>
+<p>参考 Cook 关于着色树的论文和 Renderman 离线渲染技术</p>
+</blockquote>
+<ul>
+<li>上古时代：在 GPUs 上进行汇编编程</li>
+<li>Stanford 实时着色语言，在SGI工作</li>
+<li>还是很久以前：NVINDA 的 Cg</li>
+<li>DirectX 的 HLSL（顶点 + 像素）</li>
+<li>OpenGL 的 <strong>GLSL</strong>（顶点 + 片元）</li>
+</ul>
+</details>
+<p>着色器的设置流程：</p>
+<ul>
+<li>
+<p>初始化（着色器本身稍后讨论）</p>
+<ul>
+<li>创建（顶点与片元）着色器</li>
+<li>编译着色器</li>
+<li>将着色器附加到程序</li>
+<li>链接程序</li>
+<li>使用程序</li>
+</ul>
+</li>
+<li>
+<p>着色器的源码本质上是字符串序列</p>
+</li>
+<li>编译步骤与常规程序类似</li>
+</ul>
+<details class="code">
+<summary>代码样例（FYI）</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">着色器初始化代码</label><label for="__tabbed_1_2">链接着色器程序</label><label for="__tabbed_1_3">作业 0 中的 Phong 着色器</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">GLuint</span><span class="w"> </span><span class="n">initshaders</span><span class="p">(</span><span class="n">GLenum</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">char</span><span class="w"> </span><span class="o">*</span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Using GLSL shaders, OpenGL book, page 679</span>
+<span class="w">    </span><span class="n">GLuint</span><span class="w"> </span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+<span class="w">    </span><span class="n">GLint</span><span class="w"> </span><span class="n">compiled</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">textFileRead</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+<span class="w">    </span><span class="n">GLchar</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cstr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">GLchar</span><span class="p">[</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">GLchar</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cstr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cstr</span><span class="p">;</span><span class="w"> </span><span class="c1">// Weirdness to get a const char</span>
+<span class="w">    </span><span class="n">strcpy</span><span class="p">(</span><span class="n">cstr</span><span class="p">,</span><span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w">    </span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cstr2</span><span class="p">,</span><span class="w"> </span><span class="n">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">);</span>
+<span class="w">    </span><span class="n">glGetShaderiv</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span><span class="w"> </span><span class="n">GL_COMPILE_STATUS</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">compiled</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">compiled</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">shadererrors</span><span class="p">(</span><span class="n">shader</span><span class="p">);</span>
+<span class="w">        </span><span class="n">throw</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">shader</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">GLuint</span><span class="w"> </span><span class="n">initprogram</span><span class="p">(</span><span class="n">GLuint</span><span class="w"> </span><span class="n">vertexshader</span><span class="p">,</span><span class="w"> </span><span class="n">GLuint</span><span class="w"> </span><span class="n">fragmentshader</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">GLuint</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glCreateProgram</span><span class="p">();</span>
+<span class="w">    </span><span class="n">GLint</span><span class="w"> </span><span class="n">linked</span><span class="p">;</span>
+<span class="w">    </span><span class="n">glAttachShader</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="n">vertexshader</span><span class="p">);</span>
+<span class="w">    </span><span class="n">glAttachShader</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="n">fragmentshader</span><span class="p">);</span>
+<span class="w">    </span><span class="n">glLinkProgram</span><span class="p">(</span><span class="n">program</span><span class="p">);</span>
+<span class="w">    </span><span class="n">glGetProgramiv</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="n">GL_LINK_STATUS</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">linked</span><span class="p">)</span><span class="w"> </span><span class="n">glUseProgram</span><span class="p">(</span><span class="n">program</span><span class="p">);</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">programerrors</span><span class="p">(</span><span class="n">program</span><span class="p">);</span>
+<span class="w">        </span><span class="n">throw</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">program</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">顶点着色器</span><pre><span></span><code><span class="k">attribute</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">aVertexPosition</span><span class="p">;</span>
+<span class="k">attribute</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">aNormalPosition</span><span class="p">;</span>
+<span class="k">attribute</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">aTextureCoord</span><span class="p">;</span>
+
+<span class="k">uniform</span><span class="w"> </span><span class="kt">mat4</span><span class="w"> </span><span class="n">uModelViewMatrix</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">mat4</span><span class="w"> </span><span class="n">uProjectionMatrix</span><span class="p">;</span>
+
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">vTextureCoord</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">vFragPos</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">vNormal</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">vFragPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aVertexPosition</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vNormal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aNormalPosition</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">gl_Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uProjectionMatrix</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">uModelViewMatrix</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">vec4</span><span class="p">(</span><span class="n">aVertexPosition</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">vTextureCoord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aTextureCoord</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">片元着色器</span><pre><span></span><code><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">uSampler</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">uKd</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">uKs</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">uLightPos</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">uCameraPos</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">uLightIntensity</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">uTextureSample</span><span class="p">;</span>
+
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">vTextureCoord</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">vFragPos</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="k">highp</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">vNormal</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uTextureSample</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">texture2D</span><span class="p">(</span><span class="n">uSampler</span><span class="p">,</span><span class="w"> </span><span class="n">vTextureCoord</span><span class="p">).</span><span class="n">rgb</span><span class="p">,</span><span class="w"> </span><span class="kt">vec3</span><span class="p">(</span><span class="mf">2.2</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uKd</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">ambient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">lightDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">uLightPos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">vFragPos</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">vNormal</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">lightDir</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">light_atten_coff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uLightIntensity</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">uLightPos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">vFragPos</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">diffuse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">light_atten_coff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">viewDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normalize</span><span class="p">(</span><span class="n">uCameraPos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">vFragPos</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">reflectDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reflect</span><span class="p">(</span><span class="o">-</span><span class="n">lightDir</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="p">);</span>
+<span class="w">    </span><span class="n">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">viewDir</span><span class="p">,</span><span class="w"> </span><span class="n">reflectDir</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">),</span><span class="w"> </span><span class="mf">35.0</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">vec3</span><span class="w"> </span><span class="n">specular</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uKs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">light_atten_coff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">spec</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">gl_FragColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec4</span><span class="p">(</span><span class="n">pow</span><span class="p">((</span><span class="n">ambient</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">diffuse</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">specular</span><span class="p">),</span><span class="w"> </span><span class="kt">vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">2.2</span><span class="p">)),</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>varying</code> 关键字用于在顶点着色器和片元着色器之间传递插值</li>
+<li><code>uniform</code> 关键字表示全局变量</li>
+<li><code>highp</code> 表示高精度</li>
+<li><code>sampler2D</code> 表示定义一个纹理，可以利用 <code>texture2D</code> 函数以及纹理坐标参数查询特定位置上的纹理值，通常有 4 个通道</li>
+<li><code>gl_Position</code> 表示顶点变换后的位置，而 <code>gl_FragColor</code> 用来表明片元的颜色，需要往这些变量设置值</li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<h3 id="debugging-shaders">Debugging Shaders</h3>
+<ul>
+<li>
+<p>多年前：NVIDIA Nsight + Visual Studio</p>
+<ul>
+<li>调试 GLSL 时需多个 GPUs</li>
+<li>必须在HLSL中以软件模拟模式运行</li>
+</ul>
+</li>
+<li>
+<p>现在的调试方案：</p>
+<ul>
+<li>Nsight Graphics（跨平台，但只能用在 N 卡上）</li>
+<li>RenderDoc（跨平台，无 GPUs 限制）</li>
+<li>对于 WebGL，前者在官网中明确说明可以调试，而后者没有提供官方支持</li>
+</ul>
+</li>
+<li>
+<p>闫老师的建议：由于没法直接打印中间值（因为这只能由 CPU 完成，但着色器工作在 GPU 中），所以一种比较粗暴的方法是直接拿电脑的颜色提取器（比如 macOS 自带的数码测色计(digital color meter)）获取渲染结果的颜色</p>
+</li>
+</ul>
+<h2 id="the-rendering-equation">The Rendering Equation</h2>
+<p><strong>渲染方程</strong>(rendering equation)是渲染领域中一个非常重要的概念，像路径追踪等技术就是以它为基础的。它是一个描述了光线的传播的方程，具体公式如下：</p>
+<div class="arithmatex">\[
+\underbrace{L_o(p,\omega_o)}_{\substack{\text{outgoing} \\ \text{radiance}}} = \underbrace{L_e(p,\omega_o)}_{\text{emission}} + \int_{H^2} \underbrace{f_r(p,\omega_i \rightarrow \omega_o)}_{\text{BRDF}} \underbrace{L_i(p,\omega_i)}_{\substack{\text{incident} \\ \text{radiance}}} \cos\theta_i d\omega_i
+\]</div>
+<p>在<strong>实时渲染</strong>中，需要对这个方程做一点小改动：</p>
+<ul>
+<li>需显式考虑<strong>可见性</strong>(visibility)</li>
+<li>BRDF 项通常和余弦项一起考虑</li>
+</ul>
+<div class="arithmatex">\[
+\underbrace{L_o(p,\omega_o)}_{\substack{\text{outgoing} \\ \text{lighting}}} = \int_{\Omega^+} \underbrace{L_i(p,\omega_i)}_{\substack{\text{incident} \\ \text{lighting} \\ (\text{from source})}} \underbrace{f_r(p,\omega_i \rightarrow \omega_o) \cos\theta_i}_{\text{(cosine-weighted) BRDF}} \underbrace{V(p, \omega_i)}_{\text{visibility}} d\omega_i
+\]</div>
+<p>这种调整的一个好处是可以很自然地处理<strong>环境光照</strong>(environment lighting)，即考虑各个方向的入射光。通常会用一个立方体或球形贴图（纹理）表示，不过这两种方法都有各自的问题。之后将会引入一种新的表示方法。</p>
+<div style="text-align: center">
+    <img src="images/lec2/7.png" width=70%>
+</div>
+
+<p>另外一个相关技术是<strong>全局光照</strong>，它包含直接光照和间接光照两部分。其中直接光照可直接通过上面的渲染方程计算出来；而间接光照则可以通过渲染方程的递归定义计算，比如某个点的入射光很有可能是来自其他物体表面的反射光。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">直接光照</label><label for="__tabbed_2_2">弹射一次的全局光照</label><label for="__tabbed_2_3">弹射两次的全局光照</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec2/8.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec2/9.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec2/10.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+<p>可以看到，弹射一次后就可以得到不错的间接光照效果，之后多弹几次效果提升就不那么明显了。</p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./1.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Introduction">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./3.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Real-Time Shadows">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Real-Time Shadows
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
