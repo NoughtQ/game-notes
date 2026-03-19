@@ -29,6 +29,9 @@ site_author = "NoughtQ"
 # Read more: https://zensical.org/docs/setup/basics/#site_url
 site_url = "https://game.noughtq.top/"
 
+repo_name = "NoughtQ/game-notes"
+repo_url = "https://github.com/NoughtQ/game-notes"
+
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
 #
@@ -44,10 +47,74 @@ Copyright &copy; 2026 NoughtQ
 # can be defined using TOML syntax.
 #
 # Read more: https://zensical.org/docs/setup/navigation/
-# nav = [
-#   { "Get started" = "index.md" },
-#   { "Markdown in 5min" = "markdown.md" },
-# ]
+use_directory_urls = false  # 加上这句后才能显示用 html img 相对路径插入的图片
+nav = [
+    { "主页" = "index.md" },
+    { "计算机图形学" = [
+        "cg/index.md",
+        "cg/1.md",
+        "cg/2.md",
+        "cg/3.md",
+        "cg/4.md",
+        "cg/5.md",
+        "cg/6.md",
+        "cg/7.md",
+        "cg/8.md",
+        "cg/9.md",
+        "cg/10.md",
+        "cg/11.md",
+        "cg/12.md"
+    ]},
+    { "实时渲染" = [
+        "rtr/index.md",
+        "rtr/1.md",
+        "rtr/2.md",
+        "rtr/3.md",
+        "rtr/4.md",
+        "rtr/5.md",
+        "rtr/6.md",
+        "rtr/7.md",
+        "rtr/8.md"
+    ]},
+    { "游戏引擎" = [
+        "ge/index.md",
+        "ge/1.md",
+        "ge/2.md",
+        "ge/3.md",
+        { "Rendering" = [
+            "ge/4.md",
+            "ge/5.md",
+            "ge/6.md",
+            "ge/7.md",
+        ]},
+        { "Animation" = [
+            "ge/8.md",
+            "ge/9.md",
+        ]},
+        { "Physics" = [
+            "ge/10.md",
+            "ge/11.md",
+        ]},
+        "ge/12.md",
+        { "Tool Chains" = [
+            "ge/13.md",
+            "ge/14.md",
+        ]},
+        { "Gameplay" = [
+            "ge/15.md",
+            "ge/16.md",
+            "ge/17.md",
+        ]},
+        { "Online Gaming" = [
+            { "Fundamentals" = "ge/18.md" },
+            { "Advanced Topics" = "ge/19.md" },
+        ]},
+        "ge/20.md",
+        "ge/21.md",
+        "ge/22.md"
+    ]}
+]
+
 
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
@@ -57,7 +124,14 @@ Copyright &copy; 2026 NoughtQ
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-#extra_css = ["stylesheets/extra.css"]
+extra_css = [
+    "css/counter.css",
+    "css/custom.css",
+    "css/header.css",
+    "css/sidebar.css",
+    "https://unpkg.com/katex@0/dist/katex.min.css",
+    "https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css"
+]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -65,7 +139,44 @@ Copyright &copy; 2026 NoughtQ
 # The path provided should be relative to the "docs_dir".
 #
 # Read more: https://zensical.org/docs/customization/#additional-javascript
-#extra_javascript = ["javascripts/extra.js"]
+extra_javascript = [ 
+    "js/anchor.js",
+    "js/katex.js",
+    "js/toc.js",
+    "https://unpkg.com/katex@0/dist/katex.min.js",
+    "https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"
+]
+
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.pymdownx.emoji]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.pymdownx.details]
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+    { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.tilde]
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
+[project.markdown_extensions.def_list]
+
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.pymdownx.snippets]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.pymdownx.blocks.caption]
 
 # ----------------------------------------------------------------------------
 # Section for configuring theme options
@@ -73,7 +184,7 @@ Copyright &copy; 2026 NoughtQ
 [project.theme]
 
 # change this to "classic" to use the traditional Material for MkDocs look.
-#variant = "classic"
+# variant = "classic"
 
 # Zensical allows you to override specific blocks, partials, or whole
 # templates as well as to define your own templates. To do this, uncomment
@@ -83,7 +194,7 @@ Copyright &copy; 2026 NoughtQ
 # Read more:
 # - https://zensical.org/docs/customization/#extending-the-theme
 #
-#custom_dir = "overrides"
+custom_dir = "overrides"
 
 # With the "favicon" option you can set your own image to use as the icon
 # browsers will use in the browser title bar or tab bar. The path provided
@@ -93,7 +204,7 @@ Copyright &copy; 2026 NoughtQ
 # - https://zensical.org/docs/setup/logo-and-icons/#favicon
 # - https://developer.mozilla.org/en-US/docs/Glossary/Favicon
 #
-#favicon = "images/favicon.png"
+favicon = "assets/favicon.jpg"
 
 # Zensical supports more than 60 different languages. This means that the
 # labels and tooltips that Zensical's templates produce are translated.
@@ -122,13 +233,13 @@ features = [
     # will generate an edit button for the page. This works for common
     # repository hosting services.
     # https://zensical.org/docs/setup/repository/#content-actions
-    #"content.action.edit",
+    "content.action.edit",
 
     # If you have a repository configured and turn on this feature, Zensical
     # will generate a button that allows the user to view the Markdown
     # code for the current page.
     # https://zensical.org/docs/setup/repository/#content-actions
-    #"content.action.view",
+    "content.action.view",
 
     # Code annotations allow you to add an icon with a tooltip to your
     # code blocks to provide explanations at crucial points.
@@ -195,7 +306,7 @@ features = [
     # In order to provide a better user experience on slow connections when
     # using instant navigation, a progress indicator can be enabled.
     # https://zensical.org/docs/setup/navigation/#progress-indicator
-    #"navigation.instant.progress",
+    "navigation.instant.progress",
 
     # When navigation paths are activated, a breadcrumb navigation is rendered
     # above the title of each page
@@ -205,22 +316,22 @@ features = [
     # When pruning is enabled, only the visible navigation items are included
     # in the rendered HTML, reducing the size of the built site by 33% or more.
     # https://zensical.org/docs/setup/navigation/#navigation-pruning
-    #"navigation.prune",
+    "navigation.prune",
 
     # When sections are enabled, top-level sections are rendered as groups in
     # the sidebar for viewports above 1220px, but remain as-is on mobile.
     # https://zensical.org/docs/setup/navigation/#navigation-sections
-    "navigation.sections",
+    # "navigation.sections",
 
     # When tabs are enabled, top-level sections are rendered in a menu layer
     # below the header for viewports above 1220px, but remain as-is on mobile.
     # https://zensical.org/docs/setup/navigation/#navigation-tabs
-    #"navigation.tabs",
+    "navigation.tabs",
 
     # When sticky tabs are enabled, navigation tabs will lock below the header
     # and always remain visible when scrolling down.
     # https://zensical.org/docs/setup/navigation/#sticky-navigation-tabs
-    #"navigation.tabs.sticky",
+    # "navigation.tabs.sticky",
 
     # A back-to-top button can be shown when the user, after scrolling down,
     # starts to scroll up again.
@@ -241,7 +352,7 @@ features = [
     # When anchor following for the table of contents is enabled, the sidebar
     # is automatically scrolled so that the active anchor is always visible.
     # https://zensical.org/docs/setup/navigation/#anchor-following
-    # "toc.follow",
+    "toc.follow",
 
     # When navigation integration for the table of contents is enabled, it is
     # always rendered as part of the navigation sidebar on the left.
@@ -254,7 +365,6 @@ features = [
 # option in the "theme" subsection. The logo must be a relative path to a file
 # in your "docs_dir", e.g., to use `docs/assets/logo.png` you would set:
 # ----------------------------------------------------------------------------
-#logo = "assets/logo.png"
 
 # ----------------------------------------------------------------------------
 # If you don't have a dedicated project logo, you can use a built-in icon from
@@ -265,8 +375,8 @@ features = [
 # - https://zensical.org/docs/setup/logo-and-icons
 # - https://github.com/zensical/ui/tree/master/dist/.icons
 # ----------------------------------------------------------------------------
-#[project.theme.icon]
-#logo = "lucide/smile"
+[project.theme.icon]
+logo = "lucide/gamepad-2"
 
 # ----------------------------------------------------------------------------
 # In the "font" subsection you can configure the fonts used. By default, fonts
@@ -287,19 +397,44 @@ features = [
 # Read more:
 # - https://zensical.org/docs/setup/colors/
 # ----------------------------------------------------------------------------
+
+# Palette toggle for automatic mode
 [[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
 scheme = "default"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
+accent = "blue"
 
 [[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
 scheme = "slate"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to light mode"
+accent = "teal"
+
+
 
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
 # ----------------------------------------------------------------------------
-#[[project.extra.social]]
-#icon = "fontawesome/brands/github"
-#link = "https://github.com/user/repo"
+[[project.extra.social]]
+icon = "fontawesome/solid/home"
+link = "https://noughtq.top"
+
+[[project.extra.social]]
+icon = "fontawesome/solid/blog"
+link = "https://blog.noughtq.top"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/noughtq"
+
+[[project.extra.social]]
+icon = "material/email"
+link = "mailto:noughtq666@gmail.com"
