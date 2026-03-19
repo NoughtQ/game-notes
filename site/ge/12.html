@@ -1,0 +1,2845 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/12.html">
+      
+      
+        <link rel="prev" href="./11.html">
+      
+      
+        <link rel="next" href="./13.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Effects - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#effects" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Effects
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="12.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#particle-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Particle System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-system-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle System Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-particle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Particle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Particles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizing-particle-system-in-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilizing Particle System in Games
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sound System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-and-noise-cancelling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase and Noise Cancelling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#human-hearing-characteristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human Hearing Characteristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-audio-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Audio Rendering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D Audio Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attenuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attenuation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obstruction-and-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obstruction and Occlusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverb
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sound-in-motion-the-doppler-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound in Motion: The Doppler Effect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./13.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#particle-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Particle System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-system-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle System Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-particle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Particle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Particles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizing-particle-system-in-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilizing Particle System in Games
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sound System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-and-noise-cancelling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase and Noise Cancelling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#human-hearing-characteristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human Hearing Characteristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-audio-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Audio Rendering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D Audio Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attenuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attenuation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obstruction-and-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obstruction and Occlusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverb
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sound-in-motion-the-doppler-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound in Motion: The Doppler Effect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/12.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/12.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="effects">Effects</h1>
+<details class="example">
+<summary>游戏<strong>特效</strong>(effects)的例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/1.gif" width=70%>
+</div></p>
+</details>
+<h2 id="particle-system">Particle System</h2>
+<details class="info">
+<summary>历史</summary>
+<blockquote>
+<p>A particle system is a collection of many many minute particles that together represent a fuzzy object. Over a period of time, particles are generated into a system, move and change from within the system, and die from the system.
+—— William Reeves, "Particle Systems—A Technique for Modeling a Class of Fuzzy Objects," ACM Transactions on Graphics 2:2 (April 1983), 92.</p>
+</blockquote>
+<p>第一款引入粒子系统的游戏：Star Trek II: The Wrath of Khan（1982）</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/2.png" width=50%>
+</div></p>
+</details>
+<p>游戏中的<strong>粒子</strong>(particles)通常是<a href="8.html#sprite-animation">精灵</a>或 3D 模型，具有以下属性：</p>
+<ul>
+<li>位置</li>
+<li>速度</li>
+<li>大小</li>
+<li>颜色</li>
+<li>
+<p>生命周期(lifetime/life cycle)</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/3.png" width=50%>
+</div></p>
+<ul>
+<li>生成(spawn)</li>
+<li>老化</li>
+<li>与环境交互</li>
+<li>死亡</li>
+</ul>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+<p><strong>粒子发射器</strong>(particle emitter)用来定义粒子模拟，为每个粒子赋予随机的初始值，包括：</p>
+<div style="text-align: center">
+    <img src="images/lec12/4.png" width=50%>
+</div>
+
+<ul>
+<li>
+<p>指定生成规则</p>
+<ul>
+<li>
+<p>位置：</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/7.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>模式：</p>
+<ul>
+<li>连续(continuous)<ul>
+<li>每帧的生成速率可变</li>
+<li>基于时间/距离/...</li>
+</ul>
+</li>
+<li>突发(burst)：立刻生成和模拟所有的粒子</li>
+</ul>
+<details class="example">
+<summary>粒子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/8.gif" width=80%>
+</div></p>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<p>指定模拟逻辑</p>
+<ul>
+<li>
+<p>常见的力：</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/9.png" width=60%>
+</div></p>
+<ul>
+<li>重力(gravity)：<span class="arithmatex">\(f = mg\)</span></li>
+<li>粘滞阻力(viscous drag)：<span class="arithmatex">\(f = -k_d v\)</span></li>
+<li>风场(wind field)：<span class="arithmatex">\(f = kv_{\text{wind}}\)</span></li>
+</ul>
+</li>
+<li>
+<p>模拟控制粒子随时间的变化：在每一帧中，加速度更新速度，速度更新位置</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/10.png" width=60%>
+</div></p>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">例1：添加旋转效果</label><label for="__tabbed_1_2">例2：改变颜色和大小</label><label for="__tabbed_1_3">例3：考虑碰撞（粒子与环境的互动）</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/11.gif" width=70%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/12.gif" width=70%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/13.gif" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>描述如何渲染粒子</p>
+<ul>
+<li>
+<p>粒子类型</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/14.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p><strong>广告牌粒子</strong>(billboard particle)</p>
+<ul>
+<li>最经典的粒子效果</li>
+<li>粒子是精灵，但看起来像 3D 模型</li>
+<li>始终面朝相机</li>
+<li>如果粒子较大，建议用动态纹理（外观随时间变化），<del>这样不容易穿帮</del></li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/15.png" width=50%>
+</div></p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/16.gif" width=70%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>网格粒子</strong>(mesh particle)</p>
+<ul>
+<li>粒子是 3D 模型</li>
+<li>具有一定的随机性，使得看上去更自然真实</li>
+</ul>
+<details class="example">
+<summary>粒子</summary>
+<p>由爆炸产生的碎石块</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/17.png" width=40%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>条带粒子</strong>(ribbon particle)</p>
+<ul>
+<li>
+<p>通过连接粒子（下图用红点表示），并在相邻粒子之间渲染四边形(quads)来创建条带(strip)</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/19.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>问题：形状不够平滑，折线之间的夹角尖锐</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/20.png" width=50%>
+</div></p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/21.gif" width=60%>
+</div></p>
+</details>
+</li>
+<li>
+<p>解决方案：使用<strong>向心</strong>(centripetal) <strong>Catmull-Rom 插值</strong>进行平滑处理</p>
+<ul>
+<li>在粒子间增加额外的线段(segments)</li>
+<li>可以设置线段数量</li>
+<li>需要更多的 CPU 资源</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/22.png" width=50%>
+</div></p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/23.gif" width=60%>
+</div></p>
+</details>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>粒子系统</strong>(particle system)就是独立的粒子发射器组合而成的集合。</p>
+<div style="text-align: center">
+    <img src="images/lec12/5.png" width=60%>
+</div>
+
+<details class="example">
+<summary>例子</summary>
+<p>可简单看作几个粒子发射器的组合。</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/6.gif" width=70%>
+</div></p>
+</details>
+<h3 id="particle-system-rendering">Particle System Rendering</h3>
+<p>渲染粒子时，首先遇到的挑战是透明物排序。如果排序没做好，效果就会一塌糊涂。排序的核心要点是一定得按<strong>由远及近</strong>的顺序绘制透明物，这样才能保证<strong>阿尔法混合顺序</strong>(alpha blending order)的正确性。</p>
+<div style="text-align: center">
+    <img src="images/lec12/24.png" width=60%>
+</div>
+
+<p>由于粒子动辄会以成百上千计地出现，那么如何对它们排序呢？通常会采取以下两种方式之一：</p>
+<div style="text-align: center">
+    <img src="images/lec12/25.png" width=60%>
+</div>
+
+<ul>
+<li><strong>全局</strong>(global)：<ul>
+<li>将来自所有系统的粒子一起排序</li>
+<li>精确，但是性能开销大，不建议采用</li>
+</ul>
+</li>
+<li><strong>层级</strong>(hierarchy)：逐系统 -&gt; 逐发射器 -&gt; 发射器内部</li>
+</ul>
+<p>而排序规则为：</p>
+<ul>
+<li>粒子间：基于粒子到相机的距离</li>
+<li>系统/发射器间：包围盒</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">逐发射器排序</label><label for="__tabbed_2_2">全局排序</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/26.gif" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/27.gif" width=60%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>有些画面精美的游戏可能具有大量粒子（<strong>全分辨率粒子</strong>(full-resolution particles)），用于营造更有沉浸感的环境，使游戏世界看起来更加真实。</p>
+<ul>
+<li>
+<p>绘制顺序：先绘制不透明(opaque)的场景，再绘制透明粒子</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/28.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>问题：</p>
+<ul>
+<li>计算成本高</li>
+<li>最坏情况下粒子布满整个屏幕，导致游戏性能迅速下降</li>
+</ul>
+</li>
+</ul>
+<p>因此现代游戏采取的应对措施是将屏幕分辨率减半（<strong>半分辨率</strong>(half resolution)），这样需要渲染的粒子数量就降至原来的 1/4（<strong>降采样</strong>(downsampling)）。最后要为所有粒子集体计算一个 alpha 值，然后和不透明物体进行混合，混合的结果进行<strong>升采样</strong>(upsampling)后就得到了最终渲染的效果。</p>
+<div style="text-align: center">
+    <img src="images/lec12/29.png" width=80%>
+</div>
+
+<h3 id="gpu-particle">GPU Particle</h3>
+<p>采用 GPU 处理粒子的原因：</p>
+<ul>
+<li>其高度并行化的特征适合大量粒子的模拟</li>
+<li>解放 CPU，让它专注于游戏代码的处理</li>
+<li>易于访问深度缓冲区，以进行碰撞检测</li>
+</ul>
+<p><strong>计算着色器</strong>(compute shader)提供高速的通用计算，并利用 GPU 上大量的并行处理器。</p>
+<div style="text-align: center">
+    <img src="images/lec12/30.png" width=70%>
+</div>
+
+<p>具体来说，需要定义以下数据结构：</p>
+<ul>
+<li><strong>粒子池</strong>(particle pool)：存储所有粒子数据的缓冲区</li>
+<li><strong>死亡表</strong>(dead list)</li>
+<li><strong>存活表</strong>(alive list)</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">初始状态</label><label for="__tabbed_3_2">生成粒子</label><label for="__tabbed_3_3">模拟</label><label for="__tabbed_3_4">排序、渲染和交换存活表</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/31.png" width=50%>
+</div></p>
+<ul>
+<li>粒子池为空，至多能包含 8 个粒子</li>
+<li>所有粒子均处于 DEAD 状态</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/32.png" width=50%>
+</div></p>
+<ul>
+<li>现在发射了 5 个粒子，需调度(dispatch) 5 个计算着色器线程进行生成计算</li>
+<li>对死亡表和存活表的访问需要是<strong>原子的</strong>(atomic)</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/33.png" width=50%>
+</div></p>
+<ul>
+<li>计算位置、速度，进行深度碰撞等。并将数据写回粒子池</li>
+<li>此时粒子 6 已死亡</li>
+<li>调度 <code>alive_count_0</code> 线程</li>
+<li>仍以原子方式访问死亡表和存活表 1</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/34.png" width=50%>
+</div></p>
+<ul>
+<li>进行视锥剔除(frustum culling)，得到所有可见的粒子，并将计算出的距离写入距离缓冲区内</li>
+<li>此时粒子 5 已被剔除</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>
+<p>根据距离缓冲区对筛选后的存活表进行排序</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/35.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>在剔除后渲染已排序的存活粒子表</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/36.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>交换存活表</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/37.png" width=50%>
+</div></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<p>其中排序是一件比较困难的事。在 GPU 上的一种经典排序算法是<strong>并行<a href="../../algo/fds/7.html#mergesort">归并排序</a></strong>(parallel mergesort)。</p>
+<div style="text-align: center">
+    <img src="images/lec12/38.png" width=60%>
+</div>
+
+<p>时间复杂度：<span class="arithmatex">\(O(n \log n)\)</span>。</p>
+<p>在 GPU 中可以采取以下两种简单策略之一：</p>
+<ul>
+<li>每个源元素对应一个线程，线程需要知道前往目标数组的哪个地方，这会导致写入数据的地址不连续，效率低下</li>
+<li>【👍<strong>推荐</strong>，普遍被业界采用】每个目标元素对应一个线程，线程需要知道目标元素来自哪里</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/39.png" width=70%>
+</div>
+
+<p><img align="right" alt="" src="images/lec12/40.png" width="30%" /></p>
+<p>用 GPU 处理粒子的另一个好处是可以进行更复杂的碰撞计算。利用深度缓冲区的碰撞计算的具体流程如下：</p>
+<ol>
+<li>将粒子位置重新投影到前一帧的屏幕空间纹理坐标</li>
+<li>从前一帧的深度纹理中读取深度值</li>
+<li>检查粒子是否与深度缓冲区发生碰撞，但并不完全位于其后面（在此使用厚度值）</li>
+<li>如果发生碰撞，计算表面法线并使粒子反弹</li>
+</ol>
+<details class="example">
+<summary>Demo</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/41.gif" width=70%>
+</div></p>
+</details>
+<h3 id="advanced-particles">Advanced Particles</h3>
+<p>粒子系统还可以有更复杂的应用，比如可以用来表示远处的鸟群或人群。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/42.gif" width=70%>
+</div></p>
+</details>
+<p>这些角色实际上是用网格粒子表示的。它们是可动的，并且要为每个顶点存储控制它的骨骼，不过不需要很复杂的蒙皮技术。</p>
+<div style="text-align: center">
+    <img src="images/lec12/43.png" width=70%>
+</div>
+
+<p>接下来我们用<strong>粒子动画纹理</strong>(particle animation texture)来表示角色（粒子）的所有动画、每帧动画下的速度等信息。而每个粒子的模拟则通过一个状态机表示，粒子的状态将在状态机中来回切换。</p>
+<div style="text-align: center">
+    <img src="images/lec12/44.png" width=70%>
+</div>
+
+<p>如果希望让世界看上去是流动的。比如场景中所有人都大致沿着一个方向走，但允许有一些随机的移动。假设我们希望人们沿着道路走，而不要走进建筑物内，这时就要用到之前多次介绍过的<strong>符号距离场</strong>(sign distance field, SDF)，它反映了在边界内外的信息。当 SDF 越接近 0，说明越靠近障碍物。</p>
+<p>接下来可在 SDF 基础上引入一个<strong>方向场</strong>(directional field)，只需存储两个量。它能指引每个粒子的往何处去。</p>
+<div style="text-align: center">
+    <img src="images/lec12/45.png" width=70%>
+</div>
+
+<ul>
+<li>设计目标位置以引导人群的移动</li>
+<li>朝向目标位置的期望、远离阻挡几何体的推力等都会成为影响人群移动的力量（如果足够接近，相机也会作为一种力量）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/46.gif" width=70%>
+</div>
+
+<details class="example">
+<summary>例子（来自 UE）</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">例1</label><label for="__tabbed_4_2">例2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/47.gif" width=70%>
+</div></p>
+<ul>
+<li>骨架网格发射器</li>
+<li>动态程序样条</li>
+<li>对其他玩家的反应</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>与环境交互</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/48.gif" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h3 id="utilizing-particle-system-in-games">Utilizing Particle System in Games</h3>
+<p>游戏中的粒子系统开发策略有：</p>
+<ul>
+<li>
+<p><strong>预设堆叠式模块</strong>(preset stack-style modules)</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/49.png" width=60%>
+</div></p>
+<ul>
+<li>优点<ul>
+<li>能快速添加作为堆叠模块的行为</li>
+<li>非技术艺术家通过一套典型行为拥有大量控制权</li>
+<li>一目了然，易于理解</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>固定功能，但新特性需要新代码</li>
+<li>基于代码，但游戏团队的代码存在差异</li>
+<li>固定的粒子数据，所以数据共享难以实现</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>基于图的设计</strong>(graph-based design)</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/50.png" width=70%>
+</div></p>
+<ul>
+<li>可参数化以及可共享的图资产</li>
+<li>减少代码差异</li>
+<li>提供模块化的工具而非硬编码的功能</li>
+</ul>
+</li>
+<li>
+<p><strong>混合设计</strong>(hybrid control)</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/51.png" width=70%>
+</div></p>
+<ul>
+<li><strong>图</strong>能提供全面控制</li>
+<li>而<strong>栈</strong>能提供模块化的行为和更好的可读性</li>
+</ul>
+</li>
+</ul>
+<h2 id="sound-system">Sound System</h2>
+<p><strong>声音</strong>(audio)在游戏中的作用：</p>
+<ul>
+<li>取悦(entertains)玩家</li>
+<li>增强现实感</li>
+<li>建立氛围</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">没有声音</label><label for="__tabbed_5_2">有声音</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec12/52.gif" width=70%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div align=center>
+    <video style="width:70%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/53.mp4" type="video/mp4">
+    </video>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>声音的属性包括：</p>
+<ul>
+<li>
+<p><strong>音量</strong>(volume)：声波的振幅。相关术语有：</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/54.png" width=60%>
+</div></p>
+<ul>
+<li><strong>声压</strong>(sound pressure)（<span class="arithmatex">\(p\)</span>）：由声波引起的来自环境大气压力的局部偏离，国际单位制单位：Pa</li>
+<li><strong>粒子速度</strong>(particle velocity)（<span class="arithmatex">\(v\)</span>）：介质中粒子在传播波时的速度，国际单位制单位：m/s</li>
+<li><strong>声强</strong>(sound intensity)（<span class="arithmatex">\(I\)</span>）：声波在每单位面积上沿垂直于该区域的方向上传递的功率，国际单位制单位：W/m²</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">这三个量之间有公式：<span class="arithmatex">\(I = pv\)</span></p>
+</div>
+<ul>
+<li>
+<p><strong>声压等级</strong>(sound pressure level)（<span class="arithmatex">\(L_p\)</span>）：声音有效压力相对于参考值的对数度量，国际单位制单位：dB</p>
+<div class="arithmatex">\[
+L_p = 20 \log_{10} \dfrac{p}{p_0} \text{dB}
+\]</div>
+<p>其中 <span class="arithmatex">\(p_0\)</span> 为参考声压，为人类能听到的阈值，在空气中常为 <span class="arithmatex">\(p_0 = 20\ \mu \text{Pa}\)</span>（大约为 3 米外蚊子的飞行声音））</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>音高</strong>(pitch)：</p>
+<ul>
+<li>决定了声音的高低</li>
+<li>取决于声波的频率</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/55.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>音色</strong>(timbre)</p>
+<ul>
+<li>泛音(overtones)或谐波(harmonics)的组合</li>
+<li>和频率以及相对强度有关</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/56.png" width=60%>
+</div></p>
+</li>
+</ul>
+<h3 id="phase-and-noise-cancelling">Phase and Noise Cancelling</h3>
+<p>降噪耳机的降噪原理是通过增加一个相同频率和振幅，但是相位不同的声波来实现噪声的消除。</p>
+<div style="text-align: center">
+    <img src="images/lec12/57.png" width=40%>
+</div>
+
+<h3 id="human-hearing-characteristic">Human Hearing Characteristic</h3>
+<p>人类的听力范围为：</p>
+<ul>
+<li>频率范围：20-20k Hz</li>
+<li>声压等级范围：0-130 db</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/58.png" width=50%>
+</div>
+
+<h3 id="digital-sound">Digital Sound</h3>
+<p>在计算机中，我们要将连续的声波转换为离散的声音信号，此时涉及到一种叫做<strong>脉冲编码调制</strong>(pulse-code modulation, <strong>PCM</strong>)的技术。它是采样模拟声音信号的标准编码方法，分为以下三步：</p>
+<div style="text-align: center">
+    <img src="images/lec12/59.png" width=60%>
+</div>
+
+<ol>
+<li>
+<p>采样(sampling)</p>
+<ul>
+<li>采样频率：每秒采样数（Hz）</li>
+<li><strong>奈奎斯特–香农采样定理</strong>(Nyquist–Shannon sampling theorem)：信号的<strong>最小采样频率</strong>应为其最高频率分量频率的两倍，以确保基本信息不失真</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/60.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>量化(quantizing)</p>
+<ul>
+<li><strong>位深度</strong>(bit depth)：每个样本中的信息位数</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/61.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>编码(encoding)</p>
+<ul>
+<li>
+<p>音频格式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">格式</th>
+<th style="text-align: left;">质量</th>
+<th style="text-align: left;">存储占用</th>
+<th style="text-align: left;">多声道</th>
+<th style="text-align: left;">专利限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">WAV（无损未压缩）</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">FLAC（无损压缩）</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★★</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">MP3（有损压缩）</td>
+<td style="text-align: left;">★</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">OGG（有损压缩）</td>
+<td style="text-align: left;">★</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★★★</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>游戏中一般用的是有损压缩格式</p>
+</li>
+<li>但一般不用 MP3，因为它只支持立体声（左右声道均有），无法实现环绕音效；另外 MP3 的专利限制过高，引擎采用 MP3 音频需付费</li>
+<li>所以越来越多的人采用 OGG 格式</li>
+</ul>
+</li>
+</ol>
+<h3 id="3d-audio-rendering">3D Audio Rendering</h3>
+<p>3D 场景下的声源特征：</p>
+<ul>
+<li><strong>单声道</strong>(mono-phonic)音频信号</li>
+<li>从特定位置发出</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/62.png" width=50%>
+</div>
+
+<p>类似画面渲染中的相机，声音渲染也有一个<strong>听者</strong>(listener)，可以把它看成一个虚拟的麦克风，有以下属性：</p>
+<div style="text-align: center">
+    <img src="images/lec12/63.png" width=60%>
+</div>
+
+<ul>
+<li>位置</li>
+<li>速度</li>
+<li>朝向</li>
+</ul>
+<p>声音的<strong>空间感</strong>(spatialization)是指用于定位声音相对于听者的技术。最简单的理解是靠人的左右耳区分声源的远近，比如声源在左侧，那么左耳听到的声音肯定比右耳听到的响，并且声音到达两只耳朵的时间也有微小的间距。</p>
+<div style="text-align: center">
+    <img src="images/lec12/64.png" width=60%>
+</div>
+
+<ul>
+<li>
+<p><strong>声像调节</strong>(panning)</p>
+<ul>
+<li>
+<p>将音频信号分配到新的立体声或多声道的声场中</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/65.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>线性声像调节(linear panning)</p>
+<ul>
+<li>
+<p>主要思路：对于增益为 1 的立体声信号，左声道和右声道的增益之和也应为 1</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; \text{Gain}_{\text{left}} = x \\
+&amp; \text{Gain}_{\text{right}} = 1 - x \\
+&amp; \text{Gain}_{\text{left}} + \text{Gain}_{\text{right}} = 1
+\end{aligned}
+\]</div>
+<p><div style="text-align: center">
+    <img src="images/lec12/66.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>人类对响度的感知实际上与声波的功率成正比，而功率等于信号幅度的平方</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\text{Power}_{\text{right}} &amp;= \text{Gain}_{\text{right}}^2 = (1 - x)^2 \\
+\text{Power}_{\text{left}} &amp;= \text{Gain}_{\text{left}}^2 = x^2 \\
+\text{Power}_{\text{total}} &amp;= x^2 + (1 - x)^2
+\end{aligned}
+\]</div>
+</li>
+<li>
+<p>当声音在中部（<span class="arithmatex">\(x = 0.5\)</span>）进行声像调整时，功率会降低</p>
+<div class="arithmatex">\[
+\text{Power}_{\text{total}} = 0.5^2 + (1 - 0.5)^2 = 0.5
+\]</div>
+<p><div style="text-align: center">
+    <img src="images/lec12/67.png" width=60%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>等功率声响调节</strong>(equal power panning)</p>
+<ul>
+<li>
+<p>保持恒定音量，在旋转过程中保持功率限制，而不是保持振幅恒定</p>
+<div class="arithmatex">\[
+\text{Power}_{\text{total}} = \text{Gain}_{\text{left}}^2 + \text{Gain}_{\text{right}}^2 = 1.0
+\]</div>
+</li>
+<li>
+<p>这个方程有几个可能的解，其中一个是正弦/余弦方程</p>
+<div class="arithmatex">\[
+\text{Gain}_{\text{left}}^2 = \sin^2(x), \text{Gain}_{\text{right}}^2 = \cos^2(x)
+\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<blockquote>
+<p>强烈建议佩戴耳机后播放</p>
+</blockquote>
+<p><div align=center>
+    <video style="width:40%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/68.mp4" type="video/mp4">
+    </video>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>声场</strong>(soundfield)</p>
+<ul>
+<li><strong>全方位</strong>(full-sphere)环绕声</li>
+<li>也称为环境声(ambisonics)</li>
+<li>用于 360 度视频和 VR</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<blockquote>
+<p>强烈建议佩戴耳机后播放</p>
+</blockquote>
+<p><div align=center>
+    <video style="width:60%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/82.mp4" type="video/mp4">
+    </video>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>双耳音频</strong>(binaural audio)</p>
+</li>
+</ul>
+<h4 id="attenuation">Attenuation</h4>
+<p>当听者远离声源移动时，音量会随之<strong>衰减</strong>(attenuate)。在现实世界中，球形声波的声压（<span class="arithmatex">\(p\)</span>）随着距离球心的远离而减小 <span class="arithmatex">\(\dfrac{1}{r}\)</span>，即 <span class="arithmatex">\(p(r) \propto \dfrac{1}{r}\)</span>。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div align=center>
+    <video style="width:70%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/70.mp4" type="video/mp4">
+    </video>
+</div></p>
+</details>
+<p>声音衰减的形状有：</p>
+<ul>
+<li>
+<p><strong>球形</strong>：对于大多数点声源非常有用，因为它模拟了声音在现实世界中的传播方式</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/71.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>胶囊形</strong>：适用于水管等事物，此时我们不希望声音像来自空间中的一个特定点；咕噜响的水声会沿着管道传播</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/72.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>盒形</strong>：适用于房间音调/氛围等事物，因为可以定义盒子形状以匹配房间形状</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/73.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>锥形</strong>(cone)：适用于需要方向性衰减模式的情况，比如公共广播的扬声器</p>
+<p><div style="text-align: center">
+    <img src="images/lec12/74.png" width=50%>
+</div></p>
+</li>
+</ul>
+<h4 id="obstruction-and-occlusion">Obstruction and Occlusion</h4>
+<ul>
+<li><strong>阻碍</strong>(obstruction)：声源与听者之间存在局部障碍物，导致直达声被阻断，但声波仍能通过周围空间的反射到达听者</li>
+<li><strong>遮挡</strong>(occlusion)：声源与听者被完整的墙体等结构完全分隔在不同空间，导致直达声和反射声的传播路径均被物理切断</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/75.png" width=80%>
+</div>
+
+<p>对这两类声音的处理步骤为：</p>
+<ol>
+<li>从听者到声音发射几条不同角度的分散射线</li>
+<li>查询受影响表面的材质属性，以通过被阻挡射线的数量来确定它吸收了多少声音能量</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec12/76.png" width=60%>
+</div>
+
+<h4 id="reverb">Reverb</h4>
+<p>在任何包含声反射表面的环境中，听着通常会从声源接收到三种类型的声波：</p>
+<div style="text-align: center">
+    <img src="images/lec12/77.png" width=60%>
+</div>
+
+<ul>
+<li><strong>直接音</strong>(direct)（<strong>干音</strong>(dry)）</li>
+<li><strong>早期反射</strong>(early reflections)（<strong>回声</strong>(echo)）</li>
+<li><strong>晚期混响</strong>(late reverberations)（<strong>尾音</strong>(tail)）</li>
+</ul>
+<blockquote>
+<p>其中回音和尾音合成为<strong>湿音</strong>(wet)。</p>
+</blockquote>
+<p>相关属性：</p>
+<ul>
+<li><strong>混响时间</strong>：衡量声音在特定房间内消失速度的指标；由房间的大小和材质的选择决定</li>
+<li><strong>吸收</strong>(absorption)：由材质的吸收系数和材质数量决定</li>
+</ul>
+<div class="arithmatex">\[
+A = S \times \alpha\ (m^2 \cdot \text{sab}) \quad T = 0.16 \times \frac{V}{A}\ (\text{s})
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\alpha\)</span>：吸收系数</li>
+<li><span class="arithmatex">\(S\)</span>：表面积</li>
+<li><span class="arithmatex">\(A\)</span>：等价吸收面积</li>
+<li><span class="arithmatex">\(V\)</span>：空间大小</li>
+<li><span class="arithmatex">\(T\)</span>：混响时间</li>
+<li><span class="arithmatex">\(0.16\)</span>：比例因子，对应初始声压等级降低 60 dB 所需的时间（单位：s）</li>
+</ul>
+<p>下面列举了部分材质对不同频率的声音的吸收系数：</p>
+<div style="text-align: center">
+    <img src="images/lec12/78.png" width=80%>
+</div>
+
+<p>实际上，我们通过调整声学参数来实现混响效果的控制。这些参数包括：</p>
+<ul>
+<li><strong>前延迟</strong>(pre-delay)（单位：s）：信号进入混响单元之前发生的延迟<ul>
+<li>较长的前延迟时间可以用来模拟更大的房间，相应地，第一次回声需要更长时间才能被听到</li>
+</ul>
+</li>
+<li><strong>高频比率</strong>(HF ratio)：用于控制高频相对于低频的混响时间的衰减因子</li>
+<li><strong>湿等级</strong>(wet level)：应用于混响声音的增益因子</li>
+<li><strong>干等级</strong>(dry level)：应用于直接路径声音的增益因子</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/79.png" width=60%>
+</div>
+
+<h4 id="sound-in-motion-the-doppler-effect">Sound in Motion: The Doppler Effect</h4>
+<p><strong>多普勒效应</strong>(Doppler effect)：波的频率变化与相对于波源移动的观察者有关。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div align=center>
+    <video style="width:60%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/80.mp4" type="video/mp4">
+    </video>
+</div></p>
+</details>
+<p>公式：<span class="arithmatex">\(f' = \left(\dfrac{v + v_0}{v + v_s}\right)f\)</span></p>
+<ul>
+<li><span class="arithmatex">\(f\)</span>：原始频率</li>
+<li><span class="arithmatex">\(f'\)</span>：在听者处的多普勒偏移（观测）频率</li>
+<li><span class="arithmatex">\(v\)</span>：声音在空气中的速度</li>
+<li><span class="arithmatex">\(v_0\)</span>：听者的速度</li>
+<li><span class="arithmatex">\(v_s\)</span>：声源的速度</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec12/81.gif" width=40%>
+</div>
+
+<details class="info" open="open">
+<summary>常用的音频处理中间件</summary>
+<p><div style="text-align: center">
+    <img src="images/lec12/83.png" width=70%>
+</div></p>
+<details class="note">
+<summary>中间件是如何工作的？</summary>
+<p><div align=center>
+    <video style="width:60%" muted="" controls="" alt="type:video">
+        <source src="images/lec12/84.mp4" type="video/mp4">
+    </video>
+</div></p>
+<p><span class="heimu">不能只有我被吓到（坏笑.jpg）</span></p>
+</details>
+</details>
+<details class="note" open="open">
+<summary>音频世界建模</summary>
+<ul>
+<li>表面和物体的几何形状及其属性</li>
+<li>听音空间的声学特性</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec12/85.png" width=50%>
+</div></p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./11.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Physical System Application">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Physical System Application
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./13.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Foundation of Tool Chains">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Foundation of Tool Chains
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

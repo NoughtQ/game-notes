@@ -1,0 +1,2940 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/20.html">
+      
+      
+        <link rel="prev" href="./19.html">
+      
+      
+        <link rel="next" href="./21.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Data-Oriented Programming and Job System - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-oriented-programming-and-job-system" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data-Oriented Programming and Job System
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./13.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="20.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-parallel-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics of Parallel Programming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-framework-of-game-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Framework of Game Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Framework of Game Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed-multi-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed Multi-thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-fork-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Fork-Join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unreal-parallel-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unreal Parallel Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Job System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coroutine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coroutine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fiber-based-job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiber-Based Job System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programming-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programming Paradigms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-oriented-programming-dop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data-Oriented Programming (DOP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-sensitive-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance-Sensitive Programming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-sensitive-data-arrangements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance-Sensitive Data Arrangements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-component-system-ecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Component System (ECS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entity Component System (ECS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unity-data-oriented-tech-stack-dots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity Data-Oriented Tech Stack (DOTS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity Data-Oriented Tech Stack (DOTS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ECS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C# Job System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-performance-c-and-burst-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Performance C# and Burst Compiler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unreal-mass-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unreal Mass Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreal Mass Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-parallel-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics of Parallel Programming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-framework-of-game-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Framework of Game Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Framework of Game Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed-multi-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed Multi-thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-fork-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Fork-Join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unreal-parallel-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unreal Parallel Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Job System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coroutine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coroutine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fiber-based-job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiber-Based Job System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programming-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programming Paradigms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-oriented-programming-dop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data-Oriented Programming (DOP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-sensitive-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance-Sensitive Programming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-sensitive-data-arrangements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance-Sensitive Data Arrangements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-component-system-ecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Component System (ECS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entity Component System (ECS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unity-data-oriented-tech-stack-dots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unity Data-Oriented Tech Stack (DOTS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unity Data-Oriented Tech Stack (DOTS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ECS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-job-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C# Job System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-performance-c-and-burst-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Performance C# and Burst Compiler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unreal-mass-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unreal Mass Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreal Mass Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/20.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/20.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="data-oriented-programming-and-job-system">Data-Oriented Programming and Job System</h1>
+<p>代码的执行并没有我们看上去那么简单。由于代码是执行在操作系统和硬件之上的，所以要想编写一份高性能的程序，必须要考虑到硬件和 OS。</p>
+<div style="text-align: center">
+    <img src="images/lec20/1.png" width=70%>
+</div>
+
+<details class="abstract">
+<summary>总结：CPU 各种操作的大致时间</summary>
+<p><div style="text-align: center">
+    <img src="images/lec20/66.png" width=90%>
+</div></p>
+</details>
+<h2 id="basics-of-parallel-programming">Basics of Parallel Programming</h2>
+<p>在学计算机系统时，我们认识了<strong>摩尔定律</strong>(Moore's Law)：集成电路（IC）中的晶体管数量大约每两年翻一番。但是从最近十几年开始，这条定律逐渐失效，晶体管数量增长放缓，即将触碰到物理极限了。因而<strong>多核处理器</strong>(multi-core processors)成为了新的工业发展趋势。</p>
+<div style="text-align: center">
+    <img src="images/lec20/2.png" width=80%>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">进程与线程</p>
+<p><img align="right" alt="" src="images/lec20/3.png" width="40%" /></p>
+<ul>
+<li>
+<p><strong>进程</strong>(process)：</p>
+<ul>
+<li>应用（或程序）的实例</li>
+<li>有自己的内存区域</li>
+</ul>
+</li>
+<li>
+<p><strong>线程</strong>(thread)：</p>
+<ul>
+<li><strong>抢占式多任务</strong></li>
+<li>OS 任务调度的最小单位</li>
+<li>必须位于进程中</li>
+<li>相同进程中的线程共享内存</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">多任务的类型</p>
+<p><img align="right" alt="" src="images/lec20/4.png" width="40%" /></p>
+<ul>
+<li>
+<p><strong>抢占式多任务</strong>(preemptive multitasking)</p>
+<ul>
+<li>当前执行的任务可在<strong>调度器指定的时间后被中断</strong></li>
+<li>调度器接着决定下一个要执行的任务</li>
+<li>该策略应用于大多数操作系统中</li>
+</ul>
+</li>
+<li>
+<p><strong>非抢占式多任务</strong>(non-preemptive multitasking)</p>
+<ul>
+<li>任务必须<strong>被显式编程以让出控制权</strong></li>
+<li>任务之间需要协作才能使调度方案生效</li>
+<li>目前许多实时操作系统（RTOS）也支持这种调度方式</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>对于一个多线程程序，线程间的<strong>上下文切换</strong>(context switch)自然是无法避免的事情。它是指保存当前线程状态，以便下次继续从此处开始执行的行为。更具体地，</p>
+<ul>
+<li>状态包括寄存器、栈以及其他 OS 需要的数据</li>
+<li>线程的上下文切换包含额外的用户-内核模式切换</li>
+<li>上下文切换后的缓存失效(cache invalidation)成本更高（因为原来缓存里的数据很多时候对新线程而言毫无意义，所以一开始会有很多的缓存失效）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/5.png" width=80%>
+</div>
+
+<p>在并行计算中，我们经常会遇到以下并行问题：</p>
+<ul>
+<li><strong>令人尴尬的并行</strong>(embarrassingly parallel problem)（或完美并行(perfect parallel)）：并行任务之间几乎没有依赖关系或通信需求</li>
+<li><strong>不令人尴尬的并行</strong>(non-embarrassingly parallel problem)：并行任务之间需要通信</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/6.png" width=80%>
+</div>
+
+<p>常遇到的另一个问题是<strong>数据竞争</strong>(data racing)，即多个线程同时访问相同的内存位置，并且其中至少有一个线程是在对其进行写操作。</p>
+<div style="text-align: center">
+    <img src="images/lec20/7.png" width=80%>
+</div>
+
+<p>为避免这一问题，一种方法是采用叫做<strong>锁</strong>(lock)的阻塞算法(blocking algorithm)。</p>
+<ul>
+<li>保证同一时间只有一个线程能获取锁</li>
+<li>为共享资源访问部分设置一个<strong>临界区</strong>(critical section)，只有拿到锁的线程才能进入这段代码</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/8.png" width=70%>
+</div>
+
+<div class="admonition bug">
+<p class="admonition-title">锁的问题</p>
+<ul>
+<li>线程的挂起和恢复会带来额外的性能开销</li>
+<li>若持有锁的线程异常退出，被挂起的线程将无法恢复</li>
+<li>优先级反转问题：高优先级的任务可能会尝试获取已被低优先级的任务持有的锁</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/9.png" width=70%>
+</div></p>
+</div>
+<p>于是我们引入一种叫做<strong>原子操作</strong>(atomic operations)的<strong>无锁</strong>(lock-free)编程。常见的原子操作有：</p>
+<ul>
+<li>
+<p>原子加载和存储</p>
+<ul>
+<li><strong>加载</strong>(load)：将数据从共享内存加载到寄存器或线程的特定内存中</li>
+<li><strong>存储</strong>(store)：将数据移动至共享内存中</li>
+</ul>
+</li>
+<li>
+<p>原子读-改-写(read-modify-write, RMW)</p>
+<ul>
+<li><strong>测试并设置</strong>(test and set)：将 1 设置到共享内存，并返回之前的值</li>
+<li><strong>比较并交换</strong>(compare and swap)：若共享内存中的数据等于预期值，则更新该数据</li>
+<li><strong>获取并增加</strong>(fetch and add)：将共享内存中的数据加上一个值，并返回之前的值</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/10.png" width=70%>
+</div>
+
+<p>除了无锁编程外，还有<strong>无等待</strong>(wait-free)编程。理论上它能保证所有线程尽可能占据所有的 CPU 资源。但实际上在一个复杂系统中，这是很难做到的，因此仅在部分对性能有极高要求的场合中用到，在这里我们不必深究。</p>
+<div style="text-align: center">
+    <img src="images/lec20/11.png" width=50%>
+</div>
+
+<p>出于性能需求，编译器和 CPU 在优化过程中往往会对指令进行<strong>重排</strong>(reordering)。但有时候这样会给多线程编程带来困扰。如下图所示，如果按正常顺序执行，线程 2 就会触发断言的（除非还有别的线程修改 <code>b</code> 的值）。但由于指令重排，线程 1 中 <code>a = b + 1;</code> 和 <code>b = 0;</code> 两条语句可能会颠倒，此时断言就不再触发。</p>
+<div style="text-align: center">
+    <img src="images/lec20/12.png" width=70%>
+</div>
+
+<p>更麻烦的是，像这种乱序执行在各种 CPUs 中都会发生，而且它们：</p>
+<ul>
+<li>会采用截然不同的优化策略</li>
+<li>提供不同类型的内存顺序</li>
+<li>因此并行程序需要<strong>不同的处理</strong></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/13.png" width=80%>
+</div>
+
+<blockquote>
+<p>游戏开发中会分 release 版和 debug 版。后者的执行顺序基本上认为是对的，但前者由于采取了更激进的优化策略，执行逻辑可能往往和程序员想的不一样，因而产生一些意想不到的 bug，而且这种 bug 很难排查。</p>
+</blockquote>
+<h2 id="parallel-framework-of-game-engine">Parallel Framework of Game Engine</h2>
+<p>下面来看游戏引擎中是如何实现并行编程的。</p>
+<h3 id="fixed-multi-thread">Fixed Multi-thread</h3>
+<p>最简单的做法，也是大多数现代游戏引擎的做法是为每一类任务（游戏逻辑的一部分）分配一个固定的线程。比如一个专门负责渲染，一个专门负责模拟等。</p>
+<div style="text-align: center">
+    <img src="images/lec20/14.png" width=70%>
+</div>
+
+<div class="admonition recommend">
+<p class="admonition-title">优点：易于实现</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>
+<p>线程（核心）的工作量不均衡</p>
+<ul>
+<li>短板效应，整个任务的完成得等那个工作量很大的线程执行完毕</li>
+<li>不能直接将某个线程的任务分出一点给另一个空闲线程完成，因为这破坏了局部性；也不能让它们共享内存，否则会出现数据竞争问题</li>
+</ul>
+</li>
+<li>
+<p>当处理器核心增多时无法扩展</p>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/15.png" width=70%>
+</div></p>
+</div>
+<h3 id="thread-fork-join">Thread Fork-Join</h3>
+<p>第二种方法叫做<strong>分叉-合并</strong>(fork-join)。它仍然基于第一种方法，但特别适合用来解决数据可并行的任务。</p>
+<ul>
+<li>比如模拟线程的动画计算非常复杂，那它会创建一些子线程进行并行计算，最后合并子线程的结果</li>
+<li>使用<strong>线程池</strong>(thread pool)来组织频繁的线程创建和销毁</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/16.png" width=80%>
+</div>
+
+<div class="admonition bug">
+<p class="admonition-title">问题</p>
+<ul>
+<li>对负责撰写逻辑的程序员而言不容易实现（需要手动分割工作、确定工作线程数量等）</li>
+<li>线程过多可能导致额外的上下文切换的性能开销</li>
+<li>各线程（核心）间的工作负载仍然不均衡</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/17.png" width=80%>
+</div></p>
+</div>
+<h3 id="unreal-parallel-framework">Unreal Parallel Framework</h3>
+<p>Unreal 的并行架构中有两类线程，分别是：</p>
+<ul>
+<li><strong>命名线程</strong>(named thread)：由其他系统创建，并附加到并行框架中</li>
+<li><strong>工作线程</strong>(worker thread)<ul>
+<li>三种优先级：高、中、低</li>
+<li>数量根据 CPU 核心数确定</li>
+<li>和分叉-合并方法类似</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/18.png" width=60%>
+</div>
+
+<h3 id="task-graph">Task Graph</h3>
+<p><strong>任务图</strong>(task graph)是一种更复杂的方法。它是一个有向无环图（DAG），用节点表示任务，用边表示依赖关系，从而确定任务执行的先后顺序以及是否可以并行执行。</p>
+<div style="text-align: center">
+    <img src="images/lec20/19.png" width=60%>
+</div>
+
+<p>通过链接(links)来构建任务图。</p>
+<div style="text-align: center">
+    <img src="images/lec20/20.png" width=90%>
+</div>
+
+<div class="admonition bug">
+<p class="admonition-title">问题</p>
+<ul>
+<li>它是一种静态方法，难以应对动态环境</li>
+<li>它要求任务必须完整做好才能继续下一个任务，但在游戏中有时会出现执行了一半就要转头做另一项任务的情况</li>
+</ul>
+</div>
+<h2 id="job-system">Job System</h2>
+<h3 id="coroutine">Coroutine</h3>
+<p><strong>协程</strong>(coroutine)是一种轻量级的执行上下文。每个协程也都有自己的用户栈、寄存器等。它的一大特点是协作式的执行，这意味着它可以（随时）交互式地切换到另一个协程中，切换开销会很小。因而<strong>作业</strong>(jobs)的创建正是在协程中完成的。</p>
+<div style="text-align: center">
+    <img src="images/lec20/21.png" width=70%>
+</div>
+
+<div class="admonition abstract">
+<p class="admonition-title">协程 vs 线程</p>
+<p><img align="right" alt="" src="images/lec20/22.png" width="30%" /></p>
+<ul>
+<li>
+<p>协程</p>
+<ul>
+<li>由程序员调度</li>
+<li>在线程中执行</li>
+<li>上下文切换更快，无需切换到内核模式</li>
+</ul>
+</li>
+<li>
+<p>线程</p>
+<ul>
+<li>由操作系统调度</li>
+<li>位于进程内</li>
+<li>上下文切换成本高，需切换到内核模式</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>协程分为两类：</p>
+<ul>
+<li>
+<p><strong>有栈协程</strong>(stackful coroutine)：协程拥有一个独立的运行时栈，该栈在协程 <code>yield</code>（挂起）之后被保留</p>
+<ul>
+<li>功能更强大，允许在嵌套栈帧内进行 <code>yield</code> 操作</li>
+<li>可以像普通函数一样使用局部变量</li>
+<li>需要更多内存，来为每个协程预留栈空间</li>
+<li>协程的上下文切换耗时更长</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/23.png" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>无栈协程</strong>(stackless coroutine)：协程在 yield 时没有独立的运行时栈需要保留</p>
+<ul>
+<li>只有顶层例程可以 yield（而子例程在没有栈的情况下不知道返回何处）</li>
+<li>恢复执行所需的数据应与栈分开存储</li>
+<li>无需额外内存空间</li>
+<li>更快的上下文切换<blockquote>
+<p>给少部分高手使用的</p>
+</blockquote>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/24.png" width=80%>
+</div></p>
+</li>
+</ul>
+<h3 id="fiber-based-job-system">Fiber-Based Job System</h3>
+<p><strong>基于纤程的作业系统</strong>(fiber-based job system)允许通过创建<strong>作业</strong>而非线程来实现多任务。</p>
+<ul>
+<li><strong>纤程</strong>(fibers)类似于协程，不同之处在于纤程由调度器进行调度</li>
+<li>线程是执行单元，而纤程则是上下文环境；每个处理器核心对应一个线程，以最小化上下文切换的开销</li>
+<li>任务在纤程的上下文中执行</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/25.png" width=80%>
+</div>
+
+<p>一个原则是尽可能保证一个工作线程对应一个核心，以最小化线程上下文切换的开销（因为单核中的多工作线程仍会遭受上下文切换的影响）。</p>
+<div style="text-align: center">
+    <img src="images/lec20/26.png" width=80%>
+</div>
+
+<p>现在来看作业是如何被调度的。</p>
+<ul>
+<li>
+<p><strong>全局作业</strong>(global job)：</p>
+<ul>
+<li>将作业分配给相对空闲的工作线程，确保各线程负载均衡</li>
+<li>采取 <strong>LIFO</strong> 模式（即<strong>栈</strong>）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/28.png" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>作业依赖性</strong>(job dependency)：</p>
+<ul>
+<li>多数时候作业间的依赖关系形成一棵树</li>
+<li>有时要先执行优先级更高的作业，但资源有限，所以会把低优先级的作业暂时放到一个等待队列中；这个作业和新进来的高优先级作业之间建立了一个依赖关系，等这个高优先级作业结束后，该作业又回到原来的线程中运行</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/29.gif" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>作业窃取</strong>(job stealing)：空闲的工作线程会从其他线程中「偷」些作业过来，避免某些线程执行时间过长而拖累整体表现</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/30.gif" width=80%>
+</div></p>
+</li>
+</ul>
+<div class="admonition recommend">
+<p class="admonition-title">优点</p>
+<ul>
+<li>任务调度实现容易</li>
+<li>便于处理任务的依赖关系</li>
+<li>作业的栈是独立的</li>
+<li>减少频繁的上下文切换</li>
+</ul>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>C++ 原生不支持纤程</li>
+<li>不同操作系统间的实现存在差异</li>
+<li>存在一些限制（比如 <code>thread_local</code> 无效）</li>
+</ul>
+</div>
+<h2 id="programming-paradigms">Programming Paradigms</h2>
+<p>游戏引擎中有很多不同的<strong>编程范式</strong>(programming paradigms)，而其中某些编程范式在实践中被广泛使用。并且编程语言往往不局限于采用某一种特定的范式。</p>
+<div style="text-align: center">
+    <img src="images/lec20/31.png" width=80%>
+</div>
+
+<p>下面来看两类我们熟知的范式：</p>
+<ul>
+<li>
+<p><strong>面向过程编程</strong>(procedural oriented programming, <strong>POP</strong>)</p>
+<ul>
+<li>采用逐步方法，通过一系列指令将任务分解为变量和例程（或子例程）的集合</li>
+<li><strong>无法用这种方式编写游戏引擎</strong>，因为数据通常不会良好维护的，且现实世界对象之间的相互关系是很复杂的</li>
+</ul>
+</li>
+<li>
+<p><strong>面向对象编程</strong>(object oriented programming, <strong>OOP</strong>)</p>
+<ul>
+<li>基于「<strong>对象</strong>」(objects)的概念，对象包含了<strong>数据</strong>和<strong>代码</strong></li>
+<li>以面向对象的方式对现实世界抽象化是很自然的</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/32.png" width=80%>
+</div></p>
+<div class="admonition bug">
+<p class="admonition-title">OOP 的问题</p>
+<ul>
+<li>
+<p><strong>代码该放在哪个对象里</strong>：比如造成伤害的代码是放在攻击者这边还是放在被攻击者这边</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/33.gif" width=90%>
+</div></p>
+</li>
+<li>
+<p><strong>方法分散在继承树内</strong>：难以知道父类是否有方法实现，经常要通过检查很多不同的类与方法来寻找答案</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/34.gif" width=90%>
+</div></p>
+</li>
+<li>
+<p><strong>混乱的基类</strong>（如果将通用方法都放在基类里）</p>
+<details class="code">
+<summary>代码示例</summary>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ENGINE_API</span><span class="w"> </span><span class="n">AActor</span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UObject</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&amp;</span><span class="w"> </span><span class="n">GetTransform</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">ActorToWorld</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FVector</span><span class="w"> </span><span class="nf">GetActorForwardVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FVector</span><span class="w"> </span><span class="nf">GetActorUpVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FVector</span><span class="w"> </span><span class="nf">GetActorRightVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">GetActorBounds</span><span class="p">(...)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FVector</span><span class="w"> </span><span class="nf">GetVelocity</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nf">GetDistanceTo</span><span class="p">(</span><span class="n">constAActor</span><span class="o">*</span><span class="n">OtherActor</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SetActorHiddenInGame</span><span class="p">(</span><span class="n">boolbNewHidden</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">GetActorEnableCollision</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">HasAuthority</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UActorComponent</span><span class="o">*</span><span class="w"> </span><span class="nf">AddComponent</span><span class="p">(...);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">AttachToActor</span><span class="p">(...);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">DetachFromActor</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FDetachmentTransformRules</span><span class="o">&amp;</span><span class="w"> </span><span class="n">DetachmentRules</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">GetTickableWhenPaused</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsActorInitialized</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">ReceiveAnyDamage</span><span class="p">(...);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">GetOverlappingActors</span><span class="p">(...)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SetLifeSpan</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">InLifespan</span><span class="p">);</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">(</span><span class="n">FArchive</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Ar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">PostLoad</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+</li>
+<li>
+<p><strong>性能</strong></p>
+<ul>
+<li>数据分散在各个对象中，而对象创建时被分配到不连续的内存中</li>
+<li>虚函数丛林</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/35.png" width=90%>
+</div></p>
+</li>
+<li>
+<p><strong>可测试性</strong>(testability)：OO 设计通常需要大量设置才能进行测试，给针对某个特定模块测试的单元测试带来麻烦</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/36.png" width=80%>
+</div></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<h2 id="data-oriented-programming-dop">Data-Oriented Programming (DOP)</h2>
+<p>在正式介绍 DOP 前，我们得先了解一些硬件层面的原理。首先得意识到处理器和内存之间的性能存在巨大差距</p>
+<ul>
+<li>内存的性能增长比处理器慢很多</li>
+<li>而且这个差距还在被拉大，这使得<strong>内存</strong>成为了性能的<strong>主要瓶颈</strong></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/37.png" width=70%>
+</div>
+
+<p>为缓减内存带来的影响，我们引入了<strong>高速缓存</strong>(cache)。将它置于处理器和内存之间便能加速数据的读取。通常高速缓存自顶（靠近处理器）向下（靠近内存）分成了三级：</p>
+<ul>
+<li>L1：大小在 256KB 至不超过 1MB 之间，但这已足够</li>
+<li>L2：通常为几兆字节，最大可达 10MB</li>
+<li>L3：大于 L1 和 L2，容量从 16MB 到 64MB 不等，在所有核心之间共享</li>
+</ul>
+<p>另外，虽然从 L1 到 L3 容量逐渐变大，速度却越来越慢。</p>
+<div style="text-align: center">
+    <img src="images/lec20/38.png" width=80%>
+</div>
+
+<p>为充分利用高速缓存对性能的提升，在编程时要遵循<strong>局部性原理</strong>(principle of locality)，包括：</p>
+<ul>
+<li>时间局部性：处理器在短时间内很可能会重复访问同一组内存位置</li>
+<li><strong>空间局部性</strong>：处理器倾向于使用在相对较近的存储位置中的数据元素</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/39.png" width=80%>
+</div>
+
+<p>现代 CPU 中 <strong>SIMD</strong>（单指令多数据(single instruction multiple data)）技术就利用到了这一点。简单来说就是把同类型的数据放进一个向量里，然后某条指令能够处理这个向量，也就是说能一次性能操纵多个内存位置上的数据。</p>
+<div style="text-align: center">
+    <img src="images/lec20/40.png" width=80%>
+</div>
+
+<p>由于高速缓存空间大小有限，如果有新数据进入高速缓存时，发现里面已经被填满了，这时就要挑其中一个数据将其抛弃。一种常用的替换策略是 <strong>LRU</strong>（最少最近使用(least recently used)），它的思路是抛弃<strong>最久未被访问过</strong>的缓存行。具体实现为：</p>
+<ul>
+<li>为每个内存行记录「使用时间」</li>
+<li>每一时刻下抛弃最久未使用的缓存行</li>
+<li>当访问了缓存行的数据时，更新其「使用时间」</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/41.png" width=80%>
+</div>
+
+<blockquote>
+<p>其实还可以采用<strong>随机丢弃</strong>某个缓存行的策略，其效果也并不比 LRU 差很多。</p>
+<p>这里有关 LRU 的实现方法其实不太好：像缓存这种寸土寸金的区域，每个缓存行的计数器就占了不少地方（肯定不会放在内存中，不然缓存有什么意义啊）。另一种做法是<strong>双向链表 + 哈希表</strong>（见 LeetCode <a href="https://leetcode.cn/problems/lru-cache">LRU 缓存</a>）。</p>
+</blockquote>
+<p>这里还得补充<strong>缓存行</strong>(cache line)（或缓存块）的概念，它是一个固定大小的块（通常为 <strong>64B</strong>），使数据在内存与缓存之间进行传输。</p>
+<ul>
+<li>缓存只能容纳有限数量的行，取决于缓存大小。比如一个 64KB 的缓存，每行 64B，就有 1024 个缓存行</li>
+<li>每次加载任何内存时，实际上都在加载一个完整的缓存行字节</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/42.gif" width=90%>
+</div>
+
+<p>由于这样的特点，在访问矩阵时往往采用<strong>按行访问</strong>的迭代方式，因为：</p>
+<div style="text-align: center">
+    <img src="images/lec20/43.png" width=80%>
+</div>
+
+<ul>
+<li>当缓存已满时，新行将替换最旧的行</li>
+<li>当元素不在缓存中时，将加载整行数据<ul>
+<li>所以按列访问的话就会触发大量的<strong>缓存失效</strong>(cache miss)，严重影响到系统性能</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>让我们回到正题。<strong>面向数据编程</strong>(data oriented programming)的核心就是「一切皆数据」。下图指出的各个部分（也包括没指出的）本质上都是数据。</p>
+<div style="text-align: center">
+    <img src="images/lec20/44.png" width=80%>
+</div>
+
+<p>代码（或指令）本质上也是二进制数据。</p>
+<div style="text-align: center">
+    <img src="images/lec20/45.png" width=80%>
+</div>
+
+<p>因此我们需要将代码和数据看作一个整体，尽量保证代码和数据在高速缓存中紧密放置，从而保证代码执行完后也能把数据处理完，接下来就交换进下一批的代码和数据了。</p>
+<div style="text-align: center">
+    <img src="images/lec20/46.png" width=80%>
+</div>
+
+<h2 id="performance-sensitive-programming">Performance-Sensitive Programming</h2>
+<p>要想编写出超高性能的代码，第一个思路是要<strong>减少顺序依赖</strong>。</p>
+<ul>
+<li>一旦预测错误，就不得不撤销现在进行的工作</li>
+<li>变量一旦初始赋值，就不要再修改</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/47.png" width=80%>
+</div>
+
+<p>要做到这一点，一个不容忽视的问题是缓存行中的<strong>伪共享</strong>(false sharing)。每个线程可能都有各自针对同一内存位置的缓存副本，如果其中一个线程要修改这个内存内容，而其他线程也在对其进行读/写操作，那么要确保线程对内存的修改对其他所有线程可见。要做到这一点，要么线程写完后就立马更新其他线程的缓存，要么其他线程在读/写之前先读一遍内存更新缓存内容，但不管怎么做都挺耗时的。所以应尽量避免这一情况的出现。</p>
+<div style="text-align: center">
+    <img src="images/lec20/48.png" width=80%>
+</div>
+
+<p>还有一个需要关注的问题是<strong>分支预测</strong>(branch prediction)</p>
+<ul>
+<li>
+<p>CPU 为追求效率，将提前预取指令和数据，通常采用分支预测技术来决定预取内容</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/49.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>但有时候会预测失败，此时各种缓存就会失效，需要等待不少时间，因此尽量避免这一情况出现</p>
+<ul>
+<li>
+<p>如下例所示，由于数组元素是乱序放置的，所以处理 <code>11 3</code> 这两个元素时，CPU（沿用分支历史）的预测都是错误的</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/50.png" width=80%>
+</div></p>
+<p>解决方案是对数组元素排序，这样中间就只有一次预测错误了。</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/51.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>尽可能消除 <code>if</code> 语句，以根除分支预测失败的来源</p>
+<ul>
+<li>比如仅处理现有元素，而非在运行时决定是否应进行处理</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/52.png" width=80%>
+</div></p>
+</li>
+</ul>
+<h2 id="performance-sensitive-data-arrangements">Performance-Sensitive Data Arrangements</h2>
+<p>接下来考虑数据的排布。同样地，我们需要<strong>减少内存间数据的依赖</strong>。典型代表便是通过指针相连的<strong>链表</strong>，通常链表中的元素是不连续的。如果将其中某个元素所在行加载到缓存中，访问下一个元素时很有可能会去加载另一个完整的缓存行（出现了缓存失效），显然会对性能造成很大的影响。</p>
+<div style="text-align: center">
+    <img src="images/lec20/53.png" width=60%>
+</div>
+
+<p>这里便涉及到一对重要的概念：<strong>结构数组</strong>(array of structure, <strong>AOS</strong>)和<strong>数组结构</strong>(structure of array, <strong>SOA</strong>)，它们分别对应<u>元素为结构体的数组</u>，以及<u>字段为数组的结构体</u>。以粒子的存储为例，AOS 就是一个粒子一个粒子的存储，每个粒子都有位置、速度等属性；而 SOA 就是先存储所有粒子的位置，再存储所有粒子的速度，以此类推。不难发现，当我们想要一次性读取所有粒子的某一个特定字段时，SOA 的存储方式会带来更好的性能。</p>
+<div style="text-align: center">
+    <img src="images/lec20/54.png" width=80%>
+</div>
+
+<details class="abstract" open="open">
+<summary>AOS 和 SOA 优缺点总结</summary>
+<blockquote>
+<p>by GPT 5.4</p>
+</blockquote>
+<ul>
+<li>SOA</li>
+<li>优点：符合人类直觉，代码更自然；适合“按对象”访问；更方便和面向对象设计结合</li>
+<li>
+<p>缺点：不利于 SIMD / 向量化；可能读入不需要的数据；GPU / 高性能场景下常常不如 SOA</p>
+</li>
+<li>
+<p>AOS</p>
+</li>
+<li>优点：同类数据连续，cache 友好；更适合 SIMD / 自动向量化；只访问需要的字段时更省带宽；适合并行和批处理</li>
+<li>缺点：代码可读性可能变差；不适合频繁按对象整体操作；封装性较弱；增删字段或维护一致性更麻烦</li>
+</ul>
+</details>
+<h2 id="entity-component-system-ecs">Entity Component System (ECS)</h2>
+<p>最后要介绍大名鼎鼎的<strong>实体组件系统</strong>(entity component system, <strong>ECS</strong>)。它能将我们前面提到的所有比较零碎的概念串在一起，包括本课程一开始就介绍过的<strong>基于组件的设计</strong>。</p>
+<div style="text-align: center">
+    <img src="images/lec20/55.png" width=80%>
+</div>
+
+<p>很自然地，我们会想通过 OOP 方法来实现。但正如<a href="#programming-paradigms">之前</a>提到的那样，OOP 并不适合游戏开发。而 ECS 正是来解决这个问题的。它是一种以<strong>数据</strong>为导向构建游戏代码的模式，旨在实现最佳性能（可并行化）。它的三部分分别为：</p>
+<ul>
+<li><strong>实体</strong>(entity)：指代组件集合的 ID（对应之前介绍的<strong>游戏对象</strong>（GO））</li>
+<li><strong>组件</strong>(component)：被系统处理的数据，不包含逻辑</li>
+<li><strong>系统</strong>(system)：逻辑所在，会读/写组件数据<ul>
+<li>可以同时处理好几类组件的数据</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/56.png" width=70%>
+</div>
+
+<h3 id="unity-data-oriented-tech-stack-dots">Unity Data-Oriented Tech Stack (DOTS)</h3>
+<p>这种模式的一个典型应用是 Unity 的<strong>面向数据的技术栈</strong>(data-oriented tech stack, <strong>DOTS</strong>)，它是多种技术相结合，共同实现以数据为导向的编程方法，包含以下三类子系统：</p>
+<ul>
+<li><strong>ECS</strong>：提供了面向数据的编程框架</li>
+<li><strong>C# 作业系统</strong>：提供了一种生成多线程代码的简单方法</li>
+<li><strong>Burst 编译器</strong>：可生成快速且优化的原生代码</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec20/57.png" width=50%>
+</div>
+
+<h4 id="ecs">ECS</h4>
+<p>Unity 引入了一个叫做<strong>原型</strong>(archetype)的概念，它是一组特定组件的结合。实体便是基于原型分组的，所以可将原型简单理解为游戏对象的类型。这么做有助于我们快速查找指定的实体和组件。</p>
+<div style="text-align: center">
+    <img src="images/lec20/58.png" width=50%>
+</div>
+
+<p>为了充分利用缓存，原型中的<strong>相同组件</strong>会被紧密地打包成<strong>块</strong>(chunks)。「块」通常是固定大小的一个内存区域，比如 16KB 大小。</p>
+<div style="text-align: center">
+    <img src="images/lec20/59.png" width=70%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>以下代码实现了位置的更新</p>
+<p><div style="text-align: center">
+    <img src="images/lec20/60.png" width=40%>
+</div></p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MoveSystem</span><span class="p">:</span><span class="w"> </span><span class="n">SystemBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnUpdate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// For each entity which has Translation and Velocity</span>
+<span class="w">        </span><span class="n">Entities</span><span class="p">.</span><span class="n">ForEach</span><span class="p">(</span>
+<span class="w">            </span><span class="c1">// Write to Displacement (ref), read Velocity (in)</span>
+<span class="w">            </span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="n">Translation</span><span class="w"> </span><span class="n">trans</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Velocity</span><span class="w"> </span><span class="n">velocity</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Execute for each selected entity</span>
+<span class="w">                </span><span class="n">trans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newTranslation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">// dT is a captured variable</span>
+<span class="w">                    </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trans</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dT</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ScheduleParallel</span><span class="p">();</span><span class="w"> </span><span class="c1">// Schedule as a parallel job</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h4 id="c-job-system">C# Job System</h4>
+<p>Unity 为 C# 的作业系统设计了一套<strong>原生容器</strong>(native container)，这是一种可以在作业内被访问的共享内存。</p>
+<ul>
+<li>若无原生容器，作业无法输出结果（所有数据均为副本）</li>
+<li>原生容器支持全部<strong>安全检查</strong></li>
+<li>原生容器需<strong>手动释放</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Allocate one float with &quot;TempJob&quot; policy</span>
+<span class="c1">// Allocator.Temp:       Fastest allocation, lifespan is 1 frame or fewer</span>
+<span class="c1">// Allocator.TempJob:    Slower than Temp, lifespan is 4 frames</span>
+<span class="c1">// Allocator.Persistent: Slowest allocation, can last as long as needed</span>
+<span class="n">NativeArray</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newNativeArray</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Allocator</span><span class="p">.</span><span class="n">TempJob</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="c1">// Need to dispose manually for unmanaged memory</span>
+<span class="n">a</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+</code></pre></div>
+<p>鉴于原生容器的特性，我们还需要一个<strong>安全系统</strong>，支持对作业进行安全检查，比如越界检查、释放检查、竞态条件检查等。</p>
+<ul>
+<li>向每个作业发送其运行所需数据的副本，以消除竞态条件</li>
+<li>作业只能访问可复制数据类型（引用无效）</li>
+</ul>
+<p><img align="right" alt="" src="images/lec20/61.png" width="60%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="n">structJob</span><span class="p">:</span><span class="w"> </span><span class="n">IJob</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Execute</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><br/></p>
+<h4 id="high-performance-c-and-burst-compiler">High-Performance C# and Burst Compiler</h4>
+<p><strong>高性能 C#</strong>（HPC#）是 C# 的一个子集，它放弃大部分标准库功能（如 <code>#!cs StringFormatter</code>、<code>#!cs List</code>、<code>#!cs Dictionary</code> 等），并且禁止内存分配、反射、垃圾回收和虚函数调用。</p>
+<p><strong>Burst 编译器</strong>通过 LLVM 将 IL/.NET 字节码转换为高度优化的原生代码，为特定平台生成预期的机器指令。相比直接使用 C# 自带的编译器，性能得到了不小的提升。</p>
+<div style="text-align: center">
+    <img src="images/lec20/62.png" width=60%>
+</div>
+
+<h3 id="unreal-mass-framework">Unreal Mass Framework</h3>
+<p>ECS 的另一个例子是 Unreal 的 <strong>Mass</strong> 系统。</p>
+<div style="text-align: center">
+    <img src="images/lec20/63.png" width=80%>
+</div>
+
+<h4 id="entity">Entity</h4>
+<p>其中一个重要部分是 <strong><code>MassEntity</code></strong>，它对应了 ECS 的<strong>实体</strong>。</p>
+<ul>
+<li><code>FMassEntityHandle</code> 是 ECS 实体的<strong>纯 ID</strong></li>
+<li><code>Index</code> 代表在 <code>FMassEntityManager</code> 的实体数组中的索引</li>
+<li><code>SerialNumber</code> 作为索引的盐值(salt)<ul>
+<li>释放旧实体</li>
+<li>用相同索引创建新实体</li>
+<li>但 <code>SerialNumber</code> 会递增，因此 ID 会发生变化</li>
+</ul>
+</li>
+</ul>
+<div class="grid">
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FMassEntityHand1e</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">SerialNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">MASSENTITY_API</span><span class="w"> </span><span class="n">FMassEntityManager</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">TChunkedArray</span><span class="o">&lt;</span><span class="n">FEntityData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Entities</span><span class="p">;</span>
+<span class="w">    </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span><span class="w"> </span><span class="n">EntityFreeIndexList</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="component">Component</h4>
+<p>Mass 的<strong>组件</strong>部分和 Unity 类似，每一类实体也有对应的原型(archetype)。不过组件是由<strong>片段</strong>(fragments)和<strong>标签</strong>(tags)两部分构成，其中标签是用于过滤不必要处理的常量布尔组件。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FMassArchetypeCompositionDescriptor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">FMassFragmentBitSet</span><span class="w"> </span><span class="n">Fragments</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FMassTagBitSet</span><span class="w"> </span><span class="n">Tags</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FMassChunkFragmentBitSet</span><span class="w"> </span><span class="n">ChunkFragments</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FMassSharedFragmentBitSet</span><span class="w"> </span><span class="n">SharedFragments</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div style="text-align: center">
+    <img src="images/lec20/64.png" width=90%>
+</div>
+
+<h4 id="system">System</h4>
+<p>最后来看<strong>系统</strong>部分。<code>MassEntity</code> 里的 ECS 系统是派生自 <code>UMassProcessor</code> 的<strong>处理器</strong>。它有两个重要的接口（高亮标出）：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MASSENTITY_API</span><span class="w"> </span><span class="n">UMassProcessor</span><span class="o">:</span><span class="w"> </span><span class="n">publicUObject</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">protected</span><span class="o">:</span>
+<span class="hll"><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">ConfigureQueries</span><span class="p">()</span><span class="w"> </span><span class="n">PURE_VIRTUAL</span><span class="p">(</span><span class="n">UMassProcessor</span><span class="o">::</span><span class="n">ConfigureQueries</span><span class="p">);</span>
+</span><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">PostInitProperties</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="hll"><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Execute</span><span class="p">(</span>
+</span><span class="w">        </span><span class="n">FMassEntityManager</span><span class="o">&amp;</span><span class="w"> </span><span class="n">EntityManager</span><span class="p">,</span>
+<span class="w">        </span><span class="n">FMassExecutionContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Context</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="n">PURE_VIRTUAL</span><span class="p">(</span><span class="n">UMassProcessor</span><span class="o">::</span><span class="n">Execute</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p><code>ConfigureQueries()</code>：片段查询(fragment query)</p>
+<ul>
+<li>在处理器初始化时运行</li>
+<li>使用 <code>FMassEntityQuery</code> 筛选符合系统需求的实体原型（其实只拿到片段的引用而非实际数据）</li>
+<li><code>FMassEntityQuery</code> 会缓存筛选出来的原型，以加速之后的执行</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec20/65.png" width=80%>
+</div></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">UMassApplyMovementProcessor::ConfigureQueries</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">AddRequirement</span><span class="o">&lt;</span><span class="n">FMassVelocityFragment</span><span class="o">&gt;</span><span class="p">(</span><span class="n">EMassFragmentAccess</span><span class="o">::</span><span class="n">ReadWrite</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">AddRequirement</span><span class="o">&lt;</span><span class="n">FTransformFragment</span><span class="o">&gt;</span><span class="p">(</span><span class="n">EMassFragmentAccess</span><span class="o">::</span><span class="n">ReadWrite</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">AddRequirement</span><span class="o">&lt;</span><span class="n">FMassForceFragment</span><span class="o">&gt;</span><span class="p">(</span><span class="n">EMassFragmentAccess</span><span class="o">::</span><span class="n">ReadWrite</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">AddTagRequirement</span><span class="o">&lt;</span><span class="n">FMassOffLODTag</span><span class="o">&gt;</span><span class="p">(</span><span class="n">EMassFragmentPresence</span><span class="o">::</span><span class="n">None</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">AddConstSharedRequirement</span><span class="o">&lt;</span><span class="n">FMassMovementParameters</span><span class="o">&gt;</span><span class="p">(</span><span class="n">EMassFragmentPresence</span><span class="o">::</span><span class="n">All</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p><code>Execute(...)</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">UMassApplyMovementProcessor::Execute</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FMassEntityManager</span><span class="o">&amp;</span><span class="w"> </span><span class="n">EntityManager</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FMassExecutionContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Context</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Clamp max delta time to avoid force explosion on large time steps (i.e. during initialization).</span>
+<span class="w">    </span><span class="n">constfloatDeltaTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Min</span><span class="p">(</span><span class="mf">0.1f</span><span class="p">,</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">GetDeltaTimeSeconds</span><span class="p">());</span>
+<span class="w">    </span><span class="n">EntityQuery</span><span class="p">.</span><span class="n">ForEachEntityChunk</span><span class="p">(</span>
+<span class="w">        </span><span class="n">EntityManager</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="n">Context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">](</span><span class="n">FMassExecutionContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">NumEntities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">GetNumEntities</span><span class="p">();</span>
+<span class="hll"><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">TArrayView</span><span class="o">&lt;</span><span class="n">FTransformFragment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LocationList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">GetMutableFragmentView</span><span class="o">&lt;</span><span class="n">FTransformFragment</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span class="hll"><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">TArrayView</span><span class="o">&lt;</span><span class="n">FMassForceFragment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ForceList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">GetMutableFragmentView</span><span class="o">&lt;</span><span class="n">FMassForceFragment</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span class="hll"><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">TArrayView</span><span class="o">&lt;</span><span class="n">FMassVelocityFragment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">VelocityList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">.</span><span class="n">GetMutableFragmentView</span><span class="o">&lt;</span><span class="n">FMassVelocityFragment</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">EntityIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">EntityIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NumEntities</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">EntityIndex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">FMassForceFragment</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ForceList</span><span class="p">[</span><span class="n">EntityIndex</span><span class="p">];</span>
+<span class="w">                </span><span class="n">FMassVelocityFragment</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VelocityList</span><span class="p">[</span><span class="n">EntityIndex</span><span class="p">];</span>
+<span class="w">                </span><span class="n">FTransform</span><span class="o">&amp;</span><span class="w"> </span><span class="n">CurrentTransform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocationList</span><span class="p">[</span><span class="n">EntityIndex</span><span class="p">].</span><span class="n">GetMutableTransform</span><span class="p">();</span>
+<span class="w">                </span><span class="c1">// Update velocity from steering forces.</span>
+<span class="w">                </span><span class="n">Velocity</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Force</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">;</span>
+<span class="w">                </span><span class="p">...</span>
+<span class="w">                </span><span class="n">FVector</span><span class="w"> </span><span class="n">CurrentLocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CurrentTransform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">();</span>
+<span class="w">                </span><span class="n">CurrentLocation</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Velocity</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">;</span>
+<span class="w">                </span><span class="n">CurrentTransform</span><span class="p">.</span><span class="n">SetTranslation</span><span class="p">(</span><span class="n">CurrentLocation</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./19.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Advanced Topics">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Advanced Topics
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./21.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Dynamic Global Illumination and Lumen">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Dynamic Global Illumination and Lumen
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

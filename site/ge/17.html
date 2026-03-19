@@ -1,0 +1,2827 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/17.html">
+      
+      
+        <link rel="prev" href="./16.html">
+      
+      
+        <link rel="next" href="./18.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Advanced Artificial Intelligence - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#advanced-artificial-intelligence" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced Artificial Intelligence
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./13.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gameplay
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./15.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay Complexity and Building Blocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./16.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="17.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hierarchical-tasks-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchical Tasks Network
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hierarchical Tasks Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-plan-and-replanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Plan and Replanning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goal-oriented-action-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal-Oriented Action Planning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Goal-Oriented Action Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-states-action-cost-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building States-Action-Cost Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-tree-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monte Carlo Tree Search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#machine-learning-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Basic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-advanced-game-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Advanced Game AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Advanced Game AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nn-architectrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NN Architectrue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hierarchical-tasks-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchical Tasks Network
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hierarchical Tasks Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-plan-and-replanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Plan and Replanning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goal-oriented-action-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal-Oriented Action Planning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Goal-Oriented Action Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-states-action-cost-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building States-Action-Cost Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-tree-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monte Carlo Tree Search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#machine-learning-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Basic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-advanced-game-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Advanced Game AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Advanced Game AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nn-architectrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NN Architectrue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./15.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Gameplay
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/17.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/17.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="advanced-artificial-intelligence">Advanced Artificial Intelligence</h1>
+<h2 id="hierarchical-tasks-network">Hierarchical Tasks Network</h2>
+<p><strong>层级任务网络</strong>(hierarchical tasks network, <strong>HTN</strong>)假定游戏中有很多<strong>层级任务</strong>(hierarchical tasks)。</p>
+<p>HTN 的核心思想是像人类那样分层制定计划。</p>
+<div style="text-align: center">
+    <img src="images/lec17/1.png" width=70%>
+</div>
+
+<h3 id="framework">Framework</h3>
+<p>HTN 的框架由以下几部分组成：</p>
+<div style="text-align: center">
+    <img src="images/lec17/2.png" width=50%>
+</div>
+
+<ul>
+<li><strong>世界状态</strong>(world state)：<ul>
+<li>包含一堆属性</li>
+<li>作为计划者的输入，反映了世界的状态</li>
+<li>它是 AI 大脑对世界的<strong>主观</strong>(subjective)看法（不是客观存在！）</li>
+</ul>
+</li>
+<li><strong>传感器</strong>(sensor)：<ul>
+<li>感知环境变化并修改世界状态</li>
+<li>类似前一讲介绍的<a href="16.html#sensing"><strong>感知</strong></a>(perception)</li>
+</ul>
+</li>
+<li><strong>HTN 域</strong>(HTN domain)：<ul>
+<li>从资产处加载</li>
+<li>描述<strong>层级任务</strong>的关系</li>
+</ul>
+</li>
+<li><strong>计划者</strong>(planner)：<strong>制定</strong>从世界状态到 HTN 域的<strong>计划</strong></li>
+<li><strong>计划运行者</strong>(plan runner)：执行计划，并在任务后<strong>更新世界状态</strong></li>
+</ul>
+<h3 id="task-types">Task Types</h3>
+<p>层级任务分为两类：</p>
+<ul>
+<li>
+<p><strong>基本任务</strong>(primitive task)，分为三部分：</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/3.png" width=30%>
+</div></p>
+<ul>
+<li><strong>前提</strong>(precondition)：确定行动是否要被执行，检查<strong>游戏世界属性</strong>是否被满足</li>
+<li><strong>行动</strong>(action)：确定基本任务要执行的行动</li>
+<li><strong>效果</strong>(effect)：确定基本任务如何<strong>修改游戏世界状态属性</strong></li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/4.png" width=60%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>复合任务</strong>(compound task)：</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/5.png" width=60%>
+</div></p>
+<ul>
+<li>包含多个<strong>方法</strong>，每个方法有各自的前提和不同的优先级</li>
+<li><strong>方法</strong>(method)：一条子任务链，每个子任务可以是<strong>基本任务</strong>，也可以是<strong>复合任务</strong></li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/6.png" width=70%>
+</div></p>
+</details>
+</li>
+</ul>
+<p><strong>HTN 域</strong>就是将这两类任务作为基本构建块搭建而成的。需要注意的是每个 HTN 域都有一个<strong>根任务</strong>(root task)，它本质上是一个复合任务。</p>
+<div style="text-align: center">
+    <img src="images/lec17/7.png" width=80%>
+</div>
+
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/8.png" width=70%>
+</div></p>
+</details>
+<h3 id="planning">Planning</h3>
+<p>确定好 HTN 域后就可以开始计划了，具体流程如下：</p>
+<ol>
+<li>
+<p>从<strong>根任务</strong>开始，<strong>按顺序</strong>选择<strong>满足前提</strong>的方法</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/9.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>将方法分解为任务，按顺序检查前提；若为复合任务，则进一步分解</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/10.png" width=80%>
+</div></p>
+<ul>
+<li>
+<p>对于<strong>基本任务</strong></p>
+<ul>
+<li><strong>假设所有行动都被会成功执行</strong>，在<strong>临时内存</strong>(temporary memory)中更新世界状态</li>
+<li>
+<p>所以在制定计划时，世界状态有一个用作草稿的<strong>副本</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec17/11.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>若前提不满足，返回并选择新方法</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/12.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>对于<strong>复合任务</strong>：若前提不满足，返回并选择下一个方法</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/13.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>重复步骤 2，直到没有要做的任务；最终计划仅包含基本任务</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/14.png" width=40%>
+</div></p>
+</li>
+</ol>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/15.png" width=80%>
+</div></p>
+</details>
+<h3 id="running-plan-and-replanning">Running Plan and Replanning</h3>
+<p>有了计划后，接下来便要运行计划。</p>
+<ul>
+<li>
+<p>按顺序<strong>执行任务</strong></p>
+<ul>
+<li>检查前提，若不满足则返回<strong>失败</strong></li>
+<li>执行行动<ul>
+<li>若成功，则<strong>更新世界状态</strong>并返回<strong>成功</strong></li>
+<li>否则返回<strong>失败</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>当所有任务成功，或其中一个任务失败时返回</p>
+</li>
+</ul>
+<hr />
+<p>遇到以下情况之一时，智能体会开始制定计划：</p>
+<ul>
+<li>没有计划</li>
+<li>当前计划已结束或失败</li>
+<li>传感器发现世界状态已改变</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/16.png" width=50%>
+</div></p>
+</details>
+<hr />
+<details class="recommend" open="open">
+<summary>优点</summary>
+<ul>
+<li>HTN 和 BT 类似，但它是<strong>更高层级</strong>的（抽象）</li>
+<li>能输出具有<strong>长期</strong>影响的计划</li>
+<li>相同情况下比 BT <strong>更快</strong></li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>缺点</summary>
+<ul>
+<li>玩家行为不可预测，所以任务<strong>很容易失败</strong></li>
+<li>对<strong>设计师</strong>来说，世界状态和任务效果是<strong>很有挑战的</strong><ul>
+<li>在高度不确定的环境下，HTN 的表现不稳定</li>
+</ul>
+</li>
+</ul>
+</details>
+<h2 id="goal-oriented-action-planning">Goal-Oriented Action Planning</h2>
+<p><strong>面向目标的行动计划</strong>(goal-oriented action planning, <strong>GOAP</strong>)是一种更加<strong>自动化</strong>(automated)的方法，且是一种<strong>反向</strong>(backward)而非正向的计划。</p>
+<div style="text-align: center">
+    <img src="images/lec17/21.png" width=80%>
+</div>
+
+<h3 id="structure">Structure</h3>
+<p>GOAP 的结构如下：</p>
+<div style="text-align: center">
+    <img src="images/lec17/17.png" width=70%>
+</div>
+
+<ul>
+<li>传感器和世界状态（和 HTN 类似）</li>
+<li>
+<p><strong>目标集</strong>(goal set)：所有可用目标</p>
+<ul>
+<li><strong>前提</strong>决定被选中的目标</li>
+<li><strong>优先级</strong>决定在所有可能的目标中应该选择哪个目标</li>
+<li>每个目标可被表示为一个<strong>状态集合</strong>(collection of states)</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/18.png" width=70%>
+</div></p>
+<details class="example">
+<summary>例子（目标选择）</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/19.png" width=50%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>行动集</strong>(action set)：所有可用行动，每个行动包含</p>
+<ul>
+<li><strong>前提</strong>：在何种状态下角色采取行动</li>
+<li><strong>效果</strong>：行动完成后，世界状态如何变化</li>
+<li><strong>成本</strong>：由设计师定义，用作使成本最低的计划的一个权重</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/20.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>计划者</strong>(planner)：输出行动序列</p>
+</li>
+</ul>
+<h3 id="planning_1">Planning</h3>
+<p>GOAP 的计划制定步骤如下：</p>
+<ol>
+<li>
+<p>根据优先级检查目标，寻找第一个满足前提的目标</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/22.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>比较目标状态与世界状态，以找到未满足的目标；然后将所有未满足的目标状态放入栈中</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/23.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>检查栈顶的不满足状态，并从行动集中选择一个可以满足所选状态的行动；若所选动作满足该状态，则将其弹出</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/24.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>将行动压入<strong>计划栈</strong>(plan stack)，检查对应行动的前提；若前提不满足，则将状态压入<strong>未满足状态栈</strong>(stack of unsatisfied states)</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/25.png" width=80%>
+</div></p>
+</li>
+</ol>
+<h3 id="building-states-action-cost-graph">Building States-Action-Cost Graph</h3>
+<p>最后需要考虑的事是构建一个<strong>状态-行动-成本图</strong>，它不仅能够清空未满足状态栈，还保证在这张图上找到一条成本最小的路径（计划）。此时问题就被转换为上一讲介绍的<a href="16.html#path-finding">寻路问题</a>。</p>
+<ul>
+<li>节点：状态的组合</li>
+<li>边：行动</li>
+<li>距离：成本</li>
+<li>搜索方向：<ul>
+<li>起点：目标状态</li>
+<li>终点：当前状态</li>
+</ul>
+</li>
+</ul>
+<p>更具体地，我们要找一条从目标状态出发，到当前状态的最短路径。我们可以采用 <strong>A*</strong> 或别的最短路算法解决这一问题。其中启发式函数可被表示为<strong>未满足状态的数量</strong>。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/26.png" width=80%>
+</div></p>
+</details>
+<hr />
+<details class="recommend" open="open">
+<summary>优点</summary>
+<ul>
+<li>相比 HTN，GOAP 更具动态性</li>
+<li>目标和行为解耦</li>
+<li>不容易出现（前提，效果）不匹配的错误</li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>缺点</summary>
+<ul>
+<li>在单个 AI 系统中，计划运行时间比 BT/FSM/HTN 慢</li>
+<li>同样需要良好表示的世界状态和行动效果</li>
+</ul>
+</details>
+<h2 id="monte-carlo-tree-search">Monte Carlo Tree Search</h2>
+<p><strong>蒙特卡洛树搜索</strong>(Monte Carlo tree search, <strong>MCTS</strong>)是另一类自动规划方法，其行为更加多样化。这种方法类似下围棋，需要在脑海中模拟数百万种可能的走法，然后选择最佳的一步。</p>
+<div style="text-align: center">
+    <img src="images/lec17/29.png" width=80%>
+</div>
+
+<details class="example" open="open">
+<summary>应用</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/27.png" width=70%>
+</div></p>
+</details>
+<details class="info" open="open">
+<summary>蒙特卡洛方法</summary>
+<p><strong>蒙特卡洛方法</strong>(Monte Carlo method)是一类依赖<strong>重复随机抽样</strong>(repeated random sampling)以获得数值结果的计算算法。</p>
+<blockquote>
+<p>美国物理学家费米研究核物理时就用到了蒙特卡洛法。</p>
+</blockquote>
+<p><div style="text-align: center">
+    <img src="images/lec17/28.png" width=40%>
+</div></p>
+</details>
+<p>MCTS 由状态和行动构成。</p>
+<ul>
+<li>
+<p><strong>状态</strong>：具体来说是游戏的状态，对应树的节点</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/30.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>行动</strong>：表示 AI 的一步操作，对应树的边</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/31.png" width=40%>
+</div></p>
+</li>
+</ul>
+<p><strong>状态转移</strong>(state transfer)：通过某一行动，从状态 A 转移到状态 B</p>
+<div style="text-align: center">
+    <img src="images/lec17/32.png" width=70%>
+</div>
+
+<p>从<strong>当前状态</strong>出发，在经过可能的行动序列后可以到达的状态构成的集合被称为（<strong>树结构</strong>）<strong>状态空间</strong>(state space)。</p>
+<div style="text-align: center">
+    <img src="images/lec17/33.png" width=40%>
+</div>
+
+<p>注意：每移动一步就得<strong>重新构建</strong>状态空间。</p>
+<div style="text-align: center">
+    <img src="images/lec17/34.png" width=70%>
+</div>
+
+<p>MCTS 的一个重要概念是<strong>模拟</strong>(simulation)，即从状态节点开始，根据<strong>默认策略</strong>运行，产生结果。</p>
+<ul>
+<li>
+<p>以围棋为例，即从（当前）状态开始移动随机步，直到游戏结束，返回值取决于结果（1 为胜利，0 为失败）</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/35.png" width=30%>
+</div></p>
+</li>
+<li>
+<p><strong>默认策略</strong>(default policy)：用于玩游戏的有用且快速的规则或者神经网络</p>
+</li>
+</ul>
+<p>需要注意的是，即便一次模拟中赢了，也并不代表它能始终获得胜利。要想判断每一步的好坏，我们通过一个<strong>评估因子</strong>(evaluation factor) Q/N 来衡量。其中 N 表示从当前节点开始模拟的总次数，Q 表示从当前节点开始模拟获胜的次数。</p>
+<div style="text-align: center">
+    <img src="images/lec17/36.png" width=70%>
+</div>
+
+<p>每个节点不仅要修改自己的 Q/N 值，还得向上更新父节点的 Q/N 值。这种将子节点状态的影响传播回父节点状态的操作被称为<strong>反向传播</strong>(backpropagation)。计算公式为：</p>
+<ul>
+<li><code>Q_FatherNode += Q_BackChildNode</code></li>
+<li><code>++N_node</code></li>
+<li>重复上述步骤，直到抵达根节点</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec17/37.png" width=60%>
+</div>
+
+<p>MCTS 的迭代过程：</p>
+<div style="text-align: center">
+    <img src="images/lec17/38.png" width=80%>
+</div>
+
+<ol>
+<li>
+<p><strong>选择</strong>：选择最紧急的“可扩展”节点</p>
+<ul>
+<li>
+<p><strong>可扩展</strong>(expandable)<strong>节点</strong>——有未被访问的子节点的非终结状态</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/40.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>可采取的策略有：</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/41.png" width=30%>
+</div></p>
+<ul>
+<li>
+<p><strong>开发</strong>(exploitation)：寻找看似有前景的区域，即选择 Q/N 值更高的节点</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/42.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>探索</strong>(exploration)：寻找尚未充分被采样的区域，即选择访问次数较少的孩子</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/43.png" width=40%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>通常采用<strong>上置信区间</strong>(upper confidence bounds, <strong>UCB</strong>)公式来平衡使用开发和探索两种方案</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/44.png" width=80%>
+</div></p>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(UCB_j\)</span>：节点 <span class="arithmatex">\(j\)</span> 的 UCB 值</li>
+<li><span class="arithmatex">\(Q_j\)</span>：所有通过节点 <span class="arithmatex">\(j\)</span> 的总奖励</li>
+<li><span class="arithmatex">\(N_j\)</span>：节点 <span class="arithmatex">\(j\)</span> 被访问的次数</li>
+<li><span class="arithmatex">\(N\)</span>：节点 <span class="arithmatex">\(j\)</span> 的父节点被访问的次数</li>
+<li><span class="arithmatex">\(C\)</span>：一个用于调整执行探索次数的常数</li>
+</ul>
+</li>
+<li>
+<p>综上，选择步骤可被细分为以下流程：</p>
+<ul>
+<li><strong>总是从根节点开始搜索</strong></li>
+<li>找到当前节点的 UCB 值最高的子节点（有前景的子节点）</li>
+<li>将该子节点作为当前节点</li>
+<li>重复以上步骤，直到当前节点<strong>可扩展</strong>，此时<strong>选择当前节点</strong></li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/45.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>扩展</strong>：通过选择一个行动来扩展树</p>
+<ul>
+<li>根据可采取的行动，为选中节点添加一个或多个子节点</li>
+<li>子节点值是未知的</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/46.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>模拟</strong>：从新节点处模拟，并产生结果</p>
+</li>
+<li>
+<p><strong>反向传播</strong>：将新节点的模拟结果反向传播</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/47.png" width=70%>
+</div></p>
+</li>
+</ol>
+<p>结束条件：预先定义<strong>计算预算</strong>(computational budget)，当达到预算时停止探索；计算预算可以是：</p>
+<ul>
+<li>内存大小（节点数）</li>
+<li>计算时间</li>
+</ul>
+<p>通过上述迭代过程，我们得到一棵完整的树，接下来就在这棵树上进行搜索。为保证每一步为最佳步，即从当前节点处选择最佳的子节点，我们可采取以下策略之一：</p>
+<ul>
+<li><strong>最大子节点</strong>(max child)：选择 <strong>Q 值最大</strong>的子节点</li>
+<li><strong>鲁棒子节点</strong>(robust child)：选择<strong>访问次数最多</strong>的子节点</li>
+<li><strong>最大鲁棒子节点</strong>(max-robust child)：选择具有最高访问次数和最高奖励的根子节点；若不存在这样的节点，则继续搜索，直到满足一个可接受的访问次数</li>
+<li>
+<p><strong>安全子节点</strong>(secure child)：选择最大化<strong>下置信区间</strong>（<strong>LCB</strong>）的子节点</p>
+<div class="arithmatex">\[
+LCB_j = \dfrac{Q_j}{N_j} - C \cdot \sqrt{\dfrac{2 \ln (N)}{N_j}}
+\]</div>
+</li>
+</ul>
+<details class="recommend" open="open">
+<summary>优点</summary>
+<ul>
+<li>采用 MCTS 的智能体表现更加多样化</li>
+<li>智能体完全靠自己决策</li>
+<li>能够在很大的搜索空间上解决问题</li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>缺点</summary>
+<p>对多数实时游戏而言很难设计行动和状态，以及建模。</p>
+</details>
+<h2 id="machine-learning-basic">Machine Learning Basic</h2>
+<p><strong>机器学习</strong>(machine learning)可大致分为以下几类：</p>
+<div style="text-align: center">
+    <img src="images/lec17/48.png" width=60%>
+</div>
+
+<ul>
+<li>
+<p><strong>监督学习</strong>(supervised learning)：从标注数据(labeled data)中学习</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/49.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>无监督学习</strong>(unsupervised learning)：从未标注数据(unlabeled data)中学习</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/50.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>半监督学习</strong>(semi-supervised learning)：从大量未标注数据和少量标注数据中学习</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/51.png" width=30%>
+</div></p>
+</li>
+<li>
+<p><strong>强化学习</strong>(reinforcement learning, RL)：从与环境互动的过程中学习</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/52.png" width=40%>
+</div></p>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">注：和游戏引擎关系更紧密的是强化学习，所以下面仅展开介绍这一类机器学习方法。</p>
+</div>
+<p><strong>强化学习</strong>关注智能体在环境中如何采取行动以最大化累积奖励。</p>
+<ul>
+<li><strong>试错搜索</strong>(trial-and-error search)：学习者必须通过尝试来发现什么行动能带来最大奖励</li>
+<li><strong>延迟奖励</strong>(delayed reward)：行为可能影响即时奖励、下一个情境以及所有后续的奖励</li>
+</ul>
+<p>这里就设计到一个重要概念——<strong>马尔科夫决策过程</strong>(Markov decision process, <strong>MDP</strong>)。它的基本元素包括：</p>
+<div style="text-align: center">
+    <img src="images/lec17/53.png" width=50%>
+</div>
+
+<ul>
+<li><strong>智能体</strong>(agent)：学习者 &amp; 决策制定者</li>
+<li><strong>环境</strong>(environment)：与智能体交互的事物，包括智能体之外的一切东西</li>
+<li>
+<p><strong>状态</strong>(state)：智能体的观察，以及人类设计的数据结构</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/54.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>行动</strong>(action)：智能体表现行为的最小元素，也是由人类设计的</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/55.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>奖励</strong>(reward)：每个时间步从环境传递给智能体的特殊信号</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/56.png" width=80%>
+</div></p>
+</li>
+</ul>
+<p>MDP 的数学模型由以下部分构成：</p>
+<ul>
+<li>
+<p><strong>转移概率</strong>(transition probability)：采取行动 <span class="arithmatex">\(a\)</span> 后从 <span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(s'\)</span> 转移的概率</p>
+<div class="arithmatex">\[
+p(s' | s, a) = p(S_t = s' | S_{t-1} = s, A_{t-1} = a)
+\]</div>
+</li>
+<li>
+<p><strong>策略</strong>(policy)：从状态到选择每个可能行动的概率映射</p>
+<div class="arithmatex">\[
+\pi(a|s) = P(A_t = a | S_t = s)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\pi(a|s)\)</span> 对应根据状态 <span class="arithmatex">\(s\)</span> 采取行动 <span class="arithmatex">\(A = a\)</span> 的概率</li>
+<li>实际上观察到状态 <span class="arithmatex">\(S = s\)</span> 时，智能体采取的行动 <span class="arithmatex">\(A\)</span> 是随机的</li>
+<li>
+<p>例子：<span class="arithmatex">\(\pi(\text{left}|s) = 0.2, \pi(\text{right}|s) = 0.1, \pi(\text{up}|s) = 0.7\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec17/57.png" width=60%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>总奖励</strong>(total reward)：长期接收的累积奖励</p>
+<div class="arithmatex">\[
+\begin{aligned}
+G_t &amp; = R_{t+1} + R_{t+2} + R_{t+3} + \dots + R_T \\
+G_t &amp; = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots
+\end{aligned}
+\]</div>
+<blockquote>
+<p>其中第二种计算方式引入系数 <span class="arithmatex">\(\gamma (&lt; 1)\)</span>，表示越后面的奖励计算越不靠谱，因此对应的系数会越小；一般设置为接近 1 的数值（比如 0.99, 0.98, 0.95 等）。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="building-advanced-game-ai">Building Advanced Game AI</h2>
+<p>最后一节会介绍如何利用机器学习技术让游戏中的 AI「更聪明」。引入机器学习的原因有：</p>
+<ul>
+<li>不难发现，之前讲过的所有 AI 方法实际上都需要人类知识来设计，比如计算 GOAP 的成本等等</li>
+<li>但玩家始终希望 AI 能够应对<strong>复杂的游戏世界</strong>，并且能够表现得<strong>自然且多样</strong><ul>
+<li>传统方法仅在有限空间中计算</li>
+<li>机器学习可创造无穷可能性</li>
+</ul>
+</li>
+</ul>
+<p>游戏中的机器学习框架的构成如下。其中一个重要的概念是<strong>观察</strong>(observation)，即AI 观察到的游戏状态，包括：向量特征（单位信息、环境信息...），图像等。</p>
+<div style="text-align: center">
+    <img src="images/lec17/58.png" width=40%>
+</div>
+
+<p>以 <strong>DRL</strong>（深度强化学习）（更具体来说是 <a href="https://deepmind.google/blog/alphastar-grandmaster-level-in-starcraft-ii-using-multi-agent-reinforcement-learning/">AlphaStar</a>）为例，其设计过程需包含状态、行动、奖励、NN（神经网络）设计和训练策略。</p>
+<ul>
+<li>
+<p>状态</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/59.png" width=60%>
+</div></p>
+<ul>
+<li>
+<p>地图</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/61.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>单位信息</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/62.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>行动</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/63.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>奖励</p>
+<ul>
+<li>来自游戏的直接奖励：胜利 +1，失败 -1</li>
+<li>
+<p>伪奖励输出及批评网络(critic network)</p>
+<ul>
+<li>比如智能体操作与人类数据统计 z 的距离</li>
+</ul>
+</li>
+<li>
+<p>不同的奖励设置可以帮助我们训练不同风格的智能体，比如更具侵略性或更保守</p>
+<ul>
+<li>
+<p>例子：Dota2 的 OpenAI Five</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/64.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="nn-architectrue">NN Architectrue</h3>
+<p>AlphaStar 的神经网络架构如下：</p>
+<div style="text-align: center">
+    <img src="images/lec17/65.png" width=80%>
+</div>
+
+<ul>
+<li>
+<p><strong>多层感知机</strong>(multi-layer perceptron, <strong>MLP</strong>)</p>
+<ul>
+<li>经典，且易实现</li>
+<li>输入和输出的维度可灵活定义</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/66.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>卷积神经网络</strong>(convolutional neural network, <strong>CNN</strong>)：专注于图像数据处理</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/67.png" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>Transformer</strong></p>
+<ul>
+<li>引入<strong>注意力</strong>机制</li>
+<li>不确定的向量长度</li>
+<li>可以表示像多智能体那样的复杂特征</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/68.png" width=90%>
+</div></p>
+</li>
+<li>
+<p><strong>长短期记忆</strong>(long-short term memory, <strong>LSTM</strong>)：使 AI 记住或遗忘更早的数据</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/69.png" width=80%>
+</div></p>
+</li>
+</ul>
+<p>根据特征类型的不同，NN 架构也有不同的选择。特征类型可以是：</p>
+<ul>
+<li>定长向量特征 -&gt; MLP</li>
+<li>变长向量特征 -&gt; LSTM, Transformer</li>
+<li>图像特征 -&gt; ResNet</li>
+<li>射线投射</li>
+<li>网格</li>
+</ul>
+<h3 id="training-strategies">Training Strategies</h3>
+<p>AlphaStar 同时采取以下训练策略。训练顺序是：</p>
+<ol>
+<li>
+<p><strong>监督学习</strong></p>
+<ul>
+<li>z 是从人类数据（比如建造顺序）中抽取策略的统计摘要</li>
+<li>目标：最小化智能体策略与从 z 采样到的人类决策分布之间的距离（<strong>KL 散度</strong>）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/70.png" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>强化学习</strong></p>
+<ul>
+<li>TD(λ)、V-trace、UPGO 是用于改进参与者网络和批评者网络的特定 RL 方法</li>
+<li>也会考虑先前 SL 策略的 KL 散度</li>
+<li>这些技巧改进了策略，使智能体更接近人类行为</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/71.png" width=50%>
+</div></p>
+<ul>
+<li>
+<p>自我游玩和对抗：在 AlphaStar 中，三个智能体池参加从 SL 策略初始化的训练</p>
+<p><div style="text-align: center">
+    <img src="images/lec17/72.png" width=60%>
+</div></p>
+<ul>
+<li>
+<p>主智能体 [MA]</p>
+<ul>
+<li>目标：最鲁棒和输出</li>
+<li>自我对弈（35%）</li>
+<li>与过去的 LE 和 ME 智能体对战（50%）</li>
+<li>与过去的 MA 对战（15%）</li>
+</ul>
+</li>
+<li>
+<p>联盟利用者 [LE]</p>
+<ul>
+<li>目标：找出所有过去智能体（MA、LE、ME）的弱点</li>
+<li>与所有过去的智能体（MA、LE、ME）对战</li>
+</ul>
+</li>
+<li>
+<p>主利用者 [ME]</p>
+<ul>
+<li>目标：找出当前主智能体的弱点</li>
+<li>与当前主智能体对战</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>那么究竟是选择 SL 好还是 RL 好呢？</p>
+<ul>
+<li>
+<p>SL</p>
+<ul>
+<li>监督学习需要高质量的数据，有时表现也相当好</li>
+<li>智能体行为接近人类，但可能无法超越人类专家数据</li>
+<li>人类数据不均衡，且有时数据量不足</li>
+<li>适用场景：获取数据容易，且需要表现得和人类相似</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec17/73.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>RL：虽然通常被认为是最优策略，但训练 RL 模型相当困难</p>
+<ul>
+<li>模型难以收敛</li>
+<li>训练的游戏环境也是一个巨大的开发项目</li>
+<li>数据收集过程很慢</li>
+<li>行为可能不自然</li>
+<li>如果奖励过于稀疏，也不利好 RL</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec17/74.gif" width=80%>
+</div></p>
+</details>
+<ul>
+<li>适用场景：需要有大师级的表现，足够多的预算，数据不可用，奖励稠密</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>虽然机器学习非常强大，但它的成本也很高。比如 DeepMind 搭建 AlphaStar 花费了 2.5 亿美元，而且即便是复制品也要 1300 万美元。因此我们常常需要在将 DRL 放置在人类水平（整体战斗的一部分）之间进行权衡。</p>
+<div style="text-align: center">
+    <img src="images/lec17/75.png" width=50%>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./16.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Basic Artificial Intelligence">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Basic Artificial Intelligence
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./18.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Fundamentals">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Fundamentals
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

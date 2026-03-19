@@ -1,0 +1,2663 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/14.html">
+      
+      
+        <link rel="prev" href="./13.html">
+      
+      
+        <link rel="next" href="./15.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Applications & Advanced Topic of Tool Chains - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#applications-advanced-topic-of-tool-chains" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Applications &amp; Advanced Topic of Tool Chains
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tool Chains
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundation of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications &amp; Advanced Topic of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="14.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications &amp; Advanced Topic of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#glance-of-game-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glance of Game Production
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-of-world-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture of World Editor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture of World Editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editable-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editable Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-utilities-in-world-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing Utilities in World Editor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editor-plugin-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editor Plugin Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-narrative-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing Narrative Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflection-and-gameplay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflection and Gameplay
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection and Gameplay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-reflection-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing Reflection in C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collaborative-editing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collaborative Editing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Collaborative Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#splitting-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splitting Assets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinating-editing-in-one-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinating Editing in One Scene
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#glance-of-game-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glance of Game Production
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-of-world-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture of World Editor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture of World Editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editable-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editable Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-utilities-in-world-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing Utilities in World Editor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editor-plugin-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editor Plugin Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-narrative-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing Narrative Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflection-and-gameplay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflection and Gameplay
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection and Gameplay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-reflection-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing Reflection in C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collaborative-editing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collaborative Editing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Collaborative Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#splitting-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splitting Assets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinating-editing-in-one-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinating Editing in One Scene
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./13.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Tool Chains
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/14.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/14.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="applications-advanced-topic-of-tool-chains">Applications &amp; Advanced Topic of Tool Chains</h1>
+<h2 id="glance-of-game-production">Glance of Game Production</h2>
+<details class="example">
+<summary>育碧的游戏制作过程</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/1.gif" width=70%>
+</div></p>
+</details>
+<p>游戏引擎工具链的一大挑战是需要适应不同题材(genres)（比如 RPG, FPS 等）游戏的制作，因为制作不同类型游戏所需的编辑操作、游戏玩法等等会是截然不同的。</p>
+<div style="text-align: center">
+    <img src="images/lec14/2.png" width=70%>
+</div>
+
+<p>另外一些挑战在前一讲中介绍过，包括：</p>
+<ul>
+<li>来自 DCC 和引擎工具的大量不同的数据</li>
+<li>艺术家、设计师和程序员的思维方式不同</li>
+<li>对于高质量制作而言，WYSIWYG 是不可或缺的</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec14/3.png" width=70%>
+</div>
+
+<h2 id="architecture-of-world-editor">Architecture of World Editor</h2>
+<p>下面将详细讲解工具链中一个重要的工具——<strong>世界编辑器</strong>(world editor)。它的界面通常长这样（下图是旧版 UE 的关卡编辑器）：</p>
+<div style="text-align: center">
+    <img src="images/lec14/4.png" width=70%>
+</div>
+
+<h3 id="viewport">Viewport</h3>
+<p>其中一个重要部件是编辑器<strong>视口</strong>(viewport)。</p>
+<div style="text-align: center">
+    <img src="images/lec14/5.png" width=50%>
+</div>
+
+<ul>
+<li>它是设计师和游戏世界交互的主要窗口</li>
+<li>由完整的游戏引擎在特殊的编辑器模式下驱动</li>
+<li>提供多种用于编辑的特殊<strong>小工具</strong>(gadgets)和<strong>可视化工具</strong>(visualizers)</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>编辑专用的代码必须从发布版游戏代码中移除！（这些代码极有可能成为编写外挂代码的入口）</p>
+</div>
+<h3 id="editable-objects">Editable Objects</h3>
+<p>正如头几讲说明的，<strong>游戏中的所有对象都是可编辑的</strong>。因此编辑器世界中所有对象的编辑要求大致相同，例如移动、调整参数等。</p>
+<div style="text-align: center">
+    <img src="images/lec14/6.png" width=70%>
+</div>
+
+<p>编辑器应当能显示场景中所有对象的信息。但对于一个大型游戏而言，场景中可能有成千上万的对象，因此<strong>以不同视图组织对象</strong>这件事就很重要，会为开发带来更多便利，比如提供树状视图、目录和分组等等。</p>
+<div style="text-align: center">
+    <img src="images/lec14/7.png" width=70%>
+</div>
+
+<p>有了视图列表后，接下来很自然地我们希望能看到有关选中对象的详细信息。编辑器通常会提供<strong>模式驱动的对象属性编辑</strong>功能（回顾上一讲介绍的<a href="13.html#schemas">模式</a>）。</p>
+<div style="text-align: center">
+    <img src="images/lec14/8.png" width=50%>
+</div>
+
+<p>除模式外，我们也可以为不同类型自定义编辑工具。</p>
+<h3 id="content-browser">Content Browser</h3>
+<p>编辑器中另一个重要部件是<strong>内容浏览器</strong>(content browser)。</p>
+<ul>
+<li>提供所有资产的直观缩略图(thumbnails)</li>
+<li>可以在不同项目间共享资产</li>
+<li>其作用从静态文件文件夹演变为对内容海洋(ocean)的资产管理</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec14/9.png" width=70%>
+</div>
+
+<h3 id="editing-utilities-in-world-editor">Editing Utilities in World Editor</h3>
+<p>除了上述内容外，世界编辑器还提供了各种编辑小工具，包括：</p>
+<div style="text-align: center">
+    <img src="images/lec14/10.png" width=80%>
+</div>
+
+<ul>
+<li>
+<p>鼠标选取</p>
+<ul>
+<li>
+<p><strong>光线投射</strong>(ray casting)</p>
+<ul>
+<li>优点：<ul>
+<li>无需缓存</li>
+<li>可支持在选定光线上的多个对象</li>
+</ul>
+</li>
+<li>缺点：查询效率低</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/11.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>RTT</strong></p>
+<ul>
+<li>优点：<ul>
+<li>易于实现范围查询</li>
+<li>查询效率高</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>需要绘制额外的图</li>
+<li>无法选中被遮挡的物体</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/12.png" width=40%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>对象<strong>变换</strong>(transform)编辑（包括平移、旋转、缩放操作）</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/13.gif" width=70%>
+</div></p>
+</details>
+</li>
+</ul>
+<details class="note" open="open">
+<summary><strong>地形</strong>(terrain)</summary>
+<ul>
+<li>地形(landform)：<strong>高度图</strong></li>
+<li>外观：<strong>纹理图</strong></li>
+<li>植被(vegetation)<ul>
+<li>树木实例</li>
+<li><strong>装饰物分布图</strong>(decorator distribution map)</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/16.png" width=70%>
+</div></p>
+</details>
+<ul>
+<li>
+<p><strong>高度刷</strong>(height brush)</p>
+<ul>
+<li>绘制高度图以调整地形网格</li>
+<li>高度改变需要自然平滑</li>
+<li>可轻松调整至所需结果（支持自定义笔刷，扩展性）</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/14.gif" width=50%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>实例刷</strong>(instance brush)</p>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>实例位置是固定的</li>
+<li>可进一步修改</li>
+</ul>
+</li>
+<li>
+<p>缺点：大量数据</p>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/15.gif" width=50%>
+</div></p>
+</details>
+</li>
+</ul>
+<details class="note" open="open">
+<summary><strong>环境</strong>(environment)</summary>
+<p>环境包括：</p>
+<ul>
+<li>天空</li>
+<li>光照</li>
+<li>道路</li>
+<li>河流</li>
+<li>...</li>
+</ul>
+<p>从上到下，环境为玩家呈现了一个生动的世界，因此编辑这些环境元素也很重要。</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/17.png" width=70%>
+</div></p>
+</details>
+<ul>
+<li>
+<p><strong>规则系统</strong>(rule system)：编辑环境时需遵循各种现实规则</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">例1</label><label for="__tabbed_1_2">例2</label><label for="__tabbed_1_3">例3</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>道路系统相关的一些规则：</p>
+<ul>
+<li>道路上没有树和装饰物</li>
+<li>道路应和地形匹配</li>
+<li>石头通常位于道路两侧</li>
+<li>...</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec14/18.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec14/19.gif" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<ul>
+<li>规则系统需应对数据变化</li>
+<li>与环境系统解耦合</li>
+</ul>
+</li>
+</ul>
+<h2 id="editor-plugin-architecture">Editor Plugin Architecture</h2>
+<details class="example">
+<summary>商业软件的插件模块</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/20.png" width=80%>
+</div></p>
+</details>
+<p>下图是一个关于系统和对象之间的交叉矩阵。实际上任何系统和对象类型都可作为编辑器的插件。</p>
+<div style="text-align: center">
+    <img src="images/lec14/21.png" width=80%>
+</div>
+
+<p>下面列举一些常见的多插件组织形式：</p>
+<ul>
+<li>
+<p><strong>覆盖式</strong>(covered)</p>
+<ul>
+<li>仅执行新注册的逻辑，跳过原来的逻辑</li>
+<li>例子：地形编辑覆写</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/22.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>分布式</strong>(distributed)</p>
+<ul>
+<li>每个插件都会被执行，如果有输出，那么将合并最终结果</li>
+<li>例子：大多数单独编辑的特殊系统</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/23.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>流水线</strong>(pipeline)</p>
+<ul>
+<li>输入和输出相互连接，一般输入和输出是相同的数据类型</li>
+<li>例子：资产预处理、物理几何</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/24.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>洋葱圈</strong>(onion ring)</p>
+<ul>
+<li>基于流水线，但系统的核心逻辑位于中间，插件同时关注进出逻辑</li>
+<li>例子：带有地形插件的道路编辑插件</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/25.png" width=60%>
+</div></p>
+</li>
+</ul>
+<p>这些形式在游戏引擎中都有可能被用到，所以不要一上来就假设按照哪个方式走。</p>
+<p>最后还得考虑<strong>版本控制</strong>(version control)问题：插件与主应用程序（游戏引擎）之间需要有特定的版本关系，以确保它们能够正常协同工作。可采取以下两种方式之一：</p>
+<ul>
+<li>插件使用与主应用程序相同的版本号</li>
+<li>【推荐】插件使用插件接口的版本号（因为插件接口和软件的更新频率可能不同）</li>
+</ul>
+<h2 id="designing-narrative-tools">Designing Narrative Tools</h2>
+<p>游戏中的<strong>叙事</strong>(storytelling)需控制时间轴上多个参数的变化。</p>
+<div style="text-align: center">
+    <img src="images/lec14/26.png" width=70%>
+</div>
+
+<p>在 UE 中，这一任务由一个叫做<strong>序列器</strong>(sequencer)的工具完成。它的组件有：</p>
+<ul>
+<li><strong>轨道</strong>(track)：用于引用序列中的参与者；任何角色、道具、相机、效果或其他参与者都可以在序列器中被引用和操作</li>
+<li><strong>属性轨道</strong>(property track)：轨道中引用参与者的属性</li>
+<li><strong>时间线</strong>(timeline)：描述离散帧中的时间的线</li>
+<li><strong>关键帧</strong>(key frame)：可用于操控属性；当达到时间线上的关键帧时，轨道的属性会更新为在该点定义的值</li>
+<li><strong>序列</strong>(sequence)：序列器的数据</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec14/27.png" width=80%>
+</div>
+
+<p>下面通过一个例子展示序列器的基本操作：</p>
+<ul>
+<li>
+<p>将对象绑定到轨道上（使得序列器能控制小鸡）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/28.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>将对象属性绑定到属性轨道上（控制小鸡的移动位置）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/29.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>设置关键帧</p>
+<ul>
+<li>
+<p>单个（使小鸡到达指定位置）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/30.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>多个（使小鸡按 A -&gt; B -&gt; C -&gt; D 的顺序行进）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/31.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>沿着关键帧插值属性（类似做动画）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/32.gif" width=80%>
+</div></p>
+</li>
+</ul>
+<h2 id="reflection-and-gameplay">Reflection and Gameplay</h2>
+<p><strong>反射</strong>(reflection)机制是游戏引擎中的一个重要功能。它也是序列器的实现基础，比如将数据绑定到轨道的操作就是基于反射系统实现的。</p>
+<div style="text-align: center">
+    <img src="images/lec14/33.png" width=80%>
+</div>
+
+<p>再来看游戏玩法。一款成熟游戏的游戏玩法是相当复杂的。在游戏引擎中一般是通过<strong>视觉脚本系统</strong>(visual scripting system)来编写游戏玩法的，比如 UE 的蓝图功能。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/34.png" width=80%>
+</div></p>
+</details>
+<p>视觉脚本系统的一个局限是可扩展性差。试想一下，假如原本角色只有「跳」这一个动作，但现在又新增一个「停止跳跃」的动作，那么工具层就得包含调用这一新动作的代码。而且也许未来还会引入更多的动作，到时候代码结构就会愈加复杂，难以管理。</p>
+<div class="grid">
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Human</span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Jump</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="hll"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">StopJump</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// do something ...</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CallFunction</span><span class="p">(</span><span class="n">Object</span><span class="o">*</span><span class="w"> </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">type_name</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">func_name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">type_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;Human&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Human</span><span class="o">*</span><span class="w"> </span><span class="n">human</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Human</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">func_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;Jump&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">human</span><span class="o">-&gt;</span><span class="n">Jump</span><span class="p">();</span>
+<span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">func_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;StopJump&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">human</span><span class="o">-&gt;</span><span class="n">StopJump</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>常用的解决方案还是采用反射机制。实际在 CS 领域中，<strong>反射</strong>是指一个进程检查、内省和修改自身结构和行为的能力。</p>
+<details class="info">
+<summary>Java 自带的反射</summary>
+<div class="highlight"><span class="filename">Test.java</span><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">Demo</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Test</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m_filed</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;call print().&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">Demo.java</span><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">Demo</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Field</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Demo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">cls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&quot;Demo.Test&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getConstructor</span><span class="p">().</span><span class="na">newInstance</span><span class="p">();</span>
+<span class="w">        </span><span class="n">Field</span><span class="w"> </span><span class="n">filed_accessor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getField</span><span class="p">(</span><span class="s">&quot;m_filed&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">filed_accessor</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">method_accessor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&quot;print&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">method_accessor</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>对于上面的例子，通过反射建立起代码和工具层之间的桥梁，生成有关代码的<strong>元信息映射</strong>(meta information map)。具体来说是通过 <code>class_name</code>, <code>func_name</code> 和 <code>para_name</code> 来生成<strong>访问器</strong>(accessor)和<strong>调用器</strong>(invoker)。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CallFunction</span><span class="p">(</span><span class="n">Object</span><span class="o">*</span><span class="w"> </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">type_name</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">func_name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">FunctionPtr</span><span class="w"> </span><span class="n">function_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FunctionInfoMap</span><span class="o">::</span><span class="n">getInvokeFunction</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">type_name</span><span class="p">,</span><span class="w"> </span><span class="n">func_name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">function_ptr</span><span class="o">-&gt;</span><span class="n">invoke</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="implementing-reflection-in-c">Implementing Reflection in C++</h3>
+<p>C++ 中实现反射的做法：</p>
+<ul>
+<li>
+<p>从代码中收集类型信息</p>
+<ul>
+<li>
+<p>下图展示了通用编程语言（GPL）的编译过程</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/35.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>我们关注其中的中间产物 <strong>AST</strong>（抽象语法树(abstract syntax tree)），它以树的形式表示编程语言的语法结构，树中的每个节点代表源代码中的一个构造</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/36.png" width=90%>
+</div></p>
+</li>
+<li>
+<p>GAMES104 的 Piccolo 引擎之所以采用 <strong>Clang</strong>，是因为 Clang 的主要目标之一是提供基于库的架构，以便编译器能够与其他与源代码交互的工具进行互操作</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/37.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>从 AST 中得到<strong>模式</strong>(schema)</p>
+<ul>
+<li>从 AST 中解析得到类型名、字段名、字段类型等等</li>
+<li>在内存中构建临时的数据模式</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/38.png" width=90%>
+</div></p>
+</li>
+<li>
+<p>为实现对反射范围的精确控制，在实际中，我们需要用大量的<strong>标签</strong>(tag)信息来识别类型的意图</p>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="n">CLASS</span><span class="p">(</span><span class="n">Transform</span><span class="p">,</span><span class="w"> </span><span class="n">Fields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w">     </span><span class="n">m_position</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">Vector3</span><span class="o">::</span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w">     </span><span class="n">m_scale</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="n">Vector3</span><span class="o">::</span><span class="n">UNIT_SCALE</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">Quaternion</span><span class="w">  </span><span class="n">m_rotation</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">Quaternion</span><span class="o">::</span><span class="n">IDENTITY</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="n">CLASS</span><span class="p">(</span><span class="n">CameraComponent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Component</span><span class="p">,</span><span class="w"> </span><span class="n">WhiteListFields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">CameraComponent</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="hll"><span class="w">    </span><span class="n">META</span><span class="p">(</span><span class="n">Enable</span><span class="p">)</span>
+</span><span class="w">    </span><span class="n">CameraComponentRes</span><span class="w"> </span><span class="n">m_camera_res</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">CameraMode</span><span class="w"> </span><span class="n">m_camera_mode</span><span class="w"> </span><span class="p">{</span><span class="n">CameraMode</span><span class="o">::</span><span class="n">invalid</span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">m_foward</span><span class="w"> </span><span class="p">{</span><span class="n">Vector3</span><span class="o">::</span><span class="n">NEGATIVE_UNIT_Y</span><span class="p">};</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">m_up</span><span class="w"> </span><span class="p">{</span><span class="n">Vector3</span><span class="o">::</span><span class="n">UNIT_Z</span><span class="p">};</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">m_left</span><span class="w"> </span><span class="p">{</span><span class="n">Vector3</span><span class="o">::</span><span class="n">UNIT_X</span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li>第一段代码中的 <code>Fields</code> 表示允许所有字段被反射出来</li>
+<li>第二段代码中的 <code>WhiteListFields</code> 表示只有用 <code>META(Enable)</code> 描述的字段才能被反射出来</li>
+</ul>
+</li>
+<li>
+<p>具体来说，反射控制是通过<strong>宏</strong>(macros) <code>__attribute__</code> 来实现的</p>
+<ul>
+<li><code>__attribute__</code> 是由 Clang 提供的源代码注解，在代码中可以使用这些宏来捕获所需的数据类型</li>
+<li>下面定义一个名为 <code>CLASS</code> 的宏来区别预编译和编译<ul>
+<li>预编译时，在 <code>meta_parser</code> 中定义 <code>_REFOECTION_PARSER_</code> 宏以使属性信息生效</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/39.png" width=90%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>生成提供字段和方法的访问器的代码：利用<strong>模式</strong>生成</p>
+<ul>
+<li><strong>类</strong>：生成类型信息 getters</li>
+<li><strong>字段</strong>：生成访问字段的 getters 和 setters</li>
+<li><strong>函数</strong>：生成调用函数的调用者(invokers)</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec14/40.png" width=90%>
+</div></p>
+</li>
+<li>
+<p>使用 &lt;字符串，访问器&gt; 映射来管理所有的访问器</p>
+</li>
+</ul>
+<h3 id="code-rendering">Code Rendering</h3>
+<p>一个游戏引擎中需要反射的类会有几十个，如果还要手动写 getters, setters，那将是一件十分繁琐的事，并且不够自动化。为此引入了<strong>代码渲染</strong>(code rendering)机制。它是收集数据（如有）和加载相关模板（或直接发送输出）的过程。然后将收集到的数据应用于相关模板中，最终将输出发送给用户。这样做的好处是实现代码和数据的分离。</p>
+<details class="info" open="open">
+<summary>Web 端中成熟的代码渲染机制</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/41.png" width=80%>
+</div></p>
+</details>
+<p>Web 端中一个流行的模板系统便是 <strong>Mustache</strong>。之所以如此命名，是因为它大量使用了大括号 <code>{{ }}</code>，看起来像两侧的胡须。</p>
+<div style="text-align: center">
+    <img src="images/lec14/42.png" width=70%>
+</div>
+
+<p>Piccolo 游戏引擎便借助 Mustache 渲染生成代码。</p>
+<div style="text-align: center">
+    <img src="images/lec14/43.png" width=90%>
+</div>
+
+<h2 id="collaborative-editing">Collaborative Editing</h2>
+<div class="admonition warning">
+<p class="admonition-title">开发大型项目会遇到的瓶颈</p>
+<ul>
+<li>大量人围着大量数据工作</li>
+<li>资产版本管理相当困难</li>
+</ul>
+<p>其中<strong>合并冲突</strong>(merging conflicts)是最大的问题。如果不加处理，每个人在更新或上传资产时需要在合并冲突上花费很多时间。</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/44.png" width=70%>
+</div></p>
+</div>
+<p>减少冲突的方法有：</p>
+<ul>
+<li>将资产划分为更小的部分，以减少冲突发生的可能</li>
+<li>所有人在相同场景下工作，以完全消除冲突</li>
+</ul>
+<h3 id="splitting-assets">Splitting Assets</h3>
+<p>划分资产的几种方式：</p>
+<ul>
+<li>
+<p>将世界<strong>分层</strong>(layering)，每一层存储在一个资产文件中，不同人处理不同层级</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/45.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>适当的分层能减少编辑冲突</li>
+<li>基于分层的逻辑可行</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>分层逻辑可能依赖于其他层</li>
+<li>在世界非常复杂时，很难合理地划分层次</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>划分</strong>世界：将世界划分为固定大小的块，每个块保存在单独的资产文件中；不同人在不同块上工作</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/46.png" width=40%>
+</div></p>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>基于位置的划分有利于动态扩张世界</li>
+<li>空间划分更加直观</li>
+</ul>
+</li>
+<li>
+<p>缺点：难以处理横跨多个块的对象</p>
+</li>
+</ul>
+</li>
+<li>
+<p>每个参与者一个文件(one file per actor, <strong>OFPA</strong>)（UE5 提出）</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/47.png" width=80%>
+</div></p>
+<ul>
+<li>通过在外部文件中保存参与者实例的数据，减少开发者工作之间的重叠，因此修改参与者时无需保存主关卡文件</li>
+<li>所有参与者在编译时都嵌入到各自的关卡文件中</li>
+<li>
+<p>优点：</p>
+<ul>
+<li>细粒度的场景划分，更少的编辑冲突</li>
+<li>仅需保存被修改的对象</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>需管理大量文件，为版本控制带来更大负担</li>
+<li>在将多个 OFPA 文件嵌入到关卡文件时，烘培速度会变慢</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="coordinating-editing-in-one-scene">Coordinating Editing in One Scene</h3>
+<p>第二类解决冲突的方法是协同编辑，即连接多个世界编辑器实例，以在共享编辑会话(sessions)中协作，与团队成员实时共同搭建虚拟世界。</p>
+<div style="text-align: center">
+    <img src="images/lec14/48.png" width=80%>
+</div>
+
+<p>借助<a href="13.html#robust-tools"><strong>命令系统</strong></a>，从而将自己的操作和其他成员进行同步。</p>
+<div style="text-align: center">
+    <img src="images/lec14/49.png" width=50%>
+</div>
+
+<ul>
+<li>序列化命令，并将其发送给服务器</li>
+<li>接收来自服务器的命令，并将其反序列化</li>
+<li>调用命令</li>
+</ul>
+<p>但实际上协同编辑的实现是很有挑战的，比如如何确保撤销/重做、合并等操作的一致性。其中一个简单做法是上<strong>锁</strong>，确保多位用户无法同时对相同实例或资产进行编辑。</p>
+<ul>
+<li>
+<p>实例锁</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/50.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>资产锁</p>
+<p><div style="text-align: center">
+    <img src="images/lec14/51.png" width=60%>
+</div></p>
+</li>
+</ul>
+<p>但锁无法处理更复杂的情况。比如有三个人在同一场景下工作，某人的撤销或重做操作可能会破坏其他成员的当前操作。</p>
+<div style="text-align: center">
+    <img src="images/lec14/52.png" width=70%>
+</div>
+
+<p>要想彻底解决上述问题，可采取以下方法之一：</p>
+<ul>
+<li><strong>操作变换</strong>(operation transform, OT)：将操作抽象为一个由可枚举的 N 种原子操作类型组成的操作序列</li>
+<li><strong>无冲突复制数据类型</strong>(conflict-free replicated data type, CRDT)：一种在网络中跨多个计算机复制的数据结构，具有以下特征：<ul>
+<li>应用程序可以独立、同时更新任何副本，无需与其他副本协调</li>
+<li>一个算法（本身是数据类型的一部分）自动解决可能出现的任何不一致</li>
+<li>尽管副本在任何特定时间点可能处于不同的状态，但它们最终会收敛</li>
+</ul>
+</li>
+</ul>
+<p>另外不难发现，<strong>服务器</strong>(server)在其中扮演着很重要的角色。它需做到：</p>
+<ul>
+<li>保留每个会话，直到创建该会话的用户明确删除它或服务器关闭</li>
+<li>将会话记录保存到磁盘中</li>
+</ul>
+<details class="abstract" open="open">
+<summary>传统工作流 vs 协作工作流</summary>
+<p><div style="text-align: center">
+    <img src="images/lec14/53.png" width=80%>
+</div></p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./13.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Foundation of Tool Chains">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Foundation of Tool Chains
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./15.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Gameplay Complexity and Building Blocks">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Gameplay Complexity and Building Blocks
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

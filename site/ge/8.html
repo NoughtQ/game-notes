@@ -1,0 +1,3361 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/8.html">
+      
+      
+        <link rel="prev" href="./7.html">
+      
+      
+        <link rel="next" href="./9.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Basics of Animation Technology - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#basics-of-animation-technology" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Basics of Animation Technology
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Animation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basics of Animation Technology
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="8.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basics of Animation Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Animation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2D Animation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprite-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sprite Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#live-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Live 2D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3d-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Animation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D Animation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#degrees-of-freedom-dof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degrees of Freedom (DoF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigid-hierarchical-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigid Hierarchical Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-vertex-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-vertex Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-target-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Morph Target Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-skinned-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Skinned Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-skinned-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Skinned Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physics-based-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physics-based Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animation-content-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation Content Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skinned-animation-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skinned Animation Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skinned Animation Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#math-of-3d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Math of 3D Rotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Math of 3D Rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#euler-angles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euler Angles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quaternion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quaternion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joint-poses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joint Poses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Joint Poses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-joint-skinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Joint Skinning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-skinning-with-multi-joints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted Skinning with Multi-joints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animation-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation Compression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Animation Compression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dof-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DoF Reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyframe-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyframe Extraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catmull-rom-spline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catmull-Rom Spline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#float-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Float Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quaternion-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quaternion Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-compensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Compensation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animation-dcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation DCC
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Animation Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./13.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Animation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2D Animation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprite-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sprite Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#live-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Live 2D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3d-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Animation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D Animation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#degrees-of-freedom-dof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degrees of Freedom (DoF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigid-hierarchical-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigid Hierarchical Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-vertex-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-vertex Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-target-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Morph Target Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-skinned-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3D Skinned Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-skinned-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D Skinned Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physics-based-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physics-based Animation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animation-content-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation Content Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skinned-animation-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skinned Animation Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skinned Animation Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#math-of-3d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Math of 3D Rotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Math of 3D Rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#euler-angles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euler Angles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quaternion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quaternion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joint-poses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joint Poses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Joint Poses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-joint-skinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Joint Skinning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-skinning-with-multi-joints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted Skinning with Multi-joints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animation-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation Compression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Animation Compression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dof-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DoF Reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyframe-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyframe Extraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catmull-rom-spline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catmull-Rom Spline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#float-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Float Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quaternion-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quaternion Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-compensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Compensation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animation-dcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animation DCC
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="8.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Animation
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/8.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/8.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="basics-of-animation-technology">Basics of Animation Technology</h1>
+<details class="info">
+<summary>背景知识</summary>
+<p>人类从很早开始就尝试表达运动中的物体，这一点从远古时代的壁画和陶器中可见一斑：</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/1.png" width=70%>
+</div></p>
+<p>后来，人们发现了视觉残留现象。这是所有显示设备的实现基础。</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/2.gif" width=70%>
+</div></p>
+<p>在电影还没发明出来的年代，人们就通过一些小玩意实现了动画的效果。</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/3.gif" width=70%>
+</div></p>
+<p>电影中的动画技术：</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/4.gif" width=70%>
+</div></p>
+<p>动画制作技术的演进：</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/6.gif" width=80%>
+</div></p>
+<p>游戏中的动画技术：</p>
+<ul>
+<li>
+<p>2D 游戏</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/7.gif" width=80%>
+</div></p>
+<ul>
+<li>中间游戏的人物是制作人根据他弟弟的动作拍摄的照片绘制的（<del>古法动捕</del>）</li>
+<li>Doom 实际上是用 2D 图像制作的，却能达到 3D 的效果</li>
+</ul>
+</li>
+<li>
+<p>3D 游戏</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/8.gif" width=80%>
+</div></p>
+</li>
+</ul>
+</details>
+<div class="admonition warning">
+<p class="admonition-title">游戏动画中会遇到的挑战</p>
+<ul>
+<li>
+<p><strong>交互</strong>(interactive)和<strong>动态</strong>(dynamic)的动画</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/9.png" width=70%>
+</div></p>
+<ul>
+<li>动画要随玩家的交互发生变化</li>
+<li>配合游戏玩法系统</li>
+<li>在复杂环境下要做出适当的调整</li>
+</ul>
+</li>
+<li>
+<p><strong>实时性</strong>(real-time)</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/10.png" width=70%>
+</div></p>
+<ul>
+<li>每一帧内（&lt; 1/30s）都要做好动画的计算</li>
+<li>大量的动画数据（占据磁盘和内存）</li>
+</ul>
+</li>
+<li>
+<p><strong>真实感</strong>(realism)</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/11.gif" width=80%>
+</div></p>
+<ul>
+<li>更生动的表情</li>
+<li>更真实的体验</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="2d-animation">2D Animation</h2>
+<h3 id="sprite-animation">Sprite Animation</h3>
+<p><strong>精灵动画</strong>(sprite animation)相当于电子游戏中的逐帧动画。</p>
+<div style="text-align: center">
+    <img src="images/lec8/12.gif" width=80%>
+</div>
+
+<ul>
+<li><strong>精灵</strong>(sprite)：一种小型位图(bitmap)，可以叠加在背景图像上，并且不会干扰背景图像</li>
+<li>可以将帧序列设计得很流畅，即便无限重复也能保持丝滑的动画</li>
+</ul>
+<blockquote>
+<p>让我想到了小学玩的 Scratch...</p>
+</blockquote>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">用于伪 3D 动画</label><label for="__tabbed_1_2">现代游戏</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec8/13.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>
+<p>2D 角色</p>
+<ul>
+<li>用于 2D 背景图像上</li>
+<li>用于 3D 渲染环境中</li>
+</ul>
+</li>
+<li>
+<p>游戏效果：作为粒子效果的精灵贴图纹理</p>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/14.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h3 id="live-2d">Live 2D</h3>
+<p><a href="https://www.live2d.com/zh-CHS/">Live 2D</a>是一种不用 3D 模型生成 2D 动画的技术。</p>
+<div style="text-align: center">
+    <img src="images/lec8/18.png" width=80%>
+</div>
+
+<blockquote>
+<p>折纸大湿！</p>
+</blockquote>
+<ul>
+<li>通常指的是采用 Live2D Ltd. 创建的技术的同名软件系列</li>
+<li>常用于开发二次元风格的动态角色</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/19.png" width=80%>
+</div>
+
+<ul>
+<li>通过对图像的不同部分和层应用平移、旋转和变换实现动画效果</li>
+<li>结合实时动作捕捉技术，因此被广泛用于虚拟主播（比如 <a href="https://en.wikipedia.org/wiki/VTuber?useskin=vector">vtuber</a>）中</li>
+<li>
+<p>制作 2D 动画的具体流程：</p>
+<ol>
+<li>
+<p>准备资源</p>
+<ul>
+<li>将原始角色图像划分为不同部位</li>
+<li>设置每个部位的绘制顺序，供后续使用</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/15.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>通过使用各部位的控制点变换图像</p>
+<ul>
+<li>为每个部分自动生成 <strong>ArtMesh</strong>，它由顶点、边和多边形组成</li>
+<li>控制点可用于辅助 ArtMesh 的变换</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/16.png" width=80%>
+</div> </p>
+</li>
+<li>
+<p>设置图像的关键帧(keyframe)：以辅助动画插值</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/17.png" width=80%>
+</div> </p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="3d-animation">3D Animation</h2>
+<h3 id="degrees-of-freedom-dof">Degrees of Freedom (DoF)</h3>
+<p><strong>自由度</strong>(degrees of freedom, <strong>DoF</strong>)是指系统中独立变量或参数的个数。</p>
+<p>其中刚体的自由度为 6（xyz 平移 + 3 种旋转）。</p>
+<div style="text-align: center">
+    <img src="images/lec8/20.png" width=20%>
+    <img src="images/lec8/21.png" width=60%>
+</div>
+
+<h3 id="rigid-hierarchical-animation">Rigid Hierarchical Animation</h3>
+<p><strong>刚体层级动画</strong>(rigid hierarchical animation)是最早的 3D 角色动画方法。其中角色被建模为一组刚性的部件，它们以层级关系相互约束。</p>
+<div style="text-align: center">
+    <img src="images/lec8/22.png" width=70%>
+</div>
+
+<p>该方法的问题是刚体部件之间会穿模。</p>
+<h3 id="per-vertex-animation">Per-vertex Animation</h3>
+<p><strong>逐顶点动画</strong>(per-vertex animation)是最灵活的方法（每个顶点 3 个自由度）。它主要通过<strong>顶点动画纹理</strong>(vertex animation texture, VAT)实现，适合复杂的变形，比如布料和流体的运动。</p>
+<div style="text-align: center">
+    <img src="images/lec8/23.png" width=70%>
+</div>
+
+<p>缺点是需要大量的数据。</p>
+<h3 id="morph-target-animation">Morph Target Animation</h3>
+<p><strong>形态目标动画</strong>(morph target animation)是前一种方法的变体。它利用带有线性插值（LERP）的关键帧而非序列帧（比如 30  fps），因此更适合用于面部表情。</p>
+<div style="text-align: center">
+    <img src="images/lec8/24.png" width=70%>
+</div>
+
+<h3 id="3d-skinned-animation">3D Skinned Animation</h3>
+<p><strong>3D 蒙皮动画</strong>(skinned animation)将网格（或皮肤）绑定到骨骼的关节上，其中每个顶点通过多个关节加权计算得到。</p>
+<div style="text-align: center">
+    <img src="images/lec8/25.png" width=70%>
+</div>
+
+<details class="recommend" open="open">
+<summary>优点</summary>
+<ul>
+<li>所需数据少于逐顶点动画</li>
+<li>网格的动画很自然（就像人的皮肤一样），不会遇到刚体动画中部位之间穿模的情况</li>
+</ul>
+</details>
+<h3 id="2d-skinned-animation">2D Skinned Animation</h3>
+<p><strong>2D 蒙皮动画</strong>源自 3D 蒙皮动画：</p>
+<ul>
+<li>将角色分解为各个身体部位</li>
+<li>为身体部件创建网格，并将它们拼接在一起</li>
+<li>绑定(rigging)、蒙皮(skinning)和动画</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/26.png" width=70%>
+</div>
+
+<h3 id="physics-based-animation">Physics-based Animation</h3>
+<p>基于物理的动画技术有：</p>
+<ul>
+<li><strong>布娃娃</strong>(ragdoll)</li>
+<li><strong>布料</strong>和<strong>流体</strong>模拟</li>
+<li><strong>反向运动学</strong>(inverse kinematics, IK)</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/27.png" width=80%>
+</div>
+
+<h3 id="animation-content-creation">Animation Content Creation</h3>
+<ul>
+<li>数字内容创作者 + 动画师(animator)</li>
+<li><strong>动作捕捉</strong>(motion capture)</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/28.png" width=80%>
+</div>
+
+<h2 id="skinned-animation-implementation">Skinned Animation Implementation</h2>
+<p>为网格添加动画的流程（看起来容易，但实现起来并不简单）：</p>
+<ol>
+<li>为绑定姿态创建网格</li>
+<li>为网格创建绑定骨架(skeleton)</li>
+<li>将每个顶点的蒙皮权重(skinned weights)“绘制(paint)”到相关骨架上</li>
+<li>将骨架调整至所需的姿态</li>
+<li>根据骨架和蒙皮权重对蒙皮顶点添加动画</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec8/29.png" width=70%>
+</div>
+
+<p>我们通常将空间划分为以下几类：</p>
+<ul>
+<li><strong>世界空间</strong>(world space)</li>
+<li><strong>模型空间</strong>(model space)</li>
+<li><strong>局部空间</strong>(local space)：针对每个骨骼而言</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/30.png" width=50%>
+</div>
+
+<p>生物体的骨架是一种由称为<strong>关节</strong>(joints)的刚性部件组成的层次结构。</p>
+<ul>
+<li>其中一个关节被选为<strong>根关节</strong></li>
+<li>除根关节外，每个关节都有一个<strong>父关节</strong></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/31.png" width=80%>
+</div>
+
+<p>定义标准骨骼的原因：便于动画资源的复用。</p>
+<details class="abstract" open="open">
+<summary>概念区分：关节 vs 骨骼</summary>
+<ul>
+<li><strong>关节</strong>(joint)是动画师直接可以操控的，用来控制运动的对象</li>
+<li><strong>骨骼</strong>(bone)是关节之间的部位</li>
+</ul>
+<blockquote>
+<p>所以平时我们所说的「骨骼」可能更多地指代的是「关节」。</p>
+</blockquote>
+<p><div style="text-align: center">
+    <img src="images/lec8/32.png" width=50%>
+</div></p>
+</details>
+<p>在现实游戏的人体(humaniod)骨架中，关节数量大致为：</p>
+<ul>
+<li>正常情况：50～100 个</li>
+<li>有些游戏还会设计<strong>面部</strong>关节和<strong>游戏玩法</strong>关节，因此有超过 300 个关节的情况</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/33.png" width=50%>
+</div>
+
+<p>用于游戏玩法的关节是一种额外的关节，包括武器关节(weapon joint)和挂载关节(mount joint)等。</p>
+<div style="text-align: center">
+    <img src="images/lec8/34.png" width=80%>
+</div>
+
+<p>骨架的起点是<strong>根关节</strong>，一般位于两脚中间，与地面接触，这对于计算跳跃高度之类的任务就很方便。而<strong>骨盆关节</strong>(pelvis joint)是根关节的第一个子关节，它正好将人体分为上下两部分。</p>
+<div style="text-align: center">
+    <img src="images/lec8/35.png" width=70%>
+</div>
+
+<p>像马这样的四足动物，其根关节和骨盆关节的位置也是类似的：</p>
+<div style="text-align: center">
+    <img src="images/lec8/36.png" width=60%>
+</div>
+
+<p>将两个模型骨架的<strong>绑定点</strong>(bind points)连接(attach)起来，就能实现两者的绑定动画。比如对于人骑马的动画，将人和马的绑定点连接起来后，两者的坐标系完全对齐，包括朝向，就好像插槽之间正好卡住。</p>
+<div style="text-align: center">
+    <img src="images/lec8/37.png" width=70%>
+</div>
+
+<p><strong>绑定姿态</strong>(bind poses)是指 3D 网格在绑定到骨骼之前的姿态</p>
+<ul>
+<li>保持四肢远离身体和彼此，便于将顶点绑定到关节</li>
+<li>通常接近自然姿态</li>
+<li>
+<p>分类：<strong>T-姿态</strong>和 <strong>A-姿态</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec8/38.png" width=60%>
+</div></p>
+<ul>
+<li>T-姿态的问题是肩膀处精度不够</li>
+<li>A-姿态中的肩膀更加放松，但更容易变形</li>
+</ul>
+</li>
+</ul>
+<p>而<strong>骨架姿态</strong>(skeleton poses)是指通过变换绑定姿态中的关节来摆设骨架姿态。关节姿态有 <strong>9 DoFs</strong>：</p>
+<ul>
+<li><strong>朝向</strong>(orientation)（3 DoFs）</li>
+<li><strong>位置</strong>(position)（3 DoFs）</li>
+<li><strong>缩放</strong>(scale)（3 DoFs）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/39.png" width=70%>
+</div>
+
+<h3 id="math-of-3d-rotation">Math of 3D Rotation</h3>
+<h4 id="euler-angles">Euler Angles</h4>
+<p>2D 旋转的计算：</p>
+<div style="text-align: center">
+    <img src="images/lec8/40.png" width=80%>
+</div>
+
+<p>3D 旋转的计算：<strong>欧拉角</strong>(Euler angle)</p>
+<div style="text-align: center">
+    <img src="images/lec8/41.png" width=80%>
+</div>
+
+<p>欧拉角提供了对 3D 旋转的简短描述，并被广泛应用于很多领域。欧拉角又称为<strong>翻滚</strong>(roll)-<strong>俯仰</strong>(pitch)-<strong>偏航</strong>(yaw)角，这也正是构成欧拉角的三种角度。</p>
+<div style="text-align: center">
+    <img src="images/lec8/42.png" width=60%>
+</div>
+
+<p>应用：<strong>万向节</strong>(gimbal)</p>
+<div style="text-align: center">
+    <img src="images/lec8/44.png" width=70%>
+</div>
+
+<ul>
+<li>游戏引擎中常用万向节表达旋转（中间图）</li>
+<li>实际运用：相机稳定器、无人机、陀螺仪</li>
+</ul>
+<details class="bug" open="open">
+<summary>欧拉角的问题</summary>
+<ul>
+<li>
+<p><strong>顺序依赖性</strong>(order dependence)：按不同顺序旋转各个角时会导致截然不同的结果</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/43.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>万向节死锁</strong>(gimbal lock)（<strong>退化</strong>(degeneration)）：沿 y 轴旋转 90° 后（即 <span class="arithmatex">\(\beta = 90\degree\)</span>），沿 z 轴旋转和沿 x 轴旋转变得等效了，只有两者旋转角度的差值（<span class="arithmatex">\(t = \alpha - \gamma\)</span>）才有实际的数学意义，此时自由度降至 1</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/43.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>由于<strong>奇异性</strong>(singularity)问题，使得欧拉角难以插值</p>
+</li>
+<li>难以组合各种旋转（一般需要旋转矩阵）</li>
+<li>沿 x/y/z 轴旋转容易，但沿特定轴旋转困难</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/46.png" width=60%>
+</div></p>
+</details>
+<h4 id="quaternion">Quaternion</h4>
+<details class="info">
+<summary>背景知识：复数</summary>
+<ul>
+<li>定义：<span class="arithmatex">\(c = a + bi\ (a, b \in \mathbb{R}, i^2 = -1)\)</span></li>
+<li>向量形式：<span class="arithmatex">\(c = \begin{bmatrix}a \\ b\end{bmatrix}\)</span></li>
+<li>积：<span class="arithmatex">\(\begin{cases}c_1 = a + b i \\ c_2 = c + d i\end{cases} \Rightarrow c_1 c_2 = \begin{bmatrix}a &amp; -b \\ b &amp; a\end{bmatrix} \begin{bmatrix}c \\ d\end{bmatrix}\)</span></li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/47.png" width=50%>
+</div></p>
+</details>
+<p><strong>四元数</strong>(quaternion)的发明者为<a href="https://zh.wikipedia.org/zh-sg/%E5%A8%81%E5%BB%89%C2%B7%E5%93%88%E5%AF%86%E9%A0%93?useskin=vector">哈密顿(Hamilton)</a>。</p>
+<ul>
+<li>定义：<span class="arithmatex">\(q = a + bi + cj + dk\ (a, b, c, d \in \mathbb{R}, i^2 = j^2 = k^2 = ijk = -1)\)</span></li>
+<li>二元组表示：<span class="arithmatex">\(q = (a, v)\ (v = \begin{bmatrix}b \\ c \\ d\end{bmatrix}, a, b, c, d \in \mathbb{R})\)</span></li>
+<li>积：<span class="arithmatex">\(\begin{cases}q_1 = a + bi + cj + dk\\ q_2 = e + fi + gj + hk\end{cases} \Rightarrow q_1 q_2 = \begin{bmatrix}a &amp; -b &amp; -c &amp; -d \\ b &amp; a &amp; -d &amp; c \\ c &amp; d &amp; a &amp; -b \\ d &amp; -c &amp; b &amp; a\end{bmatrix} \begin{bmatrix}e \\ f \\ g \\ h\end{bmatrix}\)</span></li>
+<li>范数(norm)：<span class="arithmatex">\(\|q\| = \sqrt{a^2 + b^2 + c^2 + d^2}\)</span></li>
+<li>共轭(conjugate)：<span class="arithmatex">\(q^* = a - bi - cj - dk\)</span></li>
+<li>逆(inverse)：<span class="arithmatex">\(q^{-1}q = qq^{-1} = 1\)</span></li>
+</ul>
+<p>现在我们用四元数表示旋转：</p>
+<p><img align="right" alt="" src="images/lec8/48.png" width="20%" /></p>
+<div class="arithmatex">\[
+q = \begin{bmatrix} 1 &amp; i &amp; j &amp; k \end{bmatrix} \begin{bmatrix} 
+\cos(\gamma / 2)\cos(\beta / 2)\cos(\alpha / 2) + \sin(\gamma / 2)\sin(\beta / 2)\sin(\alpha / 2) \\ 
+\sin(\gamma / 2)\cos(\beta / 2)\cos(\alpha / 2) - \cos(\gamma / 2)\sin(\beta / 2)\sin(\alpha / 2) \\ 
+\cos(\gamma / 2)\sin(\beta / 2)\cos(\alpha / 2) + \sin(\gamma / 2)\cos(\beta / 2)\sin(\alpha / 2) \\ 
+\cos(\gamma / 2)\cos(\beta / 2)\sin(\alpha / 2) - \sin(\gamma / 2)\sin(\beta / 2)\cos(\alpha / 2) 
+\end{bmatrix}
+\]</div>
+<p>而一般的三维向量也可写成四元数形式：</p>
+<div class="arithmatex">\[
+v_q = (0, v) = bi + cj + dk \quad v = \begin{bmatrix}b \\ c \\ d\end{bmatrix}
+\]</div>
+<p>于是旋转后的向量为：
+$$
+v_q' = qv_qq^* = qv_qq^{-1}
+$$</p>
+<p>更一般地，已知 <span class="arithmatex">\(q = (a, b, c, d), \|q\| = 1\)</span>，那么旋转后的向量可以这样计算出来：</p>
+<div class="arithmatex">\[
+v' = \begin{bmatrix} 
+1 - 2c^2 - 2d^2 &amp; 2bc - 2ad &amp; 2ac + 2bd \\ 
+2bc + 2ad &amp; 1 - 2b^2 - 2d^2 &amp; 2cd - 2ab \\ 
+2bd - 2ac &amp; 2ab + 2cd &amp; 1 - 2b^2 - 2c^2 
+\end{bmatrix} v
+\]</div>
+<p>通过四元数，我们可以表示更多样的旋转了：</p>
+<div style="text-align: center">
+    <img src="images/lec8/49.png" width=80%>
+</div>
+
+<ul>
+<li>逆的求解：<span class="arithmatex">\(q^{-1} = \dfrac{q^*}{\|q\|^2}\)</span></li>
+<li>
+<p>旋转组合：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+q_1^* q_2^* &amp;= (q_2 q_1)^* \\
+v' &amp;= q_1 v q_1^* \\
+v'' &amp;= q_2 v' q_2^* \\
+&amp;= q_2 q_1 v q_1^* q_2^* \\
+&amp;= (q_2 q_1) v (q_2 q_1)^*
+\end{aligned}
+\]</div>
+</li>
+<li>
+<p>两个单位向量间的四元数：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+w &amp;= u \times v \\
+q &amp;= [u \cdot v + \sqrt{(w \cdot w) + (u \cdot v)^2}, w] \\
+(\|u\| &amp;= \|v\| = 1)
+\end{aligned}
+\]</div>
+</li>
+</ul>
+<p><img align="right" alt="" src="images/lec8/50.png" width="30%" /></p>
+<p>对于向量 <span class="arithmatex">\(v\)</span>，沿单位轴 <span class="arithmatex">\(u\)</span> 旋转 <span class="arithmatex">\(\theta\)</span> 角度后的结果向量 <span class="arithmatex">\(v_q\)</span> 为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+q &amp; = (\cos\left(\frac{\theta}{2}\right), \sin\left(\frac{\theta}{2}\right) x_u, \sin\left(\frac{\theta}{2}\right) y_u, \sin\left(\frac{\theta}{2}\right) z_u) \\
+u &amp; = \begin{bmatrix}x_u \\ y_u \\ z_u\end{bmatrix} \\
+v_q' &amp; = qv_qq^* = qv_qq^{-1}
+\end{aligned}
+\]</div>
+<h3 id="joint-poses">Joint Poses</h3>
+<p>关节姿态的三个部分：</p>
+<ul>
+<li>
+<p><strong>朝向</strong>：</p>
+<ul>
+<li>通过旋转改变关节朝向</li>
+<li>大多数骨架姿态仅改变关节的朝向</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/51.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>位置</strong>：</p>
+<ul>
+<li>通过平移改变关节位置</li>
+<li>通过向量 <span class="arithmatex">\(T\)</span> 将点 <span class="arithmatex">\(P\)</span> 平移到 <span class="arithmatex">\(P'\)</span></li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/52.png" width=70%>
+</div></p>
+<ul>
+<li>在人体骨架中通常不会改变，除了骨盆关节（角色移动）、面部关节（表情变化）和其他特殊关节（拉弓）</li>
+<li>通常用于拉伸模型</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/53.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>缩放</strong>：</p>
+<ul>
+<li>通过缩放改变模型大小</li>
+<li>均匀(uniform)/非均匀(non-uniform)缩放</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/54.png" width=70%>
+</div></p>
+<ul>
+<li>广泛用于面部动画中（捏脸）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/55.png" width=60%>
+</div></p>
+</li>
+</ul>
+<p>关节姿态的旋转、平移和缩放可统一用一个<strong>仿射矩阵</strong>表示：</p>
+<div style="text-align: center">
+    <img src="images/lec8/56.png" width=70%>
+</div>
+
+<p><img align="right" alt="" src="images/lec8/57.png" width="25%" /></p>
+<p>对于蒙皮网格中的一个关节 <span class="arithmatex">\(j\)</span> 会存储以下信息：</p>
+<ul>
+<li><span class="arithmatex">\(p(j)\)</span>：<span class="arithmatex">\(j\)</span> 的父关节</li>
+<li><span class="arithmatex">\(M_{p(j)}^l\)</span>：<span class="arithmatex">\(j\)</span> 的父关节在局部空间的姿态</li>
+</ul>
+<p>令 <span class="arithmatex">\(M_J^m\)</span> 为关节 <span class="arithmatex">\(J\)</span> 在模型空间的姿态，它就相当于从 <span class="arithmatex">\(J\)</span> 到根关节的一系列姿态的累积，即：
+$$
+M_J^m = \sum_{j = J}^0 M_{p(j)}^l
+$$</p>
+<p>之所以记录的是<strong>局部空间</strong>而非模型空间的姿态，是因为：</p>
+<ul>
+<li>局部空间中每次变换所需数据更少，对<strong>插值</strong>或混合而言更方便（左图）</li>
+<li>模型空间中的插值结果不太正确（右图）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/58.png" width=60%>
+</div>
+
+<h4 id="single-joint-skinning">Single Joint Skinning</h4>
+<p>先考虑网格顶点仅和一根骨骼关联的简单情况。</p>
+<ul>
+<li>每个顶点可以被带权重参数的一个或多个关节绑定</li>
+<li>顶点在每个绑定关节的局部空间的位置是固定的</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/59.gif" width=40%>
+</div>
+
+<p>对于绑定到关节 <span class="arithmatex">\(J\)</span> 的网格顶点 <span class="arithmatex">\(V\)</span>：</p>
+<blockquote>
+<p><strong>绑定姿态</strong>(bind pose)：用于绑定的骨架姿态。</p>
+</blockquote>
+<ul>
+<li><span class="arithmatex">\(V_b^m\)</span>：在绑定姿态下，<span class="arithmatex">\(V\)</span> 在模型空间的位置</li>
+<li><span class="arithmatex">\(V_b^l\)</span>：在绑定姿态下，<span class="arithmatex">\(V\)</span> 在局部空间的位置</li>
+<li><span class="arithmatex">\(M_{b(J)}^m\)</span>：在绑定姿态下，<span class="arithmatex">\(J\)</span> 在模型空间的姿态</li>
+</ul>
+<p>任意时刻 <span class="arithmatex">\(t\)</span> 下，<span class="arithmatex">\(V\)</span> 在局部空间的位置固定为：</p>
+<div class="arithmatex">\[
+V^l(t) \equiv V_b^l = (M_{b(J)}^m)^{-1} \cdot V_b^m
+\]</div>
+<div style="text-align: center">
+    <img src="images/lec8/60.png" width=60%>
+</div>
+
+<p>结合之前介绍的公式，可以得到时刻 <span class="arithmatex">\(t\)</span> 下 <span class="arithmatex">\(V\)</span> 在模型空间的位置 <span class="arithmatex">\(V^m(t)\)</span>：</p>
+<div class="arithmatex">\[
+V^m(t) = M_J^m(t) \cdot V_J^l = \boxed{M_J^m (t) \cdot (M_{b(J)}^m)^{-1}} \cdot V_b^m
+\]</div>
+<p>框出来的部分为<strong>蒙皮矩阵</strong>(skinning matrix)，记作 <span class="arithmatex">\(K_J\)</span>。</p>
+<p>在内存中表示骨架：</p>
+<ul>
+<li>关节名称（字符串或 32 位长的哈希 id）</li>
+<li>骨架内节点的父节点索引</li>
+<li>逆绑定矩阵变换是旋转、平移和缩放之积的逆</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Joint</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">String</span><span class="w">    </span><span class="n">m_joint_name</span><span class="p">;</span><span class="w">                  </span><span class="c1">// the name of joint</span>
+<span class="w">    </span><span class="n">UInt8</span><span class="w">           </span><span class="n">m_parent_joint_index</span><span class="p">;</span><span class="w">          </span><span class="c1">// the index of parent joint or 0xFF if root</span>
+<span class="w">    </span><span class="n">Translation</span><span class="w">     </span><span class="n">m_bind_pose_translation</span><span class="p">;</span><span class="w">       </span><span class="c1">// bind pose:translation</span>
+<span class="w">    </span><span class="n">Rotation</span><span class="w">        </span><span class="n">m_bind_pose_rotation</span><span class="p">;</span><span class="w">          </span><span class="c1">// bind pose:rotation</span>
+<span class="w">    </span><span class="n">Scale</span><span class="w">           </span><span class="n">m_bind_pose_scale</span><span class="p">;</span><span class="w">             </span><span class="c1">// bind pose:scale</span>
+<span class="hll"><span class="w">    </span><span class="n">Matrix4X3</span><span class="w">       </span><span class="n">m_inverse_bind_pose_transform</span><span class="p">;</span><span class="w"> </span><span class="c1">// inverse bind pose matrix</span>
+</span><span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Skeleton</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">UInt</span><span class="w">            </span><span class="n">m_joint_count</span><span class="p">;</span><span class="w">  </span><span class="c1">// number of joints</span>
+<span class="w">    </span><span class="n">Joint</span><span class="w">           </span><span class="n">m_joints</span><span class="p">[];</span><span class="w">     </span><span class="c1">// array of joints</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><strong>蒙皮矩阵调色盘</strong>(palatte)是由每个节点的蒙皮矩阵构成的数组，供 GPU 在着色器中使用。</p>
+<p>优化：将关于<strong>模型空间</strong>到<strong>世界空间</strong>的变换矩阵 <span class="arithmatex">\(M^w\)</span> 考虑进来，那么优化后的关节 <span class="arithmatex">\(J\)</span> 的蒙皮矩阵为：</p>
+<div class="arithmatex">\[
+K_J' = M^w \cdot M_J^m (t) \cdot (M_{b(J)}^m)^{-1}
+\]</div>
+<h4 id="weighted-skinning-with-multi-joints">Weighted Skinning with Multi-joints</h4>
+<p>现在考虑将网格顶点 <span class="arithmatex">\(V\)</span> 绑定到 <span class="arithmatex">\(N\)</span> 个关节点的情况。我们会为每个节点赋予一个权重；记第 <span class="arithmatex">\(i\)</span> 个关节的蒙皮权重为 <span class="arithmatex">\(W_i\)</span>，要求权重总和为 1，即 <span class="arithmatex">\(\sum\limits_{i=0}^{N-1} W_i = 1\)</span></p>
+<blockquote>
+<p><span class="arithmatex">\(N\)</span> 没有上限，但一般不超过 4 个。</p>
+</blockquote>
+<div style="text-align: center">
+    <img src="images/lec8/61.png" width=70%>
+</div>
+
+<p>记 <span class="arithmatex">\(N\)</span> 个关节分别为 <span class="arithmatex">\(J_0, \dots, J_{N-1}\)</span>，并令 <span class="arithmatex">\(K_{J_i}(t)\)</span> 为时刻 <span class="arithmatex">\(t\)</span> 下关节 <span class="arithmatex">\(J_i\)</span> 的蒙皮矩阵，那么：</p>
+<p><img align="right" alt="" src="images/lec8/62.gif" width="30%" /></p>
+<ul>
+<li>
+<p>将关节 <span class="arithmatex">\(J_i\)</span> 的位置从局部空间变换到模型空间</p>
+<div class="arithmatex">\[
+V_{J_i}^m(t) = K_{J_i}(t) \cdot V_{b(J_i)}^m
+\]</div>
+</li>
+<li>
+<p>因此 <span class="arithmatex">\(V\)</span> 在模型空间的位置为：</p>
+<div class="arithmatex">\[
+V^m(t) = \sum_{i=0}^{N-1} W_i \cdot V_{J_i}^m(t)
+\]</div>
+</li>
+</ul>
+<h4 id="interpolation">Interpolation</h4>
+<p><strong>片段</strong>(clip)：骨架姿态序列。</p>
+<div style="text-align: center">
+    <img src="images/lec8/63.png" width=70%>
+</div>
+
+<p>现在要考虑的问题是在这些连续的姿态间进行插值，即计算关键姿态之间的姿态。</p>
+<div style="text-align: center">
+    <img src="images/lec8/64.png" width=60%>
+</div>
+
+<ul>
+<li>
+<p>平移和缩放可直接采用<strong>线性插值</strong>(linear interpolation, <strong>LERP</strong>)</p>
+<p><img align="right" alt="" src="images/lec8/65.png" width="30%" /></p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; f(x) = (1 - \alpha) f(x_1) + \alpha f(x_2) \\
+&amp; \alpha = \frac{x - x_1}{x_2 - x_1}, x_1 &lt; x_2, x \in [x_1, x_2]
+\end{aligned}
+\]</div>
+<ul>
+<li>平移：<span class="arithmatex">\(T(t) = (1 - \alpha) T(t_1) + \alpha T(t_2)\)</span></li>
+<li>缩放：<span class="arithmatex">\(S(t) = (1 - \alpha) S(t_1) + \alpha S(t_2)\)</span></li>
+</ul>
+</li>
+<li>
+<p>旋转采用四元数的 <strong>NLERP</strong>（归一化的线性插值）</p>
+<p><img align="right" alt="" src="images/lec8/66.gif" width="30%" /></p>
+<div class="arithmatex">\[
+q_t' = Nlerp(q_{t_1}, q_{t_2}, t) = \frac{(1 - \alpha) q_{t_1} + \alpha q_{t_2}}{\|(1 - \alpha) q_{t_1} + \alpha q_{t_2}\|}
+\]</div>
+<ul>
+<li>
+<p>最短路原则：两个四元数进行点乘，若结果小于 0 则需要反向插值</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/67.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>问题：角速度不均匀，中间慢两边快</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/68.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>解决方案是 <strong>SLERP</strong>，它做到了均匀的旋转插值</p>
+<div class="arithmatex">\[
+\begin{aligned}
+q_t &amp; = Slerp(q_{t_1}, q_{t_2}, t) = \dfrac{\sin((1 - t)\theta)}{\sin(\theta)} q_{t_1} + \dfrac{\sin(t\theta)}{\sin(\theta)} q_{t_2} \\
+\theta &amp; = \arccos (q_{t_1} \cdot q_{t_2})
+\end{aligned}
+\]</div>
+<p><div style="text-align: center">
+    <img src="images/lec8/69.png" width=70%>
+</div></p>
+<ul>
+<li>问题：<ul>
+<li>三角函数计算成本大（需提前算好）</li>
+<li>当 <span class="arithmatex">\(\theta\)</span> 很小时，作为分母的 <span class="arithmatex">\(\sin \theta\)</span> 也很小，导致结果不稳定</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>实践中的做法是将 NLERP 和 SLERP 结合起来（常用于 3A 游戏开发中）：<span class="arithmatex">\(\theta\)</span> 大时用 SLERP，<span class="arithmatex">\(\theta\)</span> 小时用 NLERP</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<details class="abstract" open="open">
+<summary>简单的动画运行时流水线</summary>
+<p><div style="text-align: center">
+    <img src="images/lec8/70.png" width=80%>
+</div></p>
+</details>
+<h2 id="animation-compression">Animation Compression</h2>
+<p>存储动画片段时，通常将其分割为多段有关关节姿态的序列，而这些序列会被进一步分割为单独的平移、旋转和缩放轨道。</p>
+<div style="text-align: center">
+    <img src="images/lec8/71.png" width=60%>
+</div>
+
+<p>单个动画片段大小估算：</p>
+<div style="text-align: center">
+    <img src="images/lec8/72.png" width=70%>
+</div>
+
+<p>由此可见，即便是一小段动画，如果不经过任何压缩，其数据量将是无法容忍的。因此动画压缩是游戏中常用的一种技术。</p>
+<p>一些观察：</p>
+<ul>
+<li>
+<p>动画轨道：对于相同关节，旋转、平移和缩放改变量的差别很大</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/73.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>关节：不同关节的运动差别也很大</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/74.png" width=70%>
+</div></p>
+</li>
+</ul>
+<h3 id="dof-reduction">DoF Reduction</h3>
+<p>一种简单的压缩方法是减少部分 DoF，比如变化量不怎么大的平移和缩放：</p>
+<ul>
+<li>缩放：直接丢掉缩放轨道（除面部关节外，通常不会在人体骨架中改变）</li>
+<li>平移：直接丢掉平移轨道（除骨盆关节、面部关节和其他特殊关节外，通常不会在人体骨架中改变）</li>
+</ul>
+<h3 id="keyframe-extraction">Keyframe Extraction</h3>
+<details class="info" open="open">
+<summary>关键帧</summary>
+<p>动画和电影制作中的<strong>关键帧</strong>(keyframes)是指定义了任何平滑过渡的起始点和结束点的画面或镜头。</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/75.png" width=70%>
+</div></p>
+</details>
+<p>第二种压缩技术是<strong>关键帧提取</strong>(keyframe extraction)，反过来说就是剔除那些可以通过线性插值或相邻帧拟合得到的帧。下面给出伪代码：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">KeyFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="kr">for</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">n</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="kr">do</span>
+<span class="w">    </span><span class="nv">frame_interp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Lerp</span><span class="p">(</span><span class="nv">frame</span><span class="p">[</span><span class="nv">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="nv">frame</span><span class="p">[</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="w">    </span><span class="nb">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Diff</span><span class="p">(</span><span class="nv">frame</span><span class="p">[</span><span class="nv">i</span><span class="p">],</span><span class="w"> </span><span class="nv">frame_interp</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nf">isNotAcceptable</span><span class="p">(</span><span class="nb">error</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="nv">KeyFrame</span><span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="nv">frame</span><span class="p">[</span><span class="nv">i</span><span class="p">])</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="kr">end</span>
+</code></pre></div>
+<div style="text-align: center">
+    <img src="images/lec8/76.png" width=70%>
+</div>
+
+<h3 id="catmull-rom-spline">Catmull-Rom Spline</h3>
+<p>为了实现更好的插值效果，实际我们会采用 <strong>Catmull-Rom 样条</strong>(spline)插值而非 LERP。</p>
+<ul>
+<li>通过 4 个控制点 <span class="arithmatex">\(P_0, \dots, P_3\)</span> 绘制从 <span class="arithmatex">\(P_1\)</span> 到 <span class="arithmatex">\(P_2\)</span> 的曲线</li>
+<li>
+<p>参数：</p>
+<ul>
+<li><span class="arithmatex">\(\alpha\)</span>（锐度）：影响曲线在控制点的弯曲程度（通常取 <span class="arithmatex">\(\alpha = 0.5\)</span>）</li>
+<li><span class="arithmatex">\(t\)</span>：插值系数</li>
+</ul>
+</li>
+<li>
+<p>在曲线上进行插值（<span class="arithmatex">\(t\)</span> 的范围为 <span class="arithmatex">\((0, 1)\)</span>）</p>
+<p><img align="right" alt="" src="images/lec8/77.png" width="30%" /></p>
+<div class="arithmatex">\[
+P(t) = \begin{bmatrix} 1 &amp; t &amp; t^2 &amp; t^3 \end{bmatrix} \begin{bmatrix} 0 &amp; 1 &amp; 0 &amp; 0 \\ -\alpha &amp; 0 &amp; \alpha &amp; 0 \\ 2\alpha &amp; \alpha-3 &amp; 3-2\alpha &amp; -\alpha \\ -\alpha &amp; 2-\alpha &amp; \alpha-2 &amp; \alpha \end{bmatrix} \begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \end{bmatrix}
+\]</div>
+</li>
+<li>
+<p>拟合步骤：</p>
+<ol>
+<li>绘制一条 Catmull-Rom 样条曲线，该曲线中间的两个控制点为原来曲线的两个端点</li>
+<li>像二分搜索一样迭代添加控制点</li>
+<li>通过最接近的 4 个点计算内曲线</li>
+<li>重复上述步骤，直到每帧的误差低于阈值</li>
+</ol>
+<p><div style="text-align: center">
+    <img src="images/lec8/78.gif" width=70%>
+</div></p>
+</li>
+</ul>
+<h3 id="float-quantization">Float Quantization</h3>
+<p>下一种压缩方法是使用位数更少的整数来表示有限范围和精度的浮点数。所需位数的计算公式为：
+$$
+DesiredBits = \left\lceil \log_2 \frac{Range}{Accuracy} \right\rceil
+$$</p>
+<p>一般来说，16 位可以满足游戏引擎中姿态的浮点数范围和精度要求。</p>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">例1</label><label for="__tabbed_2_2">例2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>平移范围 <span class="arithmatex">\([0, 10]\)</span>，精度 <span class="arithmatex">\(0.001\text{m}\)</span>：
+$$
+DesiredBits = \left\lceil \log_2 \frac{10}{0.001} \right\rceil = 14 \text{ bits}
+$$</p>
+</div>
+<div class="tabbed-block">
+<p>将 32 位浮点数线性量化为 16 位无符号整数：</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/79.png" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h3 id="quaternion-quantization">Quaternion Quantization</h3>
+<p>最后一种压缩技术是四元数量化：</p>
+<ul>
+<li>3 个数足以表示一个<strong>单位四元数</strong>(unit quaternion) <span class="arithmatex">\(q = (a, b, c, \sqrt{1 - (a^2 + b^2 + c^2)})\)</span></li>
+<li>若总能省略绝对值最大的数，这 3 个数的范围可限制在 <span class="arithmatex">\([-\dfrac{1}{\sqrt{2}}, \dfrac{1}{\sqrt{2}}]\)</span></li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}
+a^2 + b^2 + c^2 + d^2 &amp;= 1, |a| \geq \max(|b|, |c|, |d|) \\
+2b^2 &lt; a^2 + b^2 &amp;&lt; a^2 + b^2 + c^2 + d^2 = 1 \\
+b^2 \leq \frac{1}{2} &amp;\Rightarrow -\frac{1}{\sqrt{2}} \leq b \leq \frac{1}{\sqrt{2}} \\
+\text{Similarly, } -\frac{1}{\sqrt{2}} \leq c &amp;\leq \frac{1}{\sqrt{2}} \text{ and } -\frac{1}{\sqrt{2}} \leq d \leq \frac{1}{\sqrt{2}}
+\end{aligned}
+\]</div>
+<p>具体做法：</p>
+<ul>
+<li>使用 2 位表示被抛弃的数</li>
+<li>剩余 3 个数每个用 15 位表示，范围为 <span class="arithmatex">\([-\dfrac{1}{\sqrt{2}}, \dfrac{1}{\sqrt{2}}]\)</span>，精度为 <span class="arithmatex">\(\dfrac{\sqrt{2}}{32767} \approx 0.000043\)</span></li>
+<li>因此一个四元数的存储大小从 128 位降至 48 位</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec8/80.png" width=80%>
+</div>
+
+<hr />
+<p>无论是浮点数的量化还是四元数的量化，量化的关键点在于找到合适的误差阈值，同时尽可能使用更少的存储位。关键帧提取和量化方法可同时使用，以获得更好的压缩比。</p>
+<div style="text-align: center">
+    <img src="images/lec8/81.png" width=50%>
+</div>
+
+<h3 id="error-compensation">Error Compensation</h3>
+<p>动画数据的压缩导致的误差会随骨骼(bones)累积：</p>
+<div style="text-align: center">
+    <img src="images/lec8/82.png" width=40%>
+</div>
+
+<p>而一些特殊部位需要较高精度的动画：</p>
+<div style="text-align: center">
+    <img src="images/lec8/83.png" width=70%>
+</div>
+
+<p>精度的测量：</p>
+<ul>
+<li>
+<p><strong>数据</strong>误差：计算插值变换数据与原始数据之间的差值误差</p>
+<p><img align="right" alt="" src="images/lec8/84.png" width="40%" /></p>
+<ul>
+<li>平移误差：<span class="arithmatex">\(\|T_1 - T_2\|\)</span></li>
+<li>旋转误差：<span class="arithmatex">\(\|R_1 - R_2\|\)</span></li>
+<li>缩放误差：<span class="arithmatex">\(\|S_1 - S_2\|\)</span></li>
+</ul>
+</li>
+</ul>
+<p><br/></p>
+<ul>
+<li>
+<p><strong>视觉</strong>误差：计算插值顶点与期望顶点之间的差值误差</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/85.png" width=60%>
+</div></p>
+<p><img align="right" alt="" src="images/lec8/86.png" width="30%" /></p>
+<ul>
+<li>由于计算量太大，难以为每个顶点计算视觉误差</li>
+<li>估计视觉误差：<strong>假顶点距离近似</strong>(fake vertex distance approximation)<ul>
+<li><strong>假顶点</strong>：两个与关节固定距离的垂直虚拟顶点（不与关节旋转轴共线）</li>
+<li>角色骨骼 2~10 cm</li>
+<li>大型动画物体 1~10 cm</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>误差的补偿方法有：</p>
+<ul>
+<li>
+<p><strong>自适应误差边界</strong>(adaptive error margins)：对于从末端到根部的不同关节使用不同的精度阈值，以减少由父关节引起的误差</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/87.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>就地校正</strong>(in place correction)</p>
+<ul>
+<li>
+<p>过程</p>
+<ul>
+<li>除根骨骼外在每个骨骼上选择一个点</li>
+<li>计算从根骨骼到每个压缩骨骼的旋转，使标记点最接近其在模型空间中的实际位置</li>
+<li>将旋转添加到压缩数据的变换中</li>
+</ul>
+</li>
+<li>
+<p>优点：解压期间没有额外开销，因为所有数据在压缩时已计算完成</p>
+</li>
+<li>缺点 <ul>
+<li>可能会因为对常量轨道的修改而产生内存开销 </li>
+<li>可能会因为直接更改关键帧数据而产生噪声轨道</li>
+<li>可能需要更多时间压缩</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/88.png" width=80%>
+</div></p>
+</li>
+</ul>
+<h2 id="animation-dcc">Animation DCC</h2>
+<p>一般来说，动画 <strong>DCC</strong>（数字内容创建(digital content creation)）的流程包括：</p>
+<ul>
+<li>
+<p><strong>网格</strong></p>
+<ul>
+<li>
+<p>构建：</p>
+<ul>
+<li><strong>阻挡</strong>(blockout)阶段：创建角色的粗略轮廓</li>
+<li><strong>高细节</strong>(highpoly)阶段：提高建模精度</li>
+<li><strong>低细节</strong>(lowpoly)阶段：将表面划分为网格</li>
+<li><strong>纹理</strong>(texture)阶段：为角色添加纹理</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/89.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>针对动画调整：</p>
+<ul>
+<li>网格划分对动画创建至关重要，因为网格定义了皮肤的曲线</li>
+<li>如果网格过于稀疏，动画会变得奇怪</li>
+<li>但网格越密集，性能开销越大</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/90.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>骨骼绑定</strong></p>
+<ul>
+<li>
+<p>现代游戏引擎通常会提供现成的骨架，所以只需要从工具箱中拉出一个骨架，和现有模型匹配即可</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/91.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>添加游戏玩法关节</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/92.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>添加根关节</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/93.gif" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>皮肤绑定</strong>（<strong>蒙皮</strong>）</p>
+<ul>
+<li>
+<p>自动计算</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/94.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p>手动修正</p>
+<p><div style="text-align: center">
+    <img src="images/lec8/95.gif" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>动画制作</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec8/96.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>导出</strong></p>
+<ul>
+<li>一般导出文件格式为 <strong>FBX</strong>，它是由 Autodesk 开发的专有格式，是游戏行业标准的 3D 资产交换文件格式</li>
+<li>FBX 包括了模型网格、骨架、蒙皮数据和动画片段</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec8/97.png" width=40%>
+</div></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./7.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Render Pipeline, Post-process and Everything">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Render Pipeline, Post-process and Everything
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./9.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Advanced Animation Technology">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Advanced Animation Technology
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

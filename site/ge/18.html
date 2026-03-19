@@ -1,0 +1,3735 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/18.html">
+      
+      
+        <link rel="prev" href="./17.html">
+      
+      
+        <link rel="next" href="./19.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Fundamentals of OGA - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fundamentals-of-oga" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fundamentals of OGA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./13.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Online Gaming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="18.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Socket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliable-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliable UDP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reliable UDP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-repeat-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Repeat Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-error-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward Error Correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clock Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-time-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Time Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-based-time-synchronization-with-elimination-of-higher-order-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream-Based Time Synchronization with Elimination of Higher Order Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-procedure-call-rpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Procedure Call (RPC)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Topology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Topology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P2P
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dedicated Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Game Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Snapshot Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delta-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delta Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lockstep-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lockstep Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lockstep Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministic-lockstep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministic Lockstep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lag-and-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lag and Delay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconnection-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconnection Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lockstep-cheating-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lockstep Cheating Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dumb-client-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dumb Client Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packet-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./19.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Socket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliable-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliable UDP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reliable UDP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-repeat-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Repeat Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-error-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward Error Correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clock-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clock Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-time-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Time Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-based-time-synchronization-with-elimination-of-higher-order-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream-Based Time Synchronization with Elimination of Higher Order Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-procedure-call-rpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Procedure Call (RPC)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Topology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Topology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P2P
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dedicated Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Game Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Snapshot Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delta-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delta Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lockstep-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lockstep Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lockstep Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministic-lockstep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministic Lockstep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lag-and-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lag and Delay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconnection-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconnection Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lockstep-cheating-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lockstep Cheating Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Synchronization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dumb-client-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dumb Client Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packet-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="18.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Online Gaming
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/18.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/18.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="fundamentals-of-oga">Fundamentals of OGA</h1>
+<div class="admonition warning">
+<p class="admonition-title"><strong>多人在线游戏</strong>(multiplayer online gaming)的挑战</p>
+<ul>
+<li>
+<p><strong>一致性</strong>(consistency)：网络同步</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/1.gif" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>可靠性</strong>(realibility)：</p>
+<ul>
+<li>网络延迟</li>
+<li>断开(drop)和重连</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/2.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>安全性</strong>(security)</p>
+<ul>
+<li>作弊</li>
+<li>账号入侵</li>
+</ul>
+</li>
+<li>
+<p><strong>多元性</strong>(diversities)</p>
+<ul>
+<li>跨平台</li>
+<li>快速迭代</li>
+<li>多人游戏系统</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/3.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>复杂性</strong>(complexities)</p>
+<ul>
+<li>高并发</li>
+<li>高可用性</li>
+<li>高性能</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/4.png" width=70%>
+</div></p>
+</li>
+</ul>
+</div>
+<h2 id="network-protocols">Network Protocols</h2>
+<p>因特网之父：<a href="https://en.wikipedia.org/wiki/Vint_Cerf">Vint Cerf</a> 和 <a href="https://en.wikipedia.org/wiki/Robert_Kahn_(computer_scientist)">Robert Kahn</a>，他们设计了 TCP/IP 协议和因特网架构。</p>
+<p>两台 PC（记作 A、B）要想相互通信(communicate)，A 和 B必须在多个不同层面上就发送和接收的比特的含义达成一致，包括：</p>
+<ul>
+<li>用什么电平来表示比特 0 和比特 1？</li>
+<li>接收者如何知道最后一个比特？</li>
+<li>一个数字用多长比特表示？</li>
+</ul>
+<p>如果直接让机器通过传输介质通信，就会遇到两个问题：</p>
+<ul>
+<li>为每种新的底层传输介质重新实现应用程序？</li>
+<li>在底层传输介质发生变化时更改应用程序？</li>
+</ul>
+<p>这样做显然不现实。因特网的解决方法是通过引入一个<strong>中间层</strong>(intermediate layer)（一般有多层）来避免上述问题。中间层提供了一组关于应用程序和介质的抽象，这样新的应用程序或介质只需实现中间层接口即可。</p>
+<p>一种经典的分层方法是 <strong>OSI 模型</strong>，它将中间层分为 7 层，自顶向下包括：</p>
+<div style="text-align: center">
+    <img src="images/lec18/5.png" width=60%>
+</div>
+
+<ul>
+<li>应用层：为用户提供功能</li>
+<li>表示层：转换不同表示</li>
+<li>会话层：管理任务对话</li>
+<li>传输层：提供端到端的传输</li>
+<li>网络层：通过多个链路发送数据包</li>
+<li>数据链路层：发送信息帧</li>
+<li>物理层：将比特作为信号发送</li>
+</ul>
+<h3 id="socket">Socket</h3>
+<p>但对大多数游戏开发者而言，不需要通过这种复杂的机制实现通信。我们往往用到一种基于网络<strong>套接字</strong>(socket)的方法，它是计算机网络中网络节点内的软件结构，作为网络发送和接收数据的端点。可以把它简单看作 IP 地址 + 端口号的结合。</p>
+<div style="text-align: center">
+    <img src="images/lec18/6.png" width=50%>
+</div>
+
+<div style="text-align: center">
+    <img src="images/lec18/7.png" width=80%>
+</div>
+
+<p>客户端和服务端都需要设置套接字。函数签名如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">domain</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">protocol</span><span class="p">)</span>
+</code></pre></div>
+<p>取值分别为：</p>
+<ul>
+<li><code>domain</code>：<code>AF_INET</code>（IPv4）或 <code>AF_INET6</code>（IPv6）</li>
+<li><code>type</code>：<code>SOCK_STREAM</code>（TCP）或 <code>SOCK_DGRAM</code>（UDP）</li>
+<li><code>protocol</code>：默认置 0</li>
+</ul>
+<blockquote>
+<p>例子：<code>#!cpp int sockfd = socket(AF_INET, SOCK_STREAM, 0)</code></p>
+</blockquote>
+<p>其中值得一提的是两个著名网络协议：TCP 和 UDP</p>
+<ul>
+<li>
+<p><strong>TCP</strong>（传输控制协议(transmission control protocol)）</p>
+<ul>
+<li>
+<p>特点：</p>
+<ul>
+<li>面向连接的</li>
+<li>可靠且有序</li>
+<li>流量控制</li>
+<li>拥塞控制</li>
+</ul>
+</li>
+<li>
+<p>TCP 段头：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/8.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>重传机制</strong>：重复 ACKs（确认）</p>
+<ul>
+<li>发送者发送数据包和序列号，比如 1, 2, 3, 4, 5, 6, 7, 8</li>
+<li>假设第 5 个数据包丢失，那么 ACK 流为 1, 2, 3, 4, 4, 4, 4, 4</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/9.png" width=30%>
+</div></p>
+</li>
+<li>
+<p><strong>拥塞控制</strong>(congestion control)：</p>
+<ul>
+<li>TCP 的拥塞窗口（<strong>CWND</strong>）从一个小值开始增长</li>
+<li>当发生拥塞、数据包丢失或超时时，将根据某种算法减少 CWND 值</li>
+<li>这会导致高延迟并造成延迟抖动</li>
+<li>拥塞控制是必要的，否则会导致拥塞崩溃；TCP 拥塞控制是互联网主要的拥塞控制措施，也是 TCP 性能问题的主要原因</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/10.png" width=50%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>UDP</strong>（用户数据报协议(user datagram protocol)）</p>
+<ul>
+<li>
+<p>特点：</p>
+<ul>
+<li>无连接</li>
+<li>不可靠且无序</li>
+<li>无流量控制</li>
+<li>无拥塞控制</li>
+</ul>
+</li>
+<li>
+<p>UDP 数据包头部：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/11.png" width=90%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>网络协议在游戏中的使用情况：</p>
+<ul>
+<li>TCP：《炉石传说》(HearthStone)...</li>
+<li>UDP：《守望先锋》(Overwatch)《CSGO》...</li>
+</ul>
+<p>但实际上对于一款大型 MMO 游戏，可能会用到多种协议的组合。</p>
+<div class="admonition bug">
+<p class="admonition-title">TCP 和 UDP 的问题</p>
+<ul>
+<li>TCP 不注重时间<ul>
+<li>它是一个复杂且重量级的协议，虽然提供可靠的传输和高级功能，但开销更大</li>
+<li>它还是一个公平的、面向流量的协议，旨在提高带宽利用率，但并不是为速度而设计的</li>
+</ul>
+</li>
+<li>UDP 虽然快，但不可靠，丢包和乱序问题经常发生</li>
+</ul>
+</div>
+<h3 id="reliable-udp">Reliable UDP</h3>
+<p>甚至在现代游戏中，我们会对已有的协议进行改造。之所以要改造，是因为：</p>
+<ul>
+<li>游戏服务器<ul>
+<li>保持活跃连接（TCP）</li>
+<li>需要保持“顺序”中的逻辑一致性（TCP）</li>
+<li>高响应和低延迟（UDP）</li>
+<li>经常用到广播(broadcast)（UDP）</li>
+</ul>
+</li>
+<li>网络服务器<ul>
+<li>处理 HTTP 协议</li>
+<li>提供静态网页内容，比如 HTML 页面、文件、图像、视频等</li>
+</ul>
+</li>
+</ul>
+<p>可以看到，我们想要一种同时结合 TCP 和 UDP 优点的协议。为了能够实现这样的协议，先来认识两种网络技术—— ARQ 和 FEC。</p>
+<h4 id="automatic-repeat-request">Automatic Repeat Request</h4>
+<div class="admonition info">
+<p class="admonition-title">确认(acknowledgement, ACK)与序列号</p>
+<ul>
+<li><strong>正 ACK</strong>：在通信进程、计算机或设备之间传递的信号，用以表示确认或收到消息</li>
+<li><strong>负 ACK</strong>（NACK）：发送用于拒绝之前接收到的消息或指示某种错误的信号</li>
+<li><strong>序列号</strong>（SEQ）：用于跟踪主机发送字节的计数器</li>
+<li><strong>超时</strong>(timeouts)：在接收确认之前允许等待的指定时间段</li>
+</ul>
+</div>
+<p><strong>自动重传请求</strong>(automatic repeat request, <strong>ARQ</strong>)是一种用于数据传输的错误控制方法，利用 ACK 和超时，在不可靠的通信通道上实现可靠的数据传输。如果发送者在超时前没有收到 ACK，它会重新发送数据包，直到收到确认或超过预定义的重传次数。</p>
+<p>ARQ 有多种实现算法，它们大多属于<strong>滑动窗口协议</strong>(sliding window protocol)，具有以下特点：</p>
+<ul>
+<li>一次发送多个帧，帧数取决于窗口大小</li>
+<li>每个帧用序列号编号</li>
+<li>当窗口前方的帧被接收时，窗口向前滑动</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">发送帧 0, 1, 2, 3</label><label for="__tabbed_1_2">帧 0, 1, 2 已接收，发送帧 3, 4, 5, 6</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec18/12.png" width=60%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec18/13.png" width=60%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>下面详细介绍其中几种常见的算法。利用这些算法中的任意一种，我们便能搭建一个可靠的 UDP。</p>
+<ul>
+<li>
+<p><strong>停止-等待</strong>(stop-and-wait) ARQ</p>
+<ul>
+<li>窗口大小 = 1</li>
+<li>发送一个帧后，发送方在传输下一个帧之前等待 ACK</li>
+<li>如果在一定时间后没有收到 ACK，发送方超时并重新发送原始帧</li>
+<li>问题：带宽利用率低，性能差</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/14.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>回退 N 帧</strong>(go-back-N) ARQ</p>
+<ul>
+<li>发送窗口大小 = N</li>
+<li>接收者仅发送累积(cumulative) ACKs</li>
+<li>如果在约定时间内未收到 ACK，当前窗口中的所有帧将被传输</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/15.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>选择重传</strong>(selective repeat) ARQ</p>
+<ul>
+<li>只有损坏或丢失的帧会被重传</li>
+<li>接收方发送每个帧的确认，发送方维护每个帧的超时时间</li>
+<li>当接收方收到损坏的包时，它会发送一个 NACK，发送方将发送/重传收到 NACK 的帧</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/16.png" width=50%>
+</div></p>
+</li>
+</ul>
+<h4 id="forward-error-correction">Forward Error Correction</h4>
+<p>随着丢包率和延迟的增加，即便是可靠 UDP 也逐渐无法满足传输要求，比如当丢包率增加到 20% 时，使用可靠 UDP 仍然会有较高的延迟。这时我们引入第二种技术：<strong>前向纠错</strong>(forward error correction, <strong>FEC</strong>)。它通过传输足够的额外冗余信息与主数据流，在一定程度上重建丢失的 IP 数据包。</p>
+<div style="text-align: center">
+    <img src="images/lec18/17.png" width=70%>
+</div>
+
+<p>FEC 算法以额外带宽为代价降低了丢包率，并且数据包丢失率越高，数据包丢失补偿的效果更为明显。下面介绍其中两种实现。</p>
+<ul>
+<li>
+<p><strong>XOR FEC</strong></p>
+<details class="info">
+<summary>XOR 运算</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/18.png" width=70%>
+</div></p>
+</details>
+<p><div style="text-align: center">
+    <img src="images/lec18/19.png" width=70%>
+</div></p>
+<ul>
+<li>假如有 4 个数据包 A, B, C, D，令：<ul>
+<li>E = XOR(A, B, C, D)</li>
+<li>A = XOR(B, C, D, E)</li>
+<li>B = XOR(A, C, D, E)</li>
+<li>C = XOR(A, B, D, E)</li>
+<li>D = XOR(A, B, C, E)</li>
+</ul>
+</li>
+<li>若任意一个包丢失，都可通过其余四个包恢复</li>
+<li>若丢失多个包，该算法无能为力</li>
+<li>该算法和某个等级的 RAID 很像</li>
+</ul>
+</li>
+<li>
+<p><strong>Reed-Solomon 编码</strong></p>
+<ul>
+<li>
+<p>假如有 N 份有效数据，期望产生 M 份 FEC 数据</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/20.png" width=50%>
+</div></p>
+<ul>
+<li>将 N 份有效数据形成一个单位向量 D</li>
+<li>生成一个变换矩阵(transformation matrix) B：它由一个 N 阶单位矩阵和一个 N * M 的 Vandemode 矩阵（由矩阵 B 的任意 n 行组成的矩阵是可逆的）组成</li>
+<li>通过将矩阵 B 和向量 D 相乘得到的矩阵 G 包含 M 个冗余的 FEC 数据</li>
+</ul>
+</li>
+<li>
+<p>假设 D1, D4, C2 丢失</p>
+<ul>
+<li>
+<p>矩阵 B 也需要删除相应的 M 行以获得变形矩阵(deformation matrix) B'</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/21.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>得到 B' 的逆矩阵 B'<sup>-1</sup></p>
+</li>
+<li>
+<p>两边同乘以 B'<sup>-1</sup> 以恢复数据</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/22.png" width=50%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>现在我们用前面介绍的技术来定制自己的 UDP 协议：</p>
+<ul>
+<li>可靠性：采用选择重传 ARQ</li>
+<li>混合 ARQ 和 FEC：在采用 ARQ 前，先用 FEC 纠错</li>
+<li>实时：<ul>
+<li>更小的 RTO 增长</li>
+<li>无拥塞控制</li>
+<li>快速重传机制</li>
+<li>无延迟 ACK</li>
+</ul>
+</li>
+<li>灵活性：<ul>
+<li>设计高速协议</li>
+<li>同时支持可靠和不可靠的传输</li>
+</ul>
+</li>
+</ul>
+<h2 id="clock-synchronization">Clock Synchronization</h2>
+<p><strong>时钟同步</strong>(clock synchronization)是设计网络游戏时必须考虑的一件事，即确保同一场景、同一时间中的多名玩家感知到的事件是相同的。</p>
+<p>这里涉及到一个叫做 <strong>RTT</strong>（往返时间(round-trip time)）的概念，它反映了：</p>
+<ul>
+<li>发送/接收延迟</li>
+<li>传播延迟</li>
+<li>源服务器的响应时间</li>
+</ul>
+<details class="note" open="open">
+<summary>RTT 和其他技术/概念的关系</summary>
+<ul>
+<li><strong>PING</strong>：通常在采用 ICMP 数据包的传输协议中进行 PING 测试，RTT 在应用层中被测量</li>
+<li><strong>时延</strong>(latency)：数据包从发送端点到接收端点所需的时间（1/2 * RTT）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/23.png" width=50%>
+</div></p>
+</details>
+<h3 id="network-time-protocol">Network Time Protocol</h3>
+<p>实现时间同步的一个最经典的方法是<strong>网络时间协议</strong>(network time protocol, <strong>NTP</strong>)。它是一种用于与网络中计算机时钟时间源同步的互联网协议。</p>
+<ul>
+<li><strong>参考时钟</strong>(reference clock)：GPS 时钟、无线电发射站或诸如原子钟等极其精确的计时设备<ul>
+<li>无需连接到互联网</li>
+<li>通过无线电或光纤发送时间</li>
+</ul>
+</li>
+<li>
+<p><strong>时间服务器层</strong>(time server stratums)：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/24.png" width=50%>
+</div></p>
+<ul>
+<li>计算与参考时钟的分离度</li>
+<li>参考时钟的等级值(stratum value)为 0</li>
+<li>等级值为 1 的服务器称为主时间服务器(primary time server)</li>
+<li>如果一个设备的等级值超过 15，其时间不可信</li>
+<li>设备在修正时间时会自动选择等级值较低的服务器</li>
+</ul>
+</li>
+</ul>
+<p>NTP 算法的实现如下：</p>
+<ul>
+<li>
+<p>使用 NTP 很简单，只需</p>
+<ul>
+<li>客户端向服务器请求时间</li>
+<li>服务器接收请求并回复</li>
+<li>客户端接收回复</li>
+<li>但得考虑<strong>延迟</strong>问题</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/25.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>记录 4 个时间戳 <span class="arithmatex">\(t_0^c, t_1^s, t_2^s, t_3^c\)</span>，分别对应发送请求、接收请求、发送回复和接收回复的时间</p>
+<ul>
+<li>往返延迟 = <span class="arithmatex">\((t_3^c - t_0^c) - (t_2^s - t_1^s)\)</span></li>
+<li>偏移量 = <span class="arithmatex">\(\dfrac{t_1^s - t_0^c + t_2^s - t_3^c}{2}\)</span></li>
+<li>隐含的假设是单向延迟是往返延迟的一半</li>
+<li>本地时钟校正是通过偏移数据计算得出的，即 <span class="arithmatex">\(t_3^c\)</span> + 偏移量</li>
+<li>获得的延迟和时钟偏移样本可以使用最大似然技术进行过滤</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/26.png" width=60%>
+</div></p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/27.png" width=70%>
+</div></p>
+</details>
+</li>
+</ul>
+<h3 id="stream-based-time-synchronization-with-elimination-of-higher-order-modes">Stream-Based Time Synchronization with Elimination of Higher Order Modes</h3>
+<p>一种更精密的时钟同步做法是<strong>基于流的时间同步与高阶模式的消除</strong>：</p>
+<ol>
+<li>客户端在「时间请求」包上记录当前本地时间，并发送给服务器</li>
+<li>服务器收到后，记录服务器时间并返回</li>
+<li>客户端收到后，通过 delta = (当前时间 - 发送时间) / 2 计算时间差</li>
+</ol>
+<blockquote>
+<p>到目前为止和 NTP 算法很像。</p>
+</blockquote>
+<ol>
+<li>第一个结果应立即用于时钟更新</li>
+<li>客户端重复步骤 1-3 五次或更多</li>
+<li>累积并按延迟<strong>升序</strong>排序数据包接收的结果</li>
+<li>丢弃所有超过中位数 1.5 倍的数据样本，剩余样本使用算术平均数进行平均</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec18/28.png" width=50%>
+</div>
+
+<h2 id="remote-procedure-call-rpc">Remote Procedure Call (RPC)</h2>
+<p>即便<a href="#socket">套接字</a>编程简化了计算机间的通信处理，但在游戏开发中还是不太好用，我们还需要考虑很多东西：</p>
+<ul>
+<li>如何在同一连接上区分不同的请求？</li>
+<li>如何将字节写入网络/从网络读取字节？</li>
+<li>如果主机 A 的进程是用 Go 编写的，而主机 B 的进程是用 C++ 编写的怎么办？</li>
+<li>那些字节该如何处理？</li>
+</ul>
+<p>另外，我们还要用套接字定义多种<strong>消息</strong>(message)，这是客户端和服务器常用的通信方式。</p>
+<div style="text-align: center">
+    <img src="images/lec18/29.png" width=40%>
+</div>
+
+<p>起初，程序员通过<strong>硬编码</strong>的方式定义用于发送请求和响应的消息。这样的消息被看作是一个字节流，包含了操作码和操作数信息。</p>
+<details class="example">
+<summary>例子</summary>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">foomsg</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">send_foo</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">contents</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">msglen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">foomsg</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">contents</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">msglen</span><span class="p">);</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">foomsg</span><span class="w"> </span><span class="o">*</span><span class="n">fm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">foomsg</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">;</span>
+<span class="w">    </span><span class="n">fm</span><span class="o">-&gt;</span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htonl</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">contents</span><span class="p">));</span>
+<span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">foomsg</span><span class="p">),</span>
+<span class="w">        </span><span class="n">contents</span><span class="p">,</span>
+<span class="w">        </span><span class="n">strlen</span><span class="p">(</span><span class="n">contents</span><span class="p">));</span>
+<span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="n">outsock</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">msglen</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<div class="admonition bug">
+<p class="admonition-title">问题</p>
+<ul>
+<li>需要关心消息格式</li>
+<li>必须对消息中的数据进行打包和解包</li>
+<li>服务器必须解码消息并将它们分派给处理函数</li>
+<li>消息通常是异步的</li>
+<li>发送一个消息后，直到收到响应前要做什么</li>
+<li>消息不是一个自然的编程模型</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">关于逻辑通信的更多挑战</p>
+<p>远程过程调用中，远程机器可能：</p>
+<ul>
+<li>运行用<strong>不同语言</strong>编写的进程</li>
+<li>使用<strong>不同大小</strong>的数据类型表示</li>
+<li>使用<strong>不同的字节序</strong>（大小端(endianess)）</li>
+<li>以<strong>不同</strong>的方式表示浮点数</li>
+<li>有<strong>不同的数据对齐</strong>要求（例如，4 字节类型仅从 4 字节内存边界开始）</li>
+</ul>
+</div>
+<p><strong>远程过程调用</strong>(remote procedure call, <strong>RPC</strong>)是一种请求-响应协议。RPC 由客户端发起，客户端向已知的远程服务器发送请求消息并提供参数，以执行指定的过程。其目标是：</p>
+<ul>
+<li>让编程更简单</li>
+<li>隐藏复杂性</li>
+<li>建立对程序员来说更熟悉的模型（只需调用函数）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec18/30.png" width=50%>
+</div>
+
+<details class="example">
+<summary>例子（Go 语言）</summary>
+<p>注意两段程序高亮的两行之间的关系。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">客户端</label><label for="__tabbed_2_2">服务端</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Client</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;log&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/rpc&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rpc</span><span class="p">.</span><span class="nx">Dial</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;127.0.0.1:8000&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;dial&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="kt">string</span>
+<span class="hll"><span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;HelloWorldService.SayHello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;World&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">response</span><span class="p">)</span>
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;caller&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="hll"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Server</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;net&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/rpc&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">HelloWorldService</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">HelloWorldService</span><span class="p">)</span><span class="w"> </span><span class="nx">SayHello</span><span class="p">(</span><span class="nx">request</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">*</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="o">*</span><span class="nx">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Hello &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">request</span>
+</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">rpc</span><span class="p">.</span><span class="nx">RegisterName</span><span class="p">(</span><span class="s">&quot;HelloWorldService&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">HelloWorldService</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">listener</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;:8000&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Monitor port failed!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Establish a connection failure!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">rpc</span><span class="p">.</span><span class="nx">ServeConn</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>输出：<code>Hello World</code></p>
+</details>
+<details class="question" open="open">
+<summary>为什么用 RPC？</summary>
+<p>目标：实现易于编程的网络通信，使客户端和服务器之间的通信透明。</p>
+<ul>
+<li>
+<p>保留编写集中式(centralized)代码的「感觉」</p>
+<ul>
+<li>程序员无需考虑网络</li>
+<li>使通信看起来像本地的过程调用</li>
+</ul>
+</li>
+<li>
+<p>无需担心网络序列化/反序列化的问题</p>
+</li>
+<li>也无需担心网络的复杂性</li>
+</ul>
+</details>
+<p>这里涉及到一个叫做<strong>接口定义语言</strong>(interface definition language, <strong>IDL</strong>)的概念。它指定了所有客户端可调用的服务器过程的名称、参数和类型。服务器便用它来定义服务接口。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<ul>
+<li>OSI 参考模型的 ASN.1</li>
+<li>
+<p>Google Protobuf：Google 的数据交换格式（介绍工具链的<a href="13.html#schemas">模式</a>(schema)时提到过）</p>
+<div class="highlight"><span class="filename">polyline.proto</span><pre><span></span><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto2&quot;</span><span class="p">;</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">required</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">required</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">Line</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">required</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="na">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">required</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="na">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">Polyline</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="na">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+</ul>
+</details>
+<p>客户端与服务器之间的通信还有一种叫做 <strong>RPC 存根</strong>(stubs)的中间层。</p>
+<div style="text-align: center">
+    <img src="images/lec18/31.png" width=40%>
+</div>
+
+<ul>
+<li>
+<p><strong>客户端存根</strong>是一个看起来像可调用服务器过程的程序</p>
+<ul>
+<li>客户端程序认为它在调用服务器，但实际上它在调用客户端存根</li>
+</ul>
+</li>
+<li>
+<p><strong>服务器端存根</strong>看起来像是对服务器进行调用的调用者</p>
+<ul>
+<li>服务器程序认为它被客户端调用，但实际上它是由服务器端存根调用的</li>
+</ul>
+</li>
+<li>
+<p>存根之间通过发送消息使 RPC 透明发生</p>
+</li>
+</ul>
+<p>另外还会用一个「<strong>存根编译器</strong>」(stub compiler)读取 IDL 声明，并为每个服务器过程生成两个存根程序</p>
+<ul>
+<li>服务器程序员实现服务的过程，并将其与<strong>服务器端存根</strong>链接</li>
+<li>客户端程序员实现客户端程序，并将其与<strong>客户端存根</strong>链接</li>
+<li>由存根管理客户端和服务器之间远程通信的所有细节</li>
+</ul>
+<details class="abstract" open="open">
+<summary>一段真实的 RPC 包传输过程</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/32.png" width=90%>
+</div></p>
+</details>
+<h2 id="network-topology">Network Topology</h2>
+<h3 id="p2p">P2P</h3>
+<p>一种曾在对战游戏中常用的经典网络拓扑结构是<strong>点对点</strong>(peer-to-peer, <strong>P2P</strong>)架构。</p>
+<div style="text-align: center">
+    <img src="images/lec18/33.png" width=40%>
+</div>
+
+<ul>
+<li>每个客户端向其他所有客户端广播游戏事件</li>
+<li>鲁棒性</li>
+<li>作弊更加容易</li>
+<li>所有节点之间需要同步，以保持分布式游戏状态的一致性</li>
+</ul>
+<p>后来开发者发现许多业务逻辑应当集中在一起处理，于是在原有 P2P 架构的基础上引入了<strong>主机服务器</strong>(host server)。</p>
+<div style="text-align: center">
+    <img src="images/lec18/34.png" width=40%>
+</div>
+
+<ul>
+<li>玩家可以充当“服务器”，称为主机</li>
+<li>如果主机断开连接，游戏可能会结束</li>
+<li>主机需要处理无法由玩家控制的游戏角色（比如 bot）</li>
+</ul>
+<details class="example">
+<summary>P2P 游戏代表</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/35.png" width=60%>
+</div></p>
+</details>
+<p>P2P 游戏具有以下特点：</p>
+<ul>
+<li>不依赖于服务器</li>
+<li>通常采用局域网（LAN）</li>
+<li>基本上由主机控制会话</li>
+<li>同时在线的玩家数量有限</li>
+</ul>
+<h3 id="dedicated-server">Dedicated Server</h3>
+<p>但对于像 MMORPG 等更复杂的游戏类型，现在一般会采用<strong>专用服务器</strong>(dedicated server)架构，它的作用和特点是：</p>
+<div style="text-align: center">
+    <img src="images/lec18/36.png" width=40%>
+</div>
+
+<ul>
+<li>权威(authority)</li>
+<li>模拟游戏世界</li>
+<li>向玩家分派数据</li>
+<li>高性能要求</li>
+</ul>
+<details class="abstract" open="open">
+<summary>P2P vs 专用服务器</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">P2P</th>
+<th style="text-align: left;">专用服务器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">优点</td>
+<td style="text-align: left;">1. 鲁棒性强<br>2. 消除多人游戏会话中的“服务器故障”问题<br>3. 无需额外的服务器成本</td>
+<td style="text-align: left;">1. 易于维护且能防止作弊<br>2. 可以处理庞大的游戏世界<br>3. 游戏的响应速度不依赖于<strong>每个独立</strong>客户端的网络状况</td>
+</tr>
+<tr>
+<td style="text-align: left;">缺点</td>
+<td style="text-align: left;">1. 作弊更容易<br>2. 每个玩家都需要良好的网络连接才能使游戏正常运行<br>3. 只能处理<strong>有限数量</strong>的玩家</td>
+<td style="text-align: left;">1. 服务器成本高昂<br>2. 服务器端程序的开发工作量大得多<br>3. 存在单点故障风险</td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr />
+<p>当玩家在不同国家，相隔遥远，或者网络环境复杂时，RTT 就会很高。解决方法是使用<strong>专用线路</strong>(dedicated line)和<strong>边缘网关</strong>(edge gateway)来降低延迟。</p>
+<div style="text-align: center">
+    <img src="images/lec18/37.png" width=70%>
+</div>
+
+<h2 id="game-synchronization">Game Synchronization</h2>
+<p>在单机游戏中：</p>
+<ul>
+<li>
+<p>每个游戏 tick 中需要完成以下任务：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/38.png" width=60%>
+</div></p>
+<ul>
+<li>玩家输入</li>
+<li>转换为游戏命令</li>
+<li>游戏逻辑</li>
+<li>游戏渲染</li>
+</ul>
+</li>
+<li>
+<p>玩家关心的是</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/39.png" width=60%>
+</div></p>
+<ul>
+<li>玩家输入</li>
+<li>保持一致性</li>
+</ul>
+</li>
+</ul>
+<p>对于网络游戏，虽然玩家关心的东西还是一样的，但每个游戏 tick 要完成的任务变得更加复杂了。但不管如何，还是得通过游戏命令和游戏逻辑来实现不同终端玩家一起玩游戏。</p>
+<div style="text-align: center">
+    <img src="images/lec18/40.png" width=50%>
+</div>
+
+<p>为了满足对响应策略的需求，游戏需要<strong>同步</strong>(synchronization)规则，以解决所有目标的延迟和一致性问题。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/41.gif" width=70%>
+</div></p>
+</details>
+<p>常用的同步方法有三种，分别是：</p>
+<ul>
+<li><strong>快照</strong>(snapshot)同步</li>
+<li><strong>锁步</strong>(lockstep)同步（<strong>帧同步</strong>）</li>
+<li><strong>状态</strong>(state)同步</li>
+</ul>
+<p>下面将会详细分析这些方法。</p>
+<h3 id="snapshot-synchronization">Snapshot Synchronization</h3>
+<details class="example">
+<summary>例子（<em>Quake</em>）</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/42.png" width=70%>
+</div></p>
+</details>
+<p>快照同步的步骤：</p>
+<ol>
+<li>客户端向服务器发送输入</li>
+<li>服务器模拟游戏世界，生成整个游戏状态快照，并将它们发送给客户端</li>
+<li>客户端根据快照更新显示</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec18/43.png" width=70%>
+</div>
+
+<h4 id="snapshot-interpolation">Snapshot Interpolation</h4>
+<p>出于对带宽和性能的考量，通常会限制服务器的 tick 速率，但这样做会出现画面抖动(jitters)和卡顿(hitches)的问题。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/44.gif" width=60%>
+</div></p>
+</details>
+<p>解决方案是在快照之间进行<strong>插值</strong>，使画面变化看起来更丝滑。具体细节为：</p>
+<ul>
+<li>接收快照后不会立即渲染</li>
+<li>保留一个插值缓冲区</li>
+<li>在两个延迟快照之间进行插值</li>
+</ul>
+<h4 id="delta-compression">Delta Compression</h4>
+<p>快照同步的另一个问题是每个快照的数据量可能很大，若不做任何处理就会占据过多的内存带宽和空间。常见做法是采用<strong>增量压缩</strong>(delta compression)，即仅同步客户端的快照增量（两次连续快照的差值）。</p>
+<blockquote>
+<p><em>Quake3</em> 便采用了这种方法。</p>
+</blockquote>
+<div style="text-align: center">
+    <img src="images/lec18/45.png" width=70%>
+</div>
+
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/46.gif" width=70%>
+</div></p>
+</details>
+<details class="bug" open="open">
+<summary>缺点</summary>
+<ul>
+<li>浪费客户端性能，而服务器压力大</li>
+<li>数据量大，带宽要求高</li>
+<li>随着游戏变得越来越复杂，快照也会变得越来越大</li>
+</ul>
+</details>
+<h3 id="lockstep-synchronization">Lockstep Synchronization</h3>
+<p>「<strong>锁步</strong>」这一概念源自军队管理，是确保同步的一种最简单的方法，保证了同一时间下士兵采取相同行动，即结果相同。除非其他成员确定他们已经完成了任务，否则不允许任何成员提前推进模拟时钟。像下棋、打牌等回合制游戏都遵循这一原则。</p>
+<p>显然，完全有序的交付(delivery)是确保不同节点之间游戏状态一致性的充分条件，因为它保证所有生成的事件都按照相同的唯一顺序可靠地交付。</p>
+<p>在网络游戏中，锁步的原则是：相同的输入 + 相同的执行过程 = 相同的状态。</p>
+<div style="text-align: center">
+    <img src="images/lec18/47.png" width=60%>
+</div>
+
+<p>最早用到锁步思想的电子游戏是 <em>DOOM</em>（1994 年，采用 P2P 架构）。</p>
+<p>锁步的<strong>初始化</strong>常常发生在游戏加载的时候，在这段时间中：</p>
+<ul>
+<li>
+<p>确保客户端的初始数据是<strong>确定性的</strong>(deterministic)</p>
+<ul>
+<li>游戏模型</li>
+<li>静态数据</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p>同步时钟</p>
+</li>
+</ul>
+<h4 id="deterministic-lockstep">Deterministic Lockstep</h4>
+<p>确定性锁步的流程如下：</p>
+<ol>
+<li>客户端向服务器发送输入</li>
+<li>服务器接收并排序；在转发之前等待所有客户端的输入</li>
+<li>在从服务器接收数据后，客户端执行游戏逻辑</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec18/48.png" width=70%>
+</div>
+
+<details class="bug" open="open">
+<summary>问题</summary>
+<p>若玩家 B 的消息 B2 到达较晚呢？（图中虚线标出的 B2）</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/49.png" width=70%>
+</div></p>
+<ul>
+<li>游戏进度取决于最慢的玩家</li>
+<li>游戏延迟不固定，体验不佳</li>
+<li>
+<p>如果有玩家离线，那么所有玩家都将进入等待状态</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/50.png" width=80%>
+</div></p>
+</details>
+</li>
+</ul>
+</details>
+<p>优化方案是采用<strong>桶同步</strong>(bucket synchronization)。<strong>桶</strong>是指一个固定的时间段。每个桶需收集所有指令，并向所有玩家广播，无需等待所有玩家指令接收后再转发。</p>
+<div style="text-align: center">
+    <img src="images/lec18/51.png" width=70%>
+</div>
+
+<p>选择网络架构时，我们往往要考虑<strong>一致性</strong>(consistency)和<strong>交互性</strong>(interactivity)的权衡。一旦测得交互度低于给定阈值，就采取一些程序跳过处理过时的游戏事件，以恢复令人满意的交互水平。</p>
+<div class="admonition warning">
+<p class="admonition-title">确定性的挑战</p>
+<ul>
+<li>浮点数</li>
+<li>随机数</li>
+<li>容器和算法（排序、添加、删除等）</li>
+<li>数学工具（向量、四元数等）</li>
+<li>物理模拟（非常困难）</li>
+<li>代码逻辑执行顺序</li>
+</ul>
+</div>
+<details class="note" open="open">
+<summary>浮点数</summary>
+<ul>
+<li>
+<p>由于计算机是二进制编码的</p>
+<ul>
+<li>所以这些数字能被精确表示：0.5, 0.25, 0.75, 0.875...</li>
+<li>而这些数字只能被近似表示：2/3...</li>
+</ul>
+</li>
+<li>
+<p>浮点数必须遵循 IEEE 754 标准</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/52.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>但在不同平台上有不同行为</p>
+<ul>
+<li>
+<p>硬件和 OS</p>
+<ul>
+<li>Intel / AMD</li>
+<li>PS / Xbox</li>
+<li>Windows / Linux</li>
+<li>Android / IOS</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p>编译器</p>
+<ul>
+<li>数学库（<code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>pow</code>...）</li>
+<li>第三方库组件</li>
+<li>不同平台</li>
+<li>不同版本</li>
+<li>不同语言</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>思路：避免精度边界问题，自定义精度</p>
+<ul>
+<li>定点(fixed-point)数学库</li>
+<li>查找表（三角函数等）</li>
+<li>放大(amplification)和截断(truncation)</li>
+</ul>
+</li>
+<li>
+<p>简单方法：</p>
+<ul>
+<li>先乘以 1000，再除以 1000，但可能会溢出</li>
+<li>分子和分母由定点数表示（比如 2/3）</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p><strong>定点数</strong>：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/53.png" width=60%>
+</div></p>
+<ul>
+<li>
+<p>由三部分组成：一个可选的符号位、一个整数和一个小数部分</p>
+<div class="arithmatex">\[
+V = (-1)^{b_{f+i}} \left( \sum_{n=0}^{i} 2^{n} b_{n+f} + \sum_{m=1}^{f} 2^{-m} b_{f-m} \right)
+\]</div>
+</li>
+<li>
+<p>需实现加减乘除等运算，以及类和类方法</p>
+</li>
+<li>还需考虑性能</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="note" open="open">
+<summary>随机数</summary>
+<p>游戏中的随机问题包括：</p>
+<ul>
+<li>随机事件的触发，比如 NPC 的随机出生地</li>
+<li>攻击的随机属性，比如暴击率</li>
+<li>...</li>
+</ul>
+<p>这些逻辑通常通过随机数实现。一种为多名玩家实现完全一致的随机逻辑的做法是使用<strong>伪随机数</strong>(pseudorandom)。</p>
+<ul>
+<li>在游戏开始之前，初始化随机数种子</li>
+<li>对于不同玩家的客户端，随机函数调用次数是固定的，生成的随机数是相同的</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">default_random_engine</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><div style="text-align: center">
+    <img src="images/lec18/54.png" width=40%>
+</div></p>
+</details>
+</details>
+<p>对应地，我们有以下确定性的实现途径：</p>
+<ul>
+<li>用定点数表示关键游戏逻辑中的浮点数</li>
+<li>确定性随机算法</li>
+<li>确定性容器和算法（排序、添加、删除等）</li>
+<li>确定性数学工具（向量、四元数等）</li>
+<li>确定性物理模拟（非常困难）</li>
+<li>确定性执行顺序</li>
+</ul>
+<p>显然我们无法总是保证确定性一直成立，这时我们就要找出 bug。常用的追踪和调试手段有：</p>
+<ul>
+<li>获取<strong>校验和</strong>(checksum)：所有数据的校验和，或仅计算关键数据的校验和</li>
+<li><strong>自动定位</strong> bug：<ul>
+<li>服务器比较不同客户端的校验和</li>
+<li>客户端上传 50 帧完整日志</li>
+<li>通过比较日志找出不一致的地方</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec18/55.png" width=80%>
+</div>
+
+<h4 id="lag-and-delay">Lag and Delay</h4>
+<p>即便在帧同步中采用桶同步的优化措施，但还是有可能会出现<strong>延迟</strong>问题。因为网络通常是不稳定的，如果直到接收新的帧之前一直等待的话，就出现了延迟。解决方案有：</p>
+<ul>
+<li>
+<p>用<strong>缓冲区</strong>缓存帧：缓冲区越大，延迟越大（因为只有缓冲区满了才会显示里面的帧）；缓冲区越小，对延迟更敏感</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/56.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>分离游戏逻辑和渲染</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec18/57.png" width=50%>
+</div></p>
+<ul>
+<li>
+<p>延迟问题的解决：</p>
+<ul>
+<li>分离逻辑和渲染</li>
+<li>本地客户端通过插值使画面变化更丝滑</li>
+</ul>
+</li>
+<li>
+<p>帧率：</p>
+<ul>
+<li>逻辑帧率通常在 10-30 fps 左右</li>
+<li>渲染帧率通常更高</li>
+</ul>
+</li>
+<li>
+<p>优点：</p>
+<ul>
+<li>逻辑和渲染可以以不同频率独立运行</li>
+<li>渲染卡顿不影响逻辑帧的操作</li>
+<li>服务器可以通过运行逻辑帧来解决一些作弊问题</li>
+<li>若服务器运行逻辑帧，可以保存关键帧快照以加速重连</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="reconnection-problem">Reconnection Problem</h4>
+<div style="text-align: center">
+    <img src="images/lec18/58.png" width=80%>
+</div>
+
+<p>重连的三个阶段：<strong>离线</strong>(offline)、<strong>重连</strong>(reconnect)和<strong>追赶</strong>(catch up)。</p>
+<p><strong>客户端</strong>的游戏状态快照可以定期保存在本地客户端并序列化到磁盘。当重新连接发生时，将从磁盘的序列化数据中恢复游戏状态。获取快照后，服务器发送玩家命令，加速赶上游戏进度。这样的好处是不必从头开始恢复游戏状态，可以从断连的那一刻开始追赶。</p>
+<div style="text-align: center">
+    <img src="images/lec18/59.png" width=60%>
+</div>
+
+<p>下面给出一段简单的关于快速追赶的实现代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">m_delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">m_tick_delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">CBattleLayer::update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">delta</span><span class="p">){</span>
+<span class="w">    </span><span class="c1">// do something</span>
+<span class="w">    </span><span class="n">m_delta</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">delta</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">exec_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">m_delta</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">m_tick_delta</span><span class="p">){</span>
+<span class="w">        </span><span class="n">m_delta</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">m_tick_delta</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// logic frame</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">logicUpdate</span><span class="p">(</span><span class="n">LOGIC_TIME</span><span class="p">)){</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// catch up 10 frames at a time</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">exec_count</span><span class="o">++</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">){</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// do something</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>每次选择 10 帧</li>
+<li>若初始为 10 fps，那么追赶时就是 100 fps</li>
+</ul>
+<p>除了客户端外，<strong>服务器</strong>也可以保存快照。它会运行逻辑帧并保存关键帧快照。玩家断连后可在服务器发送快照后进行操作，之后也通过加速赶上游戏进度。</p>
+<div style="text-align: center">
+    <img src="images/lec18/60.png" width=60%>
+</div>
+
+<p>如果只是<strong>临时离线</strong>，则不会引起程序崩溃，因为客户端依然保留游戏状态、关键帧和确定性计时的帧。重连后，服务器向刚才断连的玩家发送一些命令，加速赶上游戏进度。</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/61.gif" width=80%>
+</div></p>
+</details>
+<p>这项技术的另一项应用是<strong>观战模式</strong>，即观看其他玩家游玩。</p>
+<ul>
+<li>这和重连本质上是一样的，观看就相当于客户端崩溃后的重连</li>
+<li>将玩家的行动命令转发给观看游戏的玩家</li>
+<li>观看通常会延迟几分钟，以防止屏幕偷看</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/62.gif" width=80%>
+</div></p>
+</details>
+<p><strong>回放</strong>(replay)功能也是类似的。通过执行玩家们当时在游戏中的命令，可以加速回放的播放。</p>
+<ul>
+<li><strong>回放文件</strong>保存了一场游戏的游戏命令，仅占据很小的空间</li>
+<li>实现<strong>回退</strong>的方式：<ul>
+<li>当客户端执行回放文件时，它会添加一个关键帧快照，可以回退到关键帧时刻</li>
+<li>例子：《王者荣耀》当前版本（2022 年）可以回退到 60 秒前的关键帧</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/63.png" width=60%>
+</div></p>
+</details>
+<h4 id="lockstep-cheating-issues">Lockstep Cheating Issues</h4>
+<ul>
+<li>
+<p>多人 PvP</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/64.png" width=40%>
+</div></p>
+<ul>
+<li>游戏结束时，客户端会上传密钥数据校验和，服务器验证游戏结果</li>
+<li>游戏进行时，客户端报告密钥数据校验和，作弊的玩家会被踢出等等</li>
+</ul>
+</li>
+<li>
+<p>双人模式</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/65.png" width=40%>
+</div></p>
+<ul>
+<li>服务器无法通过密钥数据校验和来检测谁在作弊</li>
+<li>如果服务器未被验证，那么作弊玩家在这种情况下只会影响一个玩家</li>
+</ul>
+</li>
+<li>
+<p>难以避免访问战争迷雾(war-fog)（玩家视野有限）或其他隐藏数据的第三方插件</p>
+<ul>
+<li>游戏逻辑在客户端执行</li>
+<li>客户端拥有所有游戏数据</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/66.png" width=60%>
+</div></p>
+</li>
+</ul>
+<details class="abstract" open="open">
+<summary>总结</summary>
+<details class="recommend" open="open">
+<summary>优点</summary>
+<ul>
+<li>因为仅发送命令，所以带宽小</li>
+<li>类似于单人游戏开发的高开发效率</li>
+<li>精确的动作/命中检测</li>
+<li>便于游戏录制</li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>问题</summary>
+<ul>
+<li>难以保持一致性</li>
+<li>很难解决显示所有游戏状态的作弊插件的问题</li>
+<li>断连和重连时间更长，需要更复杂的优化</li>
+</ul>
+</details>
+</details>
+<h3 id="state-synchronization">State Synchronization</h3>
+<p>游戏<strong>状态</strong>(states)对表示游戏世界而言是必需的。在<strong>状态同步</strong>中，</p>
+<ul>
+<li>服务器不会为所有客户端生成单个更新，而是向客户端发送定制的数据包</li>
+<li>如果游戏世界过于复杂，可以通过设置<strong>兴趣区域</strong>(area of interest, <strong>AOI</strong>)来减少服务器开销</li>
+</ul>
+<p>状态同步最大的特点是由<strong>服务器</strong>管控整个游戏世界。</p>
+<div style="text-align: center">
+    <img src="images/lec18/67.png" width=60%>
+</div>
+
+<ul>
+<li>服务器：接收来自客户端的输入和状态，运行游戏逻辑，然后发送状态</li>
+<li>客户端：接收数据并模拟游戏世界，游戏玩法的提升</li>
+</ul>
+<details class="info" open="open">
+<summary>相关概念</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/68.png" width=40%>
+</div></p>
+<ul>
+<li><strong>授权</strong>(authorized)客户端（1P）：玩家本地游戏客户端（玩家自己操纵的）</li>
+<li><strong>服务器</strong>：授权服务器</li>
+<li><strong>复制</strong>(replicated)客户端（3P）：在其他玩家客户端中模拟的角色（其他玩家看到的）</li>
+</ul>
+</details>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Stage 1</label><label for="__tabbed_3_2">Stage 2</label><label for="__tabbed_3_3">Stage 3</label><label for="__tabbed_3_4">Stage 4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>左右两张图分别对应（授权）玩家 1（准备开火）和（复制）玩家 2（观察玩家 1 开火）：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/69.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>玩家 1 在本地机器上按下按钮开火时经历了这样一个过程：</p>
+<ul>
+<li>玩家 1：开火，发送给服务器</li>
+<li>服务器：玩家 1 开火，发送给各个客户端</li>
+<li>玩家 2：接收数据包，看到玩家 1 开火</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec18/70.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>服务器告诉每个客户端以复现玩家 1 炮弹的移动：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/71.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>并且服务器告诉所有客户端要响应来自炮弹的破坏：</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/72.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h4 id="dumb-client-problem">Dumb Client Problem</h4>
+<p><strong>愚笨客户端问题</strong>(dumb client problem)：客户端在收到服务器状态更新之前无法进行任何操作。</p>
+<div style="text-align: center">
+    <img src="images/lec18/73.png" width=50%>
+</div>
+
+<p>要想实现立即响应，可通过以下流程实现：</p>
+<ul>
+<li>
+<p><strong>客户端预测</strong>(client-side prediction)：对于授权客户端，假如按下 "-&gt;" 键，可以在未收到服务器消息的情况下先向右移动一段距离，等接收到消息时再和服务器的响应内容对齐</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/74.gif" width=80%>
+</div></p>
+<details class="example">
+<summary>例子</summary>
+<p>《守望先锋》的策略是：估计 RTT 为 160ms，并设定客户端总是领先服务器半个 RTT + 一条缓存命令帧的时间，即 80 + 16 = 96ms。因此玩家按下按钮后能够被立即响应。</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/75.gif" width=60%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>服务器和解</strong>(server reconciliation)</p>
+<ul>
+<li>
+<p>授权客户端：<strong>缓存</strong>(buffer)</p>
+<ul>
+<li>客户端做预测时记录每个状态（便于回退）</li>
+<li>当接收来自客户端的数据时和服务器过去的数据比较</li>
+</ul>
+</li>
+<li>
+<p><strong>环形状态缓存</strong>：存储客户端前几帧的所有状态</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec18/76.gif" width=60%>
+</div></p>
+</details>
+</li>
+<li>
+<p>进程：若客户端的计算结果与服务器一致，客户端就可以顺利继续模拟下一次输入</p>
+</li>
+<li>
+<p>问题：<strong>误预测</strong>(misprediction)</p>
+<ul>
+<li>
+<p>如下图所示，若服务器这边的游戏中有一堵墙，那么客户端先前预测的位置就错了，此时客户端必须接受新的服务器更新，并重新追踪所有从新的确认点开始的预测移动</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/77.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>若客户端与服务器的结果不一致，意味着预测错误，需要和解</p>
+<ul>
+<li><strong>环形输入缓存</strong>：存储客户端前几帧的所有输入</li>
+<li>进程：用服务器结果覆写客户端结果，并重放所有输入，以赶上可确定的内容</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<p>还是以《守望先锋》为例。被武器冻住的玩家尝试移动，但服务器不允许，于是玩家只能定在原地。</p>
+<p><div style="text-align: center">
+    <img src="images/lec18/78.gif" width=60%>
+</div></p>
+</details>
+</li>
+</ul>
+<h4 id="packet-loss">Packet Loss</h4>
+<p>另外还得考虑<strong>丢包</strong>(packet loss)的问题，即客户端输入的数据包未能抵达服务器。</p>
+<ul>
+<li>服务器尝试保持一个用于存放未处理输入的小型<strong>输入缓冲区</strong></li>
+<li>如果服务器用完了输入缓冲区，服务器将在窗口中<strong>重复</strong>最后输入</li>
+<li>推送客户端尽快发送丢失的输入</li>
+</ul>
+<hr />
+<details class="abstract" open="open">
+<summary>状态同步 vs 帧同步</summary>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>状态同步</th>
+<th>帧同步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>确定性逻辑</td>
+<td>不需要</td>
+<td>必要</td>
+</tr>
+<tr>
+<td>响应速度</td>
+<td>更快</td>
+<td>更慢</td>
+</tr>
+<tr>
+<td>网络流量</td>
+<td>通常较高</td>
+<td>通常较低</td>
+</tr>
+<tr>
+<td>开发效率</td>
+<td>复杂得多</td>
+<td>开发容易，调试困难</td>
+</tr>
+<tr>
+<td>玩家数量</td>
+<td>少量玩家</td>
+<td>支持少量或大量玩家</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>相对容易</td>
+<td>相对困难</td>
+</tr>
+<tr>
+<td>断线重连</td>
+<td>相对容易</td>
+<td>相对困难</td>
+</tr>
+<tr>
+<td>回放文件大小</td>
+<td>大</td>
+<td>小</td>
+</tr>
+<tr>
+<td>作弊</td>
+<td>相对困难</td>
+<td>相对容易</td>
+</tr>
+</tbody>
+</table>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./17.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Advanced Artificial Intelligence">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Advanced Artificial Intelligence
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./19.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Advanced Topics">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Advanced Topics
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

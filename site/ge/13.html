@@ -1,0 +1,2853 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My notes about game development, including computer graphics, game engine etc.">
+      
+      
+        <meta name="author" content="NoughtQ">
+      
+      
+        <link rel="canonical" href="https://game.noughtq.top/ge/13.html">
+      
+      
+        <link rel="prev" href="./12.html">
+      
+      
+        <link rel="next" href="./14.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.jpg">
+      <meta name="generator" content="zensical-0.0.27">
+    
+    
+      
+        <title>Foundation of Tool Chains - NoughtQ's Game Notes!</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.50057488.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/counter.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/header.css">
+    
+      <link rel="stylesheet" href="../css/sidebar.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航栏"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#foundation-of-tool-chains" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-header__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航栏">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoughtQ's Game Notes!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Foundation of Tool Chains
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="查找">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cg/index.html" class="md-tabs__link">
+          
+  
+  计算机图形学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rtr/index.html" class="md-tabs__link">
+          
+  
+  实时渲染
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./index.html" class="md-tabs__link">
+          
+  
+  游戏引擎
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="NoughtQ&#x27;s Game Notes!" class="md-nav__button md-logo" aria-label="NoughtQ's Game Notes!" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-gamepad-2" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59q-.008.077-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258q-.01-.075-.017-.151A4 4 0 0 0 17.32 5"/></svg>
+
+    </a>
+    NoughtQ's Game Notes!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NoughtQ/game-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NoughtQ/game-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../cg/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机图形学
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rtr/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高质量实时渲染
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏引擎
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    游戏引擎
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture of Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Build a Game World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./4.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tool Chains
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundation of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="13.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundation of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complicated-tool-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complicated Tool GUI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complicated Tool GUI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-saving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading and Saving
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading and Saving">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asserting-data-repeatance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting Data Repeatance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-instance-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Instance Variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deserialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deserialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset Version Compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#robust-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Robust Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-tool-chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making Tool Chains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making Tool Chains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-views-for-engine-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Views for Engine Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-see-is-what-you-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See is What You Get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./14.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications &amp; Advanced Topic of Tool Chains
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./15.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="./18.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Online Gaming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-Oriented Programming and Job System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./21.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./22.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU-Driven Geometry Pipeline: Nanite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complicated-tool-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complicated Tool GUI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complicated Tool GUI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-saving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading and Saving
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading and Saving">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asserting-data-repeatance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting Data Repeatance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-instance-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Instance Variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deserialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deserialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset Version Compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#robust-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Robust Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-tool-chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making Tool Chains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making Tool Chains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-views-for-engine-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Views for Engine Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-see-is-what-you-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See is What You Get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    主页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    游戏引擎
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="13.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Tool Chains
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+    <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/13.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/NoughtQ/game-notes/raw/master/docs/ge/13.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="foundation-of-tool-chains">Foundation of Tool Chains</h1>
+<p>下图是一个简化后的游戏引擎架构图。</p>
+<div style="text-align: center">
+    <img src="images/lec13/1.png" width=80%>
+</div>
+
+<ul>
+<li>像渲染、物理仿真、网络通信等都是游戏引擎中的一部分，它们是游戏引擎的<strong>运行时</strong>(runtime)</li>
+<li>而在游戏引擎之上则是一系列的工具，比如图中列出的各式编辑器、蓝图等等</li>
+<li>
+<p>经 DCC 生成的资产或素材需经过工具链处理后（资产处理管线(asset conditioning pipeline)）才能进入到引擎管线中</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/3.png" width=70%>
+</div></p>
+</li>
+</ul>
+<p>游戏引擎的工具链能调动有着不同思维的开发者们协同工作：</p>
+<div style="text-align: center">
+    <img src="images/lec13/2.png" width=50%>
+</div>
+
+<ul>
+<li>对设计师而言<ul>
+<li>能够快速迭代游戏玩法</li>
+<li>可以在没有编程的情况下快速实现游戏逻辑原型</li>
+<li>易于编辑大量数据</li>
+</ul>
+</li>
+<li>对艺术家而言<ul>
+<li>结果质量得到保障</li>
+<li>便捷的工作流</li>
+<li>所见即所得(WYSIWYG)</li>
+</ul>
+</li>
+</ul>
+<h2 id="complicated-tool-gui">Complicated Tool GUI</h2>
+<details class="info" open="open">
+<summary>图形用户界面(graphic user interface, GUI)</summary>
+<p>GUI 正变得越来越复杂：</p>
+<ul>
+<li>快速迭代</li>
+<li>设计和实现分离</li>
+<li>可重用性(reusability)</li>
+<li>...</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/4.png" width=70%>
+</div></p>
+</details>
+<p>对于游戏引擎工具链而言，用到的 GUI 也是非常复杂的。有以下两种实现模式：</p>
+<ul>
+<li>
+<p><strong>即时模式</strong>(immediate mode)</p>
+<ul>
+<li>通过客户端调用将图形对象渲染到屏幕上</li>
+<li>描述<strong>渲染图元</strong>(rendering primitives)的数据直接从客户端<strong>逐帧</strong>插入到<strong>命令列表</strong>(command list)中</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/5.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p>特点：</p>
+<ul>
+<li>轻量级</li>
+<li>过程式编程</li>
+<li>部件(widgets)无需维护任何数据或状态</li>
+</ul>
+</li>
+<li>
+<p>优点：直接、简单、快速原型</p>
+</li>
+<li>缺点：可扩展性、性能、可维护性差</li>
+<li>
+<p>例子：</p>
+<ul>
+<li>
+<p>Unity UGUI</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/6.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>Omniverse GUI</p>
+</li>
+<li>Piccolo GUI（GAMES104 小引擎）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>保留模式</strong>(retained mode)</p>
+<ul>
+<li>由<strong>图形库</strong>(graphics library)负责保留要渲染的场景</li>
+<li>客户端调用图形库并不会直接导致实际的渲染，而是利用图形库管理的资源进行间接调用</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/7.png" width=60%>
+</div></p>
+<ul>
+<li>
+<p>特点：</p>
+<ul>
+<li>面向对象编程</li>
+<li>部件包含自身状态和数据<ul>
+<li>可根据需要绘制部件</li>
+<li>复杂效果（动画等）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>优点：可扩展性、性能和可维护性高</p>
+</li>
+<li>
+<p>缺点：对开发者而言太复杂</p>
+<ul>
+<li>消息队列 / 回调</li>
+<li>GUI 和应用间的同步</li>
+</ul>
+</li>
+<li>
+<p>例子：</p>
+<ul>
+<li>
+<p>Unreal UMG</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/8.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>WPF GUI</p>
+</li>
+<li>QT GUI</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>实际开发中建议采用<strong>保留模式</strong>。</p>
+<h3 id="design-patterns">Design Patterns</h3>
+<p><strong>设计模式</strong>(design patterns)在构建 UI 的过程非常重要。如果不好好遵循某一个设计模式，一旦工具多起来，后果将不堪设想。下面介绍一些比较著名的模式：</p>
+<ul>
+<li>
+<p><strong>MVC</strong>(mode-view-controller)：由 Trygve Reenskaugin 于 1978 年发明，旨在弥合人类用户的心理模型与计算机中存在的数字模型之间的差距</p>
+<ul>
+<li><strong>模型</strong>(model)：模式的核心组件，负责管理应用程序的数据</li>
+<li><strong>视图</strong>(view)：信息的任何表示，例如图表、图示或表格</li>
+<li><strong>控制器</strong>(controller)：接受输入并将其转换为模型或视图的命令</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/9.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>MVP</strong>：MVC 模式的进化版，其中控制器为<strong>演示者</strong>(presenter)所替代</p>
+<ul>
+<li><strong>模型</strong>：定义在用户界面中显示或被操作的数据的接口</li>
+<li><strong>视图</strong>：一个显示数据（模型），并将用户命令（事件）路由到演示者以操作这些数据的被动界面</li>
+<li><strong>演示者</strong>：对模型和视图进行操作；从存储库（模型）检索数据，并将其格式化为在视图中显示</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/10.png" width=40%>
+</div></p>
+<ul>
+<li>优点：将模型和视图分得更清楚，便于调试</li>
+<li>缺点：演示者需要同时理解模型和视图的语言，比较复杂；并且开发者容易将演示者写得臃肿</li>
+</ul>
+</li>
+<li>
+<p><strong>MVVM</strong>：MVC 模式的变体</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/11.png" width=60%>
+</div></p>
+<ul>
+<li>视图由设计师（更注重图形和艺术）而非传统开发者负责</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/12.png" width=80%>
+</div></p>
+<ul>
+<li><strong>视图</strong>：<ul>
+<li>使用如 Dreamweaver、VS Blend 等 WYSIWYG 工具</li>
+<li>文件格式为 html/xaml</li>
+<li>MVC 在视图类中编码的状态视图不易表示</li>
+</ul>
+</li>
+<li><strong>绑定</strong>(binding)：将视图数据绑定到模型上，于是视图方面就不再需要代码了（利好设计师）</li>
+<li><strong>视图模型</strong>(viewModel)：包含将模型类型转换为视图类型的数据转换器（因为模型很可能有无法直接映射到控件的数据类型）</li>
+<li>
+<p>优点：</p>
+<ul>
+<li>独立开发</li>
+<li>易于维护与测试</li>
+<li>易于复用组件</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>对于简单的 UI，这一模式过于复杂(overkill)</li>
+<li>数据绑定是声明式的，因此难以调试</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="loading-and-saving">Loading and Saving</h2>
+<p>数据的保存和加载分别对应序列化和反序列化操作：</p>
+<ul>
+<li><strong>序列化</strong>(serialization)：将数据结构或对象状态转换为可以存储（比如在文件或内存数据缓冲区中）或传输（比如通过计算机网络）并在以后重建的格式的过程</li>
+<li><strong>反序列化</strong>(deserialization)：从一系列字节中提取数据结构的操作，和序列化相反</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec13/13.png" width=60%>
+</div>
+
+<h3 id="file-types">File Types</h3>
+<p>数据通常以文件形式存储。文件通常分为以下两大类：</p>
+<ul>
+<li>
+<p><strong>文本文件</strong>(text file)：以文本形式存储数据</p>
+<ul>
+<li>文件格式：TXT, JSON, YAML, XML...</li>
+<li>能通过常用文本编辑器阅读</li>
+<li>游戏引擎中的应用：<ul>
+<li>Unity Editor（可选）：YAML 的子集</li>
+<li>Piccolo：JSON</li>
+<li>CryEngine：XML / JSON（可选）</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/14.png" width=60%>
+</div></p>
+</li>
+<li>
+<p><strong>二进制文件</strong>(binary file)：以字节流形式存储数据</p>
+<ul>
+<li>需要额外工具进行读/写</li>
+<li>例子：UAsset, FBX 二进制文件...</li>
+<li>游戏引擎中的应用：<ul>
+<li>Unity Runtime, Unity Editor（可选）</li>
+<li>CryEngine（可选）</li>
+<li>Unreal: UAsset</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/15.png" width=40%>
+</div></p>
+</li>
+</ul>
+<p>对于相同的数据，二进制文件相比文本文件占用更小的存储空间。</p>
+<div style="text-align: center">
+    <img src="images/lec13/16.png" width=80%>
+</div>
+
+<h3 id="asserting-data-repeatance">Asserting Data Repeatance</h3>
+<p>如下图所示，红框标出的网格是重复数据。开发者该如何应对这种情况呢？</p>
+<div style="text-align: center">
+    <img src="images/lec13/17.png" width=70%>
+</div>
+
+<p>解决方法是<strong>资产引用</strong>(asset reference)：将冗余数据分离到资产文件中，并通过建立引用关系来实现关联。</p>
+<div style="text-align: center">
+    <img src="images/lec13/18.png" width=80%>
+</div>
+
+<p>资产引用中的引用就是一种<strong>数据实例</strong>(data instance)。可把它看作一种创建父数据的方法，既可作为制作各种不同的子数据的基础，也可以直接使用。</p>
+<div style="text-align: center">
+    <img src="images/lec13/19.png" width=80%>
+</div>
+
+<h3 id="object-instance-variance">Object Instance Variance</h3>
+<p>有时设计师希望将场景中某个引用的纹理换成另一个纹理。可行的做法有：</p>
+<div style="text-align: center">
+    <img src="images/lec13/20.png" width=70%>
+</div>
+
+<ul>
+<li>
+<p><strong>拷贝</strong>(copying)</p>
+<ul>
+<li>这是一种符合直觉的想法：制作一份关于实例数据的拷贝并修改这份拷贝</li>
+<li>问题：加载大量冗余的数据</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/21.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>数据继承</strong>(data inheritance)：继承被继承对象的数据，并允许覆盖其数据结构中定义的数据的赋值</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/22.png" width=70%>
+</div></p>
+</li>
+</ul>
+<h3 id="deserialization">Deserialization</h3>
+<p>文件的加载是一个较为复杂的<strong>解析</strong>(parsing)过程：</p>
+<div style="text-align: center">
+    <img src="images/lec13/23.png" width=70%>
+</div>
+
+<p>例如：一个场景文件由多个数据块，每个数据块又包含多个字段，而每个字段的类型和值各不相同。根据这一特点，我们不会一下子加载所有数据，而是将数据拆分成一个个的语义，并构建一棵由 &lt;键-类型-值&gt; 对组成的树状结构。</p>
+<div style="text-align: center">
+    <img src="images/lec13/24.png" width=70%>
+</div>
+
+<p>存储对象和字段类型的地方：</p>
+<ul>
+<li>文本文件：存储在资产中</li>
+<li>二进制文件：存储在表中（一般位于文件头部）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec13/25.png" width=70%>
+</div>
+
+<p>对二进制文件进行反序列化时，<strong>端序</strong>(endianess)是我们不得不考虑的一件事，它分为：</p>
+<ul>
+<li><strong>大端序</strong>(big endian)：高地址字节到低地址字节</li>
+<li><strong>小端序</strong>(little endian)：低地址字节到高地址字节</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec13/26.png" width=60%>
+</div>
+
+<p>不同处理器上的端序各异：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">处理器</th>
+<th style="text-align: left;">字节序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">PowerPC (PPC)</td>
+<td style="text-align: left;">大端序</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sun Sparc</td>
+<td style="text-align: left;">大端序</td>
+</tr>
+<tr>
+<td style="text-align: left;">IBM S/390</td>
+<td style="text-align: left;">大端序</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel x86 (32 位)</td>
+<td style="text-align: left;">小端序</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel x86_64 (64 位)</td>
+<td style="text-align: left;">小端序</td>
+</tr>
+<tr>
+<td style="text-align: left;">ARM</td>
+<td style="text-align: left;">双端序（大端/小端）</td>
+</tr>
+</tbody>
+</table>
+<p>在 Unreal 中：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Returns true if data larger than 1 byte should</span>
+<span class="cm"> * be swapped to deal with endian mismatches.</span>
+<span class="cm"> */</span>
+<span class="n">FORCEINLINE</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsByteSwapping</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="cp">#if PLATFORM_LITTLE_ENDIAN</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">SwapBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ArForceByteSwapping</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">SwapBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">IsPersistent</span><span class="p">();</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SwapBytes</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="asset-version-compatibility">Asset Version Compatibility</h3>
+<p>工具链中一个比较棘手的问题是有关资产版本兼容性的问题。比如开发一个游戏可能需要三年左右的时间，这期间引擎和工具会不断升级，并且数据也会有增删，因此需要确保三年前搭建的场景在三年后也能打开。</p>
+<div style="text-align: center">
+    <img src="images/lec13/27.png" width=50%>
+</div>
+
+<div style="text-align: center">
+    <img src="images/lec13/28.png" width=70%>
+</div>
+
+<p>解决版本兼容性的方法有：</p>
+<ul>
+<li>
+<p><strong>版本硬编码</strong>（不太推荐）</p>
+<ul>
+<li>例子：UE 中会向资产添加版本号</li>
+<li>加载资产：检查字段是否存在于该版本，若存在再加载数据，否则跳过该字段；缺少的字段用默认值填充</li>
+<li>保存资产：将所有数据写入到资产文件中</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/29.png" width=50%>
+</div></p>
+</li>
+<li>
+<p><strong>字段 UID</strong>：每个字段有一个唯一编号，该编号不可改变</p>
+<ul>
+<li>例子：Google 协议缓冲区</li>
+<li>序列化：<ol>
+<li>对于每个字段，根据字段编号和类型生成一个（固定大小的）键</li>
+<li>字段数据和键一起存储，其中键占用最前面的几个字节</li>
+</ol>
+</li>
+<li>反序列化：<ol>
+<li>字段在模式中不存在但在数据中存在：键将无法识别，跳过该字段</li>
+<li>字段在模式中存在但在数据中不存在：设置默认值</li>
+</ol>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/30.png" width=50%>
+</div></p>
+</li>
+</ul>
+<h2 id="robust-tools">Robust Tools</h2>
+<p>如果游戏引擎的工具链出问题的话，对整个游戏开发团队的影响会非常大。一个鲁棒的工具需有以下功能：</p>
+<ul>
+<li>
+<p><strong>撤销</strong>(undo)和<strong>重做</strong>(redo)</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec13/31.gif" width=70%>
+</div></p>
+</details>
+</li>
+<li>
+<p><strong>崩溃恢复</strong>(crash recovery)</p>
+<details class="example">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec13/32.gif" width=70%>
+</div></p>
+</details>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+<p>在游戏引擎工具链中，所有的用户操作被抽象为一系列的原子<strong>命令</strong>(commands)，包括了调用(invoke)、撤销(revoke)、序列化、反序列化等命令。</p>
+<div style="text-align: center">
+    <img src="images/lec13/33.png" width=70%>
+</div>
+
+<p>命令的定义比较简单：</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">ICommand</span><span class="o">&lt;</span><span class="n">TData</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">UID</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">TData</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Invoke</span><span class="p">();</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Revoke</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">();</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Deserialize</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>ICommand&lt;TData&gt;</code> 提供了命令的基本抽象</li>
+<li>每个需要支持撤销/重做/崩溃恢复的系统都需要实现从 <code>ICommand&lt;TData&gt;</code> 继承的系统相关命令</li>
+<li>提供 <code>UID</code> 的原因：恢复磁盘时，命令需要严格遵循顺序（随时间单调递增 + 唯一识别）</li>
+<li>定义还需提供将命令实例序列化为数据和将数据反序列化为命令实例的函数，并且 <code>TData</code> 类型需要提供序列化和反序列化接口</li>
+<li>三大关键命令<ul>
+<li>增加<ul>
+<li><code>Data</code>：数据通常是运行时实例的拷贝</li>
+<li><code>Invoke</code>：使用数据创建一份运行时实例</li>
+<li><code>Revoke</code>：删除运行时实例</li>
+</ul>
+</li>
+<li>删除<ul>
+<li><code>Data</code>：数据通常是运行时实例的拷贝</li>
+<li><code>Invoke</code>：删除运行时实例</li>
+<li><code>Revoke</code>：使用数据创建一份运行时实例</li>
+</ul>
+</li>
+<li>更新<ul>
+<li><code>Data</code>：通常数据是运行时实例修改后的属性的新旧值及其属性名称</li>
+<li><code>Invoke</code>：设置运行时实例属性为新值</li>
+<li><code>Revoke</code>：设置运行时实例属性为旧值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="making-tool-chains">Making Tool Chains</h2>
+<p>前面介绍的只是开发单个工具所需的基础知识。但我们知道，工具链包含几十甚至几百个功能，并且面向不同职业的开发者使用。而每个工具都有自己的数据结构，所以即便是相同的数据，对不同开发者而言看待它们的视角也会有所不同。这便是制作工具链会遇到的大挑战。</p>
+<div style="text-align: center">
+    <img src="images/lec13/34.png" width=60%>
+</div>
+
+<p>最简单粗暴的开发策略是单独开发所有的工具。但这样做导致后续扩展和维护工具时会相当麻烦，所以这显然不是明智之举。</p>
+<p>实际上，无论数据结构有多复杂，它们都是由一些常见的简单构建块搭起来的，所以只需要一种标准语言来描述这些构建块就行了。</p>
+<div style="text-align: center">
+    <img src="images/lec13/35.png" width=70%>
+</div>
+
+<h3 id="schemas">Schemas</h3>
+<p>我们称这样的语言为<strong>模式</strong>(schema)，即对数据结构的形式描述。它的影响有：</p>
+<ul>
+<li>统一了数据处理器</li>
+<li>在不同工具之间规范化数据</li>
+<li>能够自动生成标准化的用户界面</li>
+</ul>
+<p>借助模式，我们可以描述这些基本构建块：</p>
+<ul>
+<li>原子类型(atomic type)：<code>#!cpp int</code>, <code>#!cpp float</code>, <code>#!cpp double</code>...</li>
+<li>类类型(class type)：使用原子类型表示复杂的数据结构</li>
+<li>容器(containers)：数组、映射...</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec13/36.png" width=80%>
+</div>
+
+<p>模式还支持对<strong>继承</strong>关系的描述。</p>
+<div style="text-align: center">
+    <img src="images/lec13/37.png" width=80%>
+</div>
+
+<p>模式也支持<strong>数据引用</strong>。在代码中可根据文件路径读取数据，并将其实例化为对应的文件类。</p>
+<div style="text-align: center">
+    <img src="images/lec13/38.png" width=80%>
+</div>
+
+<p>定义模式的两种方式：</p>
+<ul>
+<li>
+<p>单独的模式定义文件</p>
+<ul>
+<li>优点：理解容易、低耦合</li>
+<li>缺点：<ul>
+<li>容易出现引擎版本与模式版本不匹配的问题</li>
+<li>难以在结构中定义函数</li>
+<li>需要实现完整的语法</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="highlight"><pre><span></span><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto2&quot;</span><span class="p">;</span>
+
+<span class="kn">package</span><span class="w"> </span><span class="nn">tutorial</span><span class="p">;</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">Person</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">enum</span><span class="w"> </span><span class="n">PhoneType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">MOBILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="na">HOME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="na">WORK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">PhoneNumber</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">optional</span><span class="w"> </span><span class="n">PhoneType</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HOME</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="na">phones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">AddressBook</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="na">people</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>在代码中定义</p>
+<ul>
+<li>优点：<ul>
+<li>易于实现函数反射</li>
+<li>自然支持继承关系</li>
+</ul>
+</li>
+<li>缺点：难以理解、高耦合</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UMG_API</span><span class="w"> </span><span class="n">USpacer</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UWidget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_UCLASS_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+
+<span class="w">    </span><span class="cm">/** The size of the spacer */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="n">Appearance</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FVector2D</span><span class="w"> </span><span class="n">Size</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+
+<span class="w">    </span><span class="cm">/** Sets the size of the spacer */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Widget&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">SetSize</span><span class="p">(</span><span class="n">FVector2D</span><span class="w"> </span><span class="n">InSize</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// UWidget interface</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SynchronizeProperties</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// End of UWidget interface</span>
+
+<span class="w">    </span><span class="c1">// UVisual interface</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ReleaseSlateResources</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">bReleaseChildren</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// End of UVisual interface</span>
+
+<span class="cp">#if WITH_EDITOR</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FText</span><span class="w"> </span><span class="nf">GetPaletteCategory</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// UWidget interface</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">TSharedRef</span><span class="o">&lt;</span><span class="n">SWidget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">RebuildWidget</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// End of UWidget interface</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="n">TSharedPtr</span><span class="o">&lt;</span><span class="n">SSpacer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">MySpacer</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+</details>
+</li>
+</ul>
+<h3 id="three-views-for-engine-data">Three Views for Engine Data</h3>
+<p>对于游戏引擎中的同一数据，我们有三种看待它们的视角：</p>
+<ul>
+<li>
+<p><strong>运行时</strong>视角（CPU、GPU）：要以更快的速度进行读取/计算操作</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RuntimeSpotLight</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Spot Light Translation Matrix</span>
+<span class="hll"><span class="w">    </span><span class="n">Matrix4x4</span><span class="w"> </span><span class="n">light_trans</span><span class="w"> </span><span class="p">{</span><span class="n">Matrix4x4</span><span class="o">::</span><span class="n">IDENTITY</span><span class="p">};</span>
+</span><span class="w">    </span><span class="c1">// Spot Light Cone</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">inner_cone_radian</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">outer_cone_radian</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Spot Light intensity and units</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="n">LightUnits</span><span class="w"> </span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CANDELA</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Spot Light Color</span>
+<span class="w">    </span><span class="n">Vector4</span><span class="w"> </span><span class="n">light_color</span><span class="w"> </span><span class="p">{</span><span class="n">Vector4</span><span class="o">::</span><span class="n">ZERO</span><span class="p">};</span>
+<span class="w">    </span><span class="c1">// other light data like shadow...</span>
+<span class="p">};</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>存储</strong>视角（HDD、SSD）：要以更快的速度进行写入操作，并且占据更少的磁盘空间</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// trans</span>
+<span class="hll"><span class="s">&quot;Position:X&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Position:Y&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Position:Z&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Rotation:X&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Rotation:Y&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Rotation:Z&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Rotation:W&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Scale:X&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Scale:Y&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="hll"><span class="s">&quot;Scale:Z&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span class="c1">// cone_degree</span>
+<span class="s">&quot;inner_cone_degree&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="s">&quot;outer_cone_degree&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="c1">// sds</span>
+<span class="s">&quot;intensity&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="s">&quot;unit&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="c1">// other data...</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>工具</strong>视角（用户）：更易理解的形式，并且需要多种编辑模式</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/39.png" width=40%>
+</div></p>
+<ul>
+<li>工具数据通常不存在，在生成 UI 界面时一般会进行特殊处理</li>
+<li>
+<p>设置角度时我们会用角度制而非弧度制，因为这更方便理解</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/40.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>有些工具会提供不同的编辑模式，以满足不同团队的需求</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/41.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-you-see-is-what-you-get">What You See is What You Get</h2>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">艺术家</label><label for="__tabbed_1_2">设计师</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec13/42.gif" width=70%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec13/43.gif" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>无论是艺术家还是设计师，都有着「<strong>所见即所得</strong>(what you see is what you get, <strong>WYSIWYG</strong>)」的诉求。</p>
+<p>在早年，游戏开发工具是独立于引擎外运行的。这样的工具很适合作为 DCC 的工具插件，并且开发新工具也比较方便。但问题在于这样就很难满足 WYSIWYG 的目标。</p>
+<div style="text-align: center">
+    <img src="images/lec13/44.png" width=50%>
+</div>
+
+<p>现在用的比较多的架构是将工具层置于整个游戏引擎之上（这和第一讲介绍的架构一致）。</p>
+<div style="text-align: center">
+    <img src="images/lec13/45.png" width=50%>
+</div>
+
+<ul>
+<li>优点：<ul>
+<li>可直接访问所有引擎数据</li>
+<li>易于在编辑器中预览游戏</li>
+<li>易于制作游戏时的实时编辑</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>复杂的引擎架构</li>
+<li>需要一套完整的引擎 UI 系统来制作编辑器 UI</li>
+<li>当引擎崩溃时，工具也无法使用</li>
+</ul>
+</li>
+</ul>
+<p>工具层需提供<strong>编辑器模式</strong>(editor mode)，以支持修改和预览场景数据。</p>
+<ul>
+<li>实时预览场景数据的修改</li>
+<li>逻辑系统不进行 tick，因此可利用更多的硬件资源来显示更多场景细节</li>
+<li>...</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec13/46.png" width=60%>
+</div>
+
+<p>编辑器中通常会提供一个叫做「<strong>在编辑器中游玩</strong>」(play in editor, <strong>PIE</strong>)的功能。顾名思义，开发者可以直接在编辑器中玩游戏，无需关闭编辑器和开启游戏模式。它带来了以下好处：</p>
+<ul>
+<li>节省加载时间</li>
+<li>保持创作的连续性</li>
+<li>快速测试修改</li>
+<li>...</li>
+</ul>
+<p>PIE 的两种实现方式：</p>
+<ul>
+<li>
+<p>在<strong>编辑器世界</strong>中游玩：在编辑器世界中启动游戏玩法系统计时并游玩</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/47.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>简单的架构工具层</li>
+<li>快速的状态变化</li>
+</ul>
+</li>
+<li>
+<p>缺点：游戏模式会导致数据变化</p>
+</li>
+</ul>
+<details class="example">
+<summary>例子：Piccolo</summary>
+<p><div style="text-align: center">
+    <img src="images/lec13/49.gif" width=70%>
+</div></p>
+</details>
+</li>
+<li>
+<p>在 <strong>PIE 世界</strong>中游玩：复制编辑器世界以创建一个PIE世界并在其中游玩</p>
+<p><div style="text-align: center">
+    <img src="images/lec13/48.png" width=70%>
+</div></p>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>数据分离</li>
+<li>易于创建多个游戏实例</li>
+</ul>
+</li>
+<li>
+<p>缺点：架构复杂</p>
+</li>
+</ul>
+<details class="example">
+<summary>例子：Unreal</summary>
+<p><div style="text-align: center">
+    <img src="images/lec13/50.gif" width=70%>
+</div></p>
+</details>
+</li>
+</ul>
+<h2 id="plugins">Plugins</h2>
+<p>不同游戏需要不同定制化的引擎工具。而引擎工具采用<strong>插件</strong>(plugins)来满足这一需求，它是一个为现有计算机程序添加特定功能的软件组件。</p>
+<div style="text-align: center">
+    <img src="images/lec13/52.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec13/51.png" width=70%>
+</div></p>
+</details>
+<p>插件机制的实现需要有：</p>
+<ul>
+<li><strong>插件管理器</strong>(plugin manager)：管理插件的加载和卸载</li>
+<li><strong>接口</strong>：一系列提供给插件的抽象类；插件可以选择实例化不同的类来实现相应功能的开发</li>
+<li><strong>API</strong>：一系列由引擎提供的函数；插件可以使用这些函数来执行所需的逻辑</li>
+</ul>
+<details class="example">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">添加工具栏按钮</label><label for="__tabbed_2_2">在 UE5 中添加插件菜单</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec13/53.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec13/54.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<details class="abstract" open="open">
+<summary>总结</summary>
+<ul>
+<li>
+<p>插件框架的意义</p>
+<ul>
+<li>扩展编辑器的功能</li>
+<li>易于热更新，实现解耦</li>
+<li>促进引擎开发生态建设</li>
+</ul>
+</li>
+<li>
+<p>插件框架要求</p>
+<ul>
+<li>完整 API 支持</li>
+<li>常用接口支持</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec13/55.png" width=60%>
+</div></p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+    <p style="font-size: 30px; font-weight: 600">评论区</p>
+    <div>
+        如果大家有什么问题或想法，欢迎在下方留言~
+    </div>
+    <!-- Insert generated snippet here -->
+    <script src="https://giscus.app/client.js"
+            data-repo="NoughtQ/game-notes"
+            data-repo-id="R_kgDORqP41A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORqP41M4C4r8L"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <!-- Synchronize Giscus theme with palette -->
+    <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function() {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                { giscus: { setConfig: { theme } } },
+                "https://giscus.app"
+                )
+            }
+        })
+    })
+    </script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="./12.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Effects">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Effects
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./14.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Applications &amp;amp; Advanced Topic of Tool Chains">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Applications &amp; Advanced Topic of Tool Chains
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright" style="margin-left: 33.5%">
+    
+      <div class="md-copyright__highlight" style="text-align: center">
+        Copyright &copy; 2026 NoughtQ
+
+      </div>
+    
+    
+        Powered by
+      <a href="https://zensical.org" target="_blank" rel="noopener">Zensical</a>
+        modified by
+      <a href="https://noughtq.top" target="_blank" rel="noopener">
+        NoughtQ
+      </a>
+      <!-- <br> -->
+      <!-- <div style="text-align: center;">
+        <a href="https://icp.gov.moe/?keyword=20252357" target="_blank">萌ICP备20252357号</a>
+      </div> -->
+    
+  </div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://blog.noughtq.top" target="_blank" rel="noopener" title="blog.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M224 24c0-13.3 10.7-24 24-24 145.8 0 264 118.2 264 264 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-119.3-96.7-216-216-216-13.3 0-24-10.7-24-24M80 96c26.5 0 48 21.5 48 48v224c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16 79.5 0 144 64.5 144 144s-64.5 144-144 144S32 447.5 32 368V144c0-26.5 21.5-48 48-48m168 0c92.8 0 168 75.2 168 168 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-66.3-53.7-120-120-120-13.3 0-24-10.7-24-24s10.7-24 24-24"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/noughtq" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:noughtq666@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.action.edit","content.action.view","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.prune","navigation.tabs","navigation.top","navigation.tracking","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fd3284f.min.js"></script>
+      
+        <script src="../js/anchor.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+        <script src="../js/toc.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
