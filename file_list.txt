@@ -1,3 +1,0 @@
-./file_list.txt
-./README.md
-./zensical.toml
