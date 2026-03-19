@@ -251,7 +251,11 @@ collect_pending_files() {
   pending=()
   local f
   while IFS= read -r f; do
-    [[ -n "$f" ]] && pending+=("$f")
+    [[ -z "$f" ]] && continue
+    if [[ "$f" == "$STATE_FILE" ]] || [[ "$f" == "$RESUME_FILES_FILE" ]] || [[ "$f" == "$RESUME_BATCH_FILE" ]]; then
+      continue
+    fi
+    pending+=("$f")
   done < <(
     {
       git diff --name-only
