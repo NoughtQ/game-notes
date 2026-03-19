@@ -8,6 +8,8 @@ REMOTE="origin"
 BRANCH=""
 MESSAGE_PREFIX="batch upload"
 STATE_FILE=".batch-upload.state"
+RESUME_FILES_FILE=".batch-upload.resume.files"
+RESUME_BATCH_FILE=".batch-upload.resume.batch"
 DRY_RUN=0
 
 usage() {
@@ -28,8 +30,9 @@ usage() {
   - 仅处理“尚未提交”的文件（已跟踪改动 + 未跟踪文件）。
   - 支持中断恢复：
     1) 已提交的批次不会重复提交；
-    2) 若中断时已有 staged 文件，下次会优先提交这些 staged 文件；
-    3) 批次序号会写入 .batch-upload.state 并自动续接。
+    2) 每批会先写断点清单（.batch-upload.resume.*），中断后优先补完该批；
+    3) 若中断时已有 staged 文件，也会优先提交 staged；
+    4) 批次序号会写入 .batch-upload.state 并自动续接。
 EOF
 }
 
@@ -98,6 +101,35 @@ save_next_batch() {
   printf '%s\n' "$NEXT_BATCH" > "$STATE_FILE"
 }
 
+save_resume_batch() {
+  local batch_number="$1"
+  shift
+  local files=("$@")
+
+  printf '%s\n' "$batch_number" > "$RESUME_BATCH_FILE"
+  : > "$RESUME_FILES_FILE"
+  local f
+  for f in "${files[@]}"; do
+    printf '%s\n' "$f" >> "$RESUME_FILES_FILE"
+  done
+}
+
+clear_resume_batch() {
+  rm -f "$RESUME_FILES_FILE" "$RESUME_BATCH_FILE"
+}
+
+read_resume_batch_files() {
+  resume_files=()
+  if [[ ! -f "$RESUME_FILES_FILE" ]]; then
+    return 0
+  fi
+
+  local f
+  while IFS= read -r f; do
+    [[ -n "$f" ]] && resume_files+=("$f")
+  done < "$RESUME_FILES_FILE"
+}
+
 print_batch_preview() {
   local count="$1"
   shift
@@ -116,6 +148,7 @@ push_if_needed() {
 }
 
 commit_staged_if_any() {
+  local batch_number="${1:-$NEXT_BATCH}"
   local staged=()
   while IFS= read -r -d '' f; do
     staged+=("$f")
@@ -125,17 +158,78 @@ commit_staged_if_any() {
     return 0
   fi
 
+  local current_batch_backup="$NEXT_BATCH"
+  NEXT_BATCH="$batch_number"
   print_batch_preview "${#staged[@]}" "${staged[@]}"
+  NEXT_BATCH="$current_batch_backup"
 
   if [[ "$DRY_RUN" -eq 1 ]]; then
     echo "[dry-run] 检测到已 staged 文件，将在实际执行时先提交这批。"
     return 0
   fi
 
-  git commit -m "$MESSAGE_PREFIX (part $NEXT_BATCH): ${#staged[@]} files"
-  NEXT_BATCH=$((NEXT_BATCH + 1))
+  git commit -m "$MESSAGE_PREFIX (part $batch_number): ${#staged[@]} files"
+  NEXT_BATCH=$((batch_number + 1))
   save_next_batch
   push_if_needed
+}
+
+file_is_pending() {
+  local f="$1"
+  [[ -n "$(git status --porcelain -- "$f")" ]]
+}
+
+resume_interrupted_batch_if_any() {
+  if [[ ! -f "$RESUME_FILES_FILE" ]]; then
+    return 0
+  fi
+
+  read_resume_batch_files
+  if [[ ${#resume_files[@]} -eq 0 ]]; then
+    clear_resume_batch
+    return 0
+  fi
+
+  local resume_batch
+  if [[ -f "$RESUME_BATCH_FILE" ]]; then
+    resume_batch="$(cat "$RESUME_BATCH_FILE")"
+  else
+    resume_batch="$NEXT_BATCH"
+  fi
+  if ! [[ "$resume_batch" =~ ^[0-9]+$ ]] || [[ "$resume_batch" -le 0 ]]; then
+    resume_batch="$NEXT_BATCH"
+  fi
+
+  local todo=()
+  local f
+  for f in "${resume_files[@]}"; do
+    if file_is_pending "$f"; then
+      todo+=("$f")
+    fi
+  done
+
+  if [[ ${#todo[@]} -eq 0 ]]; then
+    if [[ "$NEXT_BATCH" -le "$resume_batch" ]]; then
+      NEXT_BATCH=$((resume_batch + 1))
+      save_next_batch
+    fi
+    clear_resume_batch
+    return 0
+  fi
+
+  local current_batch_backup="$NEXT_BATCH"
+  NEXT_BATCH="$resume_batch"
+  print_batch_preview "${#todo[@]}" "${todo[@]}"
+  NEXT_BATCH="$current_batch_backup"
+
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    echo "[dry-run] 检测到中断批次，将在实际执行时先补完这批。"
+    return 0
+  fi
+
+  git add -- "${todo[@]}"
+  commit_staged_if_any "$resume_batch"
+  clear_resume_batch
 }
 
 push_ahead_commits_first() {
@@ -170,6 +264,7 @@ collect_pending_files() {
 echo "开始批量上传：batch_size=$BATCH_SIZE, push=$PUSH, remote=$REMOTE, branch=$BRANCH"
 
 push_ahead_commits_first
+resume_interrupted_batch_if_any
 commit_staged_if_any
 
 while true; do
@@ -188,9 +283,11 @@ while true; do
     break
   fi
 
+  save_resume_batch "$NEXT_BATCH" "${batch[@]}"
   git add -- "${batch[@]}"
   git commit -m "$MESSAGE_PREFIX (part $NEXT_BATCH): ${#batch[@]} files"
   NEXT_BATCH=$((NEXT_BATCH + 1))
   save_next_batch
   push_if_needed
+  clear_resume_batch
 done
