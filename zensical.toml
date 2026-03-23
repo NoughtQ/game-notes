@@ -204,7 +204,7 @@ custom_dir = "overrides"
 # - https://zensical.org/docs/setup/logo-and-icons/#favicon
 # - https://developer.mozilla.org/en-US/docs/Glossary/Favicon
 #
-favicon = "assets/favicon.jpg"
+favicon = "assets/favicon.png"
 
 # Zensical supports more than 60 different languages. This means that the
 # labels and tooltips that Zensical's templates produce are translated.
@@ -418,6 +418,8 @@ toggle.icon = "lucide/moon"
 toggle.name = "Switch to light mode"
 accent = "teal"
 
+[project.theme.icon.admonition]
+success = "octicons/thumbsup-16"
 
 
 # ----------------------------------------------------------------------------
@@ -426,6 +428,10 @@ accent = "teal"
 [[project.extra.social]]
 icon = "fontawesome/solid/home"
 link = "https://noughtq.top"
+
+[[project.extra.social]]
+icon = "material/notebook"
+link = "https://note.noughtq.top"
 
 [[project.extra.social]]
 icon = "fontawesome/solid/blog"

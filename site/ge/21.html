@@ -24,7 +24,7 @@
         
       
       
-      <link rel="icon" href="../assets/favicon.jpg">
+      <link rel="icon" href="../assets/favicon.png">
       <meta name="generator" content="zensical-0.0.27">
     
     
@@ -44,6 +44,16 @@
         <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
+  
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.347.631A.75.75%200%200%201%209.123.26l.238.04a3.25%203.25%200%200%201%202.591%204.098L11.494%206h.665a3.25%203.25%200%200%201%203.118%204.167l-1.135%203.859A2.75%202.75%200%200%201%2011.503%2016H6.586a3.75%203.75%200%200%201-2.184-.702A1.75%201.75%200%200%201%203%2016H1.75A1.75%201.75%200%200%201%200%2014.25v-6.5C0%206.784.784%206%201.75%206h3.417a.25.25%200%200%200%20.217-.127ZM4.75%2013.649l.396.33c.404.337.914.521%201.44.521h4.917a1.25%201.25%200%200%200%201.2-.897l1.135-3.859A1.75%201.75%200%200%200%2012.159%207.5H10.5a.75.75%200%200%201-.721-.956l.731-2.558a1.75%201.75%200%200%200-1.127-2.14L6.69%206.611a1.75%201.75%200%200%201-1.523.889H4.75ZM3.25%207.5h-1.5a.25.25%200%200%200-.25.25v6.5c0%20.138.112.25.25.25H3a.25.25%200%200%200%20.25-.25Z%22/%3E%3C/svg%3E');}</style>
+
 
 
     
@@ -1128,6 +1138,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Global Illumination and Lumen
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="21.html" class="md-nav__link md-nav__link--active">
         
   
@@ -1144,6 +1172,265 @@
   
 
       </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-illumination-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Illumination (GI)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Illumination (GI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monte Carlo Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflective-shadow-maps-rsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflective Shadow Maps (RSM)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#light-propagation-volumes-lpv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Light Propagation Volumes (LPV)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Light Propagation Volumes (LPV)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-voxel-octree-for-real-time-global-illumination-svogi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sparse Voxel Octree for Real-time Global Illumination (SVOGI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voxelization-based-global-illumination-vxgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voxelization Based Global Illumination (VXGI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen-space-global-illumination-ssgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Space Global Illumination (SSGI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-fast-ray-trace-in-any-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Fast Ray Trace in Any Hardware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Fast Ray Trace in Any Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesh-sdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh SDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-sdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global SDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-radiance-injection-and-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Radiance Injection and Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-build-a-lot-of-probes-with-different-kinds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Build a lot of Probes with Different Kinds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Build a lot of Probes with Different Kinds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-space-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Space Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importance-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importance Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#denoising-and-spatial-probe-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denoising and Spatial Probe Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#world-space-probes-and-ray-connecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        World Space Probes and Ray Connecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-shading-full-pixels-with-screen-space-probes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Shading Full Pixels with Screen Space Probes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1205,6 +1492,253 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-illumination-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Illumination (GI)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Illumination (GI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monte Carlo Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflective-shadow-maps-rsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflective Shadow Maps (RSM)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#light-propagation-volumes-lpv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Light Propagation Volumes (LPV)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Light Propagation Volumes (LPV)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-voxel-octree-for-real-time-global-illumination-svogi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sparse Voxel Octree for Real-time Global Illumination (SVOGI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voxelization-based-global-illumination-vxgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voxelization Based Global Illumination (VXGI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen-space-global-illumination-ssgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Space Global Illumination (SSGI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-fast-ray-trace-in-any-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Fast Ray Trace in Any Hardware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Fast Ray Trace in Any Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesh-sdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesh SDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-sdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global SDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-radiance-injection-and-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Radiance Injection and Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-build-a-lot-of-probes-with-different-kinds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Build a lot of Probes with Different Kinds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Build a lot of Probes with Different Kinds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-space-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Space Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importance-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importance Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#denoising-and-spatial-probe-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denoising and Spatial Probe Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#world-space-probes-and-ray-connecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        World Space Probes and Ray Connecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-shading-full-pixels-with-screen-space-probes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Shading Full Pixels with Screen Space Probes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1284,6 +1818,766 @@
 
 
 <h1 id="dynamic-global-illumination-and-lumen">Dynamic Global Illumination and Lumen</h1>
+<h2 id="global-illumination-gi">Global Illumination (GI)</h2>
+<p>全局光照的目标就是要实现<strong>渲染方程</strong>(rendering equation)【Kajiya】指出的光照效果：</p>
+<!-- $$
+L_o(\mathbf{x}, \omega_o) = L_e(\mathbf{x}, \omega_o) + \int_{H^2} f_r(\mathbf{x}, \omega_o, \omega_i) L_i(\mathbf{x}, \omega_i) \cos \theta_i d\omega_i
+$$ -->
+
+<div style="text-align: center">
+    <img src="images/lec21/1.png" width=80%>
+</div>
+
+<p>但到目前为止，还没有哪一种技术能够完全满足渲染方程的要求。因为渲染方程除了考虑直接光照，还考虑来自四面八方的光照（间接光照），并且还要和不同材质的 BRDF 进行复杂的积分计算。这对计算机而言计算量实在太大了，并且在游戏中还得保证 1s 内渲染几十帧，想想看就知道是一个难题。</p>
+<p>右图就是 CG 领域的一个知名案例<strong>康奈尔盒</strong>(Cornell Box)。可以看到位于天花板中央的面光源，并且左右两面分别是红色和绿色的墙。它们的反光打在中间的两个几何体上，呈现出相应的颜色。</p>
+<div style="text-align: center">
+    <img src="images/lec21/2.png" width=80%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>比较关闭/开启全局光照的效果，不难看出全局光照在游戏中相当重要。</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/3.png" width=80%>
+</div></p>
+</details>
+<h3 id="monte-carlo-integration">Monte Carlo Integration</h3>
+<p>既然积分的解析解计算很复杂，那么该怎么解呢？一种常用算法是<strong>蒙特卡洛积分法</strong>(Monte Carlo integration)，取随机采样值的平均值作为积分的近似结果。</p>
+<div style="text-align: center">
+    <img src="images/lec21/4.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p>可以看到，由于采样数有限，所以渲染结果中存在较多的噪点。</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/5.png" width=70%>
+</div></p>
+</details>
+<h3 id="sampling">Sampling</h3>
+<p>所以<strong>采样</strong>就成为了关键。随着<strong>每个像素的样本数量</strong>（SPP）增加，噪点逐渐减少。左上角显示的是每像素 1 个样本，从左到右每个方格的样本数依次翻倍。</p>
+<div style="text-align: center">
+    <img src="images/lec21/6.png" width=50%>
+</div>
+
+<p>最简单的采样方式是<strong>均匀采样</strong>(uniform sampling)。但很显然，假如信号分布不均匀，如果采样率不高，均匀采样可能就会漏掉分布集中的信号。</p>
+<div style="text-align: center">
+    <img src="images/lec21/7.png" width=60%>
+</div>
+
+<p>积分计算公式为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d}x &amp;= \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} f(x_i)(b-a) \\
+&amp;= \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} \frac{f(x_i)}{\textcolor{red}{\frac{1}{b-a}}}
+\end{aligned}
+\]</div>
+<p>其中红色部分是<strong>概率密度函数</strong>(probability density function, <strong>PDF</strong>)，它描述了这个随机变量取特定值的相对可能性，数值越高表示被选中的可能性越大。这给我们的启示是：如果采样也按照这样的概率分布进行的话，那么少量采样点就有可能得到不错的近似结果。一般形式的公式如下：</p>
+<div class="arithmatex">\[
+\int_a^b f(x) \mathrm{d}x \sim F_n(X) = \frac{1}{n} \sum_{k=1}^n \frac{f(X_k)}{\color{red}{PDF(X_k)}}
+\]</div>
+<div style="text-align: center">
+    <img src="images/lec21/9.png" width=60%>
+</div>
+
+<p>既然 PDF 可以是任意的，那么什么样的 PDF 能得到最佳采样效果呢？我们先将渲染方程表示成用蒙特卡洛积分法近似后的形式：</p>
+<div class="arithmatex">\[
+L_{o}\left(p, \omega_{o}\right) \approx \frac{1}{N} \sum_{i=1}^{N} \frac{L_{i}\left(p, \omega_{i}\right) f_{r}\left(p, \omega_{i}, \omega_{o}\right)\left(n \cdot \omega_{i}\right)}{p\left(\omega_{i}\right)}
+\]</div>
+<p>其中 <span class="arithmatex">\(L_{i}\left(p, \omega_{i}\right) f_{r}\left(p, \omega_{i}, \omega_{o}\right)\left(n \cdot \omega_{i}\right)\)</span> 是被积函数，PDF 就是 <span class="arithmatex">\(p(\omega_i)\)</span>。</p>
+<ul>
+<li>均匀采样：<span class="arithmatex">\(p(\omega_i) = \dfrac{1}{2\pi}\)</span></li>
+<li>
+<p><strong>余弦加权</strong>(cosine-weighted)：<span class="arithmatex">\(p(\omega_i) = \dfrac{\cos \theta}{\pi}\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec21/10.png" width=90%>
+</div></p>
+<p>显然余弦加权取得更好的效果，因此采样点的分布会根据球形特征变化，比如球顶部分采样点会更密集些</p>
+</li>
+<li>
+<p><strong>GGX</strong>：<span class="arithmatex">\(p(\omega_i) = \dfrac{\alpha^2 \cos \theta}{\pi((\alpha^2 - 1) \cos^2 \theta + 1)^2}\)</span></p>
+<p><div style="text-align: center">
+    <img src="images/lec21/11.png" width=90%>
+</div></p>
+<p>GGX 更适合表现高光效果</p>
+</li>
+</ul>
+<h2 id="reflective-shadow-maps-rsm">Reflective Shadow Maps (RSM)</h2>
+<p>然而，基于蒙特卡洛积分的光线追踪只能进行离线渲染，难以满足实时渲染的需求。于是有人发明了一种叫做<strong>反射阴影贴图</strong>(reflective shadow map, RSM)的方法，它要做的是将光「注入」到场景中。整体思路如下：</p>
+<blockquote>
+<p>注：这和另一种渲染算法<strong>光子映射</strong>(photon mapping)很像。</p>
+</blockquote>
+<ul>
+<li>
+<p>阴影贴图上的每个像素都是一个间接光源</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/12.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>RSM 像素 <span class="arithmatex">\(X_p\)</span> 照亮位置 <span class="arithmatex">\(x\)</span> 的程度：</p>
+<div class="arithmatex">\[
+E_{p}(x, n)=\phi_{p} \frac{\max \left\{0,\left\langle n_{p} \mid x-x_{p}\right\rangle\right\} \max \left\{0,\left\langle n \mid x_{p}-x\right\rangle\right\}}{\left\|x-x_{p}\right\|^{4}}
+\]</div>
+</li>
+<li>
+<p>表面点 <span class="arithmatex">\(x\)</span> 处的间接辐照度可以通过累加所有像素光源的照明效果来近似计算（不考虑遮挡）</p>
+<div class="arithmatex">\[
+E(x, n) = \sum_{\text{pixel } p} E_p(x, n)
+\]</div>
+<p><div style="text-align: center">
+    <img src="images/lec21/13.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>锥体追踪</strong>(cone tracing)：收集间接光照</p>
+<ul>
+<li>随机采样 RSM 像素</li>
+<li>预先计算这样的采样模式，并在所有间接光照计算中重复使用<ul>
+<li>400 个采样点足够多了</li>
+<li>使用<strong>泊松采样</strong>以获得更均匀的样本分布（后来人们发现了更好的采样方法）</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/14.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>使用<strong>低分辨率</strong>(low-res)的间接光照加速</p>
+<ul>
+<li>
+<p>对于完整分辨率图像中的每个像素：</p>
+<ul>
+<li>获取其周围的四个低分辨率的采样点</li>
+<li>通过比较法线和世界空间位置进行验证</li>
+<li>双线性插值</li>
+</ul>
+</li>
+<li>
+<p>下图的红色像素表示对应采样点的法线差异过大的像素点，需要进行一次完整的采样</p>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/15.png" width=40%>
+</div></p>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/16.png" width=70%>
+</div></p>
+</details>
+<details class="success" open="open">
+<summary>一些新颖的思路</summary>
+<ul>
+<li>容易实现</li>
+<li>使用 RSM 进行光子注射</li>
+<li>mipmap 中的锥体采样</li>
+<li>带有误差检查的低分辨率间接光照</li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>缺点</summary>
+<ul>
+<li>单次弹射</li>
+<li>不对间接光照进行可见性检查</li>
+</ul>
+</details>
+<h2 id="light-propagation-volumes-lpv">Light Propagation Volumes (LPV)</h2>
+<p><strong>光线传播体积</strong>(light propagation volumes, <strong>LPV</strong>)技术最早引入于 CryEngine 3（2009）。</p>
+<div style="text-align: center">
+    <img src="images/lec21/17.png" width=70%>
+</div>
+
+<p>其核心思路是：使用 3D 网格将辐射从直接照亮的表面传播到其他任何地方。</p>
+<div style="text-align: center">
+    <img src="images/lec21/18.png" width=50%>
+</div>
+
+<p>执行步骤如下（其中最关键的是第三步）：</p>
+<ol>
+<li>辐射点集场景表示的生成</li>
+<li>
+<p>将虚拟光源点云注入到辐射体积中</p>
+<ul>
+<li>将场景预先细分为 3D 网格</li>
+<li>针对每个网格单元，定位其内部包含的虚拟光源</li>
+<li>汇总这些光源的方向性辐射分布</li>
+<li>投影至前两阶<strong>球谐函数</strong>（SH）（共 4 个系数）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/19.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>体积辐射传播</strong>(volumetric radiance propagation)</p>
+<ul>
+<li>对于每个网格单元，收集其六个面接收到的辐射度</li>
+<li>进行求和，并再次使用 SH 表示</li>
+<li>重复此传播过程数次，直至体积达到稳定状态</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/20.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>采用最终的光照传播体积进行场景照明</p>
+</li>
+</ol>
+<p>光的传播速度和范围和迭代次数有关：</p>
+<div style="text-align: center">
+    <img src="images/lec21/21.png" width=60%>
+</div>
+
+<blockquote>
+<p>注：该方法在物理学层面可能有不太严谨的地方。</p>
+</blockquote>
+<h3 id="sparse-voxel-octree-for-real-time-global-illumination-svogi">Sparse Voxel Octree for Real-time Global Illumination (SVOGI)</h3>
+<p><strong>用于实时全局光照稀疏体素八叉树</strong>(sparse voxel octree for real-time global illumination, <strong>SVOGI</strong>)由 NVIDIA 某团队发明。以下是体素化的过程：</p>
+<div style="text-align: center">
+    <img src="images/lec21/22.png" width=80%>
+</div>
+
+<ul>
+<li><strong>保守光栅化</strong>(conservative rasterization)：保证再薄再小的三角形也能被体素化</li>
+</ul>
+<p>收集表面体素：</p>
+<div style="text-align: center">
+    <img src="images/lec21/23.png" width=60%>
+</div>
+
+<p>接下来的计算过程：</p>
+<ul>
+<li>将辐照度(irradiance)注入体素中的光源</li>
+<li>过滤八叉树内的辐照度</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/24.png" width=80%>
+</div>
+
+<p>在八叉树内用<strong>锥体</strong>追踪来着色（对于来自相机的第 2 趟）：</p>
+<ul>
+<li>基于漫反射 + 镜面 BRDF 发射若干锥体</li>
+<li>根据锥体的（增长）尺寸在八叉树中进行查询</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/25.png" width=80%>
+</div>
+
+<div class="admonition bug">
+<p class="admonition-title">问题</p>
+<p>数据结构过于复杂，难以在 GPU 上表达。</p>
+</div>
+<h3 id="voxelization-based-global-illumination-vxgi">Voxelization Based Global Illumination (VXGI)</h3>
+<p><img align="right" alt="" src="images/lec21/26.png" width="40%" /></p>
+<p><strong>基于体素化的全局光照</strong>(voxelization based global illumination, <strong>VXGI</strong>)的特点：</p>
+<ul>
+<li>
+<p>将体素数据存储在裁剪图中</p>
+<ul>
+<li>多分辨率纹理</li>
+<li>靠近中心的区域具有更高的空间分辨率</li>
+<li>似乎自然地适用于锥体追踪需求</li>
+</ul>
+</li>
+<li>
+<p>构建裁剪图比 SVO 更简单</p>
+<ul>
+<li>无需节点、指针等，由硬件处理</li>
+<li>从剪辑映射读取更为便捷</li>
+</ul>
+</li>
+<li>
+<p>裁剪图尺寸为 (64~256)<sup>3</sup>，包含 3~5 级细节层次</p>
+<ul>
+<li>每个体素占用 16~32 字节 =&gt; 需要 12 MB~2.5 GB的显存</li>
+</ul>
+</li>
+</ul>
+<p>由于相机可能随时会动，所以体素会不断更新。为应对这一问题，我们采用环形寻址方法。</p>
+<ul>
+<li>空间中的固定点始终映射到裁剪图中的同一地址</li>
+<li>背景显示纹理地址：<code>frac(worldPos.xy / clipmapSize.xy)</code></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/27.png" width=90%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/28.png" width=80%>
+</div></p>
+</details>
+<p>每个体素都是有一个不透明度的，所以光有可能会透过体素穿出。</p>
+<ul>
+<li>存在一个三角形与一个体素</li>
+<li>选择能产生最大投影面积的投影平面</li>
+<li>使用 MSAA 技术对三角形进行光栅化，为每个像素计算覆盖掩码</li>
+<li>获取 MSAA 采样点并将其重投影至其他平面</li>
+<li>对所有被覆盖的采样点重复此过程</li>
+<li>通过模糊所有重投影采样点来增厚处理结果</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/29.png" width=90%>
+</div>
+
+<div align="center">
+<p>不透明度 = 覆盖的 MSAA 采样数 / MSAA 分辨率<sup>2</sup></p>
+</div>
+<details class="example" open="open">
+<summary>直接覆盖的结果</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/30.png" width=80%>
+</div></p>
+</details>
+<p>光线注入</p>
+<ul>
+<li>计算包含被直接光照亮的表面的体素的辐射度</li>
+<li>从 <strong>RSM</strong> 中获取信息</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/31.png" width=80%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/32.png" width=80%>
+</div></p>
+</details>
+<p>使用锥体追踪来着色（基于 BRDF 生成不同锥体）：</p>
+<div style="text-align: center">
+    <img src="images/lec21/33.png" width=80%>
+</div>
+
+<p>沿路径累积体素辐射度与不透明度：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_{\mathrm{dst}} &amp; \leftarrow C_{\mathrm{dst}}+\left(1-\alpha_{\mathrm{dst}}\right) C_{\mathrm{src}} \\
+\alpha_{\mathrm{dst}} &amp; \leftarrow \alpha_{\mathrm{dst}}+\left(1-\alpha_{\mathrm{dst}}\right) \alpha_{\mathrm{src}}
+\end{aligned}
+\]</div>
+<div style="text-align: center">
+    <img src="images/lec21/34.png" width=60%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/35.png" width=80%>
+</div></p>
+</details>
+<details class="bug" open="open">
+<summary>问题</summary>
+<ul>
+<li>不正确的遮挡（不透明度）：简单结合 alpha 混合 + 不透明度</li>
+<li><strong>漏光</strong>(light leaking)：当遮挡墙远小于体素大小时</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/36.png" width=80%>
+</div></p>
+</details>
+<h2 id="screen-space-global-illumination-ssgi">Screen Space Global Illumination (SSGI)</h2>
+<p>寒霜(Frostbite)引擎于 2015 年提出了<strong>屏幕空间全局光照</strong>(screen space global illuminatino, <strong>SSGI</strong>)技术。它的大致思路是复用屏幕空间上的数据。比如对于下图，由于地面潮湿，看起来像镜面一样，所以红框标出的建筑在地面上有了倒影（白框标出），这些倒影可直接利用红框标出的实际内容得到，无需重新创建。</p>
+<div style="text-align: center">
+    <img src="images/lec21/37.png" width=70%>
+</div>
+
+<p>屏幕空间的辐射度采样（对于每个片元）：</p>
+<ol>
+<li>计算很多<strong>反射光线</strong></li>
+<li>沿光线方向行进（在深度 gbuffer 中）</li>
+<li>使用<strong>命中点的颜色</strong>作为间接光照</li>
+</ol>
+<div style="text-align: center">
+    <img src="images/lec21/38.png" width=80%>
+</div>
+
+<p>最简单的光线行进算法是线性光线行进：</p>
+<ul>
+<li>一般步骤：<ul>
+<li>以固定步长前进</li>
+<li>每一步检查深度值</li>
+</ul>
+</li>
+<li>特点：<ul>
+<li>快速</li>
+<li>但可能会跳过较薄的物体</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/39.png" width=60%>
+</div>
+
+<p>但更好的方法是采用<strong>层级追踪</strong>(hierarchical tracing)：</p>
+<ul>
+<li>
+<p>生成最小深度 mipmap</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/40.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>无栈光线遍历最小深度 mipmap</p>
+<div class="highlight"><pre><span></span><code><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">stepCurrentCell</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">above</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="n">plane</span><span class="p">)</span><span class="w"> </span><span class="n">level</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">below</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="n">plane</span><span class="p">)</span><span class="w"> </span><span class="n">level</span><span class="o">--</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/41.gif" width=60%>
+</div></p>
+</details>
+<p>另一个有意思的思路是对临近像素的光线复用：</p>
+<ul>
+<li>存储<strong>命中点数据</strong></li>
+<li>假设相邻节点间的可见性相同</li>
+<li>将<strong>指向邻居命中点的光线</strong>视为有效</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/42.png" width=60%>
+</div>
+
+<p>带有 mipmap 过滤的锥体追踪：</p>
+<ul>
+<li>估算<strong>锥体</strong>在命中点的<strong>足迹</strong>(footprint)，包括粗糙度以及到命中点的距离</li>
+<li>对颜色 mipmap 采样，mip 层级由<strong>足迹</strong>决定</li>
+<li>对颜色 mipmap（金字塔）预过滤</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/43.png" width=50%>
+</div>
+
+<div class="admonition success">
+<p class="admonition-title">优点</p>
+<ul>
+<li>快速实现光泽和镜面反射效果</li>
+<li>质量优良</li>
+<li>无遮挡问题</li>
+</ul>
+<p>以下是 SSGI 的独特优势：</p>
+<ul>
+<li>易于处理近距离接触阴影</li>
+<li>精确命中点计算</li>
+<li>与场景复杂度解耦</li>
+<li>处理动态物体</li>
+</ul>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>屏幕外信息缺失</li>
+<li>邻近光线复用的可见性错误的影响</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/44.png" width=60%>
+</div></p>
+<blockquote>
+<p>以第一张图为例：立方体底部的倒影本该是黑色的，但由于屏幕空间中并没有黑色像素点，所以呈现出来的是白色。</p>
+</blockquote>
+</div>
+<h2 id="lumen">Lumen</h2>
+<details class="warning" open="open">
+<summary>光线追踪的挑战（我们为什么需要 Lumen？）</summary>
+<ul>
+<li>
+<p>速度慢</p>
+<ul>
+<li>每个像素仅能负担 1/2 的光线</li>
+<li>但是高质量 GI 需要数百条光线</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/45.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>采样难</p>
+<ul>
+<li>
+<p><strong>辐照度场</strong>(irradiance fields)</p>
+<ul>
+<li>漏光与过度遮挡</li>
+<li>探针放置问题</li>
+<li>光照更新缓慢</li>
+<li>独特的平面化外观</li>
+</ul>
+</li>
+<li>
+<p><strong>屏幕空间去噪器</strong>(screen space denoiser)</p>
+<ul>
+<li>许多复杂室内环境的渲染结果中噪点过多</li>
+<li>但噪点并非一直存在</li>
+</ul>
+</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/46.png" width=70%>
+</div></p>
+<blockquote>
+<p>远离窗口后，采样点数量骤降，滤波器也救不了一点。</p>
+</blockquote>
+<ul>
+<li>
+<p>低分辨率过滤场景空间的探针照亮完整的像素</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/47.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+<h3 id="phase-1-fast-ray-trace-in-any-hardware">Phase 1: Fast Ray Trace in Any Hardware</h3>
+<p>第一个要面对的问题是在任何硬件设备上都能做到快速的光线追踪。为解决这一难关，Lumen 用到了<strong>符号距离场</strong>(signed distance field, <strong>SDF</strong>)。SDF 指的是每个点离最近表面的距离，并规定<strong>内部</strong>区域存储<strong>负</strong>距离（「符号」一词的来由）。不难想到，距离为 0 意味着该点就在表面上。</p>
+<div style="text-align: center">
+    <img src="images/lec21/48.png" width=50%>
+</div>
+
+<h4 id="mesh-sdf">Mesh SDF</h4>
+<p>由于为整个场景存储 SDF 开销太大，因此只考虑为每个网格生成 SDF。</p>
+<ul>
+<li>基于网格大小的分辨率</li>
+<li>Embree（Intel 开发的高性能光线追踪）点查询</li>
+<li>追踪光线，并统计命中三角形背面的数量以确定符号（若超过 25% 的光线命中背面，则符号为负）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/49.png" width=90%>
+</div>
+
+<p>对于偏薄的网格，对其进行半体素扩张(half voxel expand)以解决漏光问题。不过由于引入了表面偏差，导致接触阴影丢失。尽管如此，过度遮挡总比漏光问题好一点。</p>
+<div style="text-align: center">
+    <img src="images/lec21/50.png" width=60%>
+</div>
+
+<p>有了 SDF 后，光线追踪就变得更加高效了：光线与表面相交时，可根据距离跳过空的区域。</p>
+<ul>
+<li>安全且快速</li>
+<li>位于点 p 处时，只需行进 SDF(p) 的距离</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/51.png" width=80%>
+</div>
+
+<p>借助 SDF，<strong>锥体追踪</strong>的计算也变得高效，便于实现<strong>软阴影</strong>效果。</p>
+<div style="text-align: center">
+    <img src="images/lec21/52.png" width=90%>
+</div>
+
+<p>如果采样率很大，我们可以考虑用<strong>稀疏的网格 SDF</strong>，即将网格 SDF 划分成块，这有助于节省存储空间。</p>
+<ul>
+<li>
+<p>定义一个 <code>max_encode_distance</code></p>
+<ul>
+<li>当任意的 <code>sdf(brick) &gt; max_encode_distance</code> 时无效</li>
+</ul>
+</li>
+<li>
+<p><code>IndirectionTable</code> 存储每个块的索引</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/53.png" width=90%>
+</div></p>
+</li>
+</ul>
+<p>我们还可以对网格 SDF 进行 <strong>LOD</strong> 操作</p>
+<ul>
+<li>GPU 收集每帧的请求</li>
+<li>CPU 下载请求，并流式调入/调出页面</li>
+<li>生成 3 个 mip 层级<ul>
+<li>始终加载最低分辨率，其余两个进行流式传输</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/54.png" width=80%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/55.png" width=80%>
+</div></p>
+</details>
+<h4 id="global-sdf">Global SDF</h4>
+<p>虽然网格 SDF 能一定程度上减小开销，但是假如场景中存在很多物体，意味着存在大量网格，那么计算量还是特别大。</p>
+<ul>
+<li>
+<p>追踪相机射线并可视化步数</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/56.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>每条射线上的命中物体的数量</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/57.png" width=50%>
+</div></p>
+</li>
+</ul>
+<p>解决方案是采用<strong>全局 SDF</strong>。它能表达出不精确的近表面，因为仅在锥体开头对物体 SDFs 采样，剩余部分用的就是全局 SDFs。采用全局 SDF 能大幅降低重叠对象的追踪成本。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>右图便是用到全局 SDF 的效果：</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/58.png" width=80%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec21/59.png" width=80%>
+</div></p>
+</details>
+<p>我们可以<strong>缓存</strong>相机周围的全局 SDF。</p>
+<ul>
+<li>围绕相机设置 4 个裁剪图</li>
+<li>裁剪图随移动而滚动</li>
+<li>远处裁剪图的更新频率较低</li>
+<li>同时采用稀疏存储（节省约 16 倍的内存）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/60.png" width=70%>
+</div>
+
+<h3 id="phase-2-radiance-injection-and-caching">Phase 2: Radiance Injection and Caching</h3>
+<p>通过<strong>网格卡片</strong>(mesh card)技术，沿轴对齐方向（AABB）对物体的六个面拍摄六张快照，获取其光照信息。</p>
+<div style="text-align: center">
+    <img src="images/lec21/61.png" width=90%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec21/62.png" width=90%>
+</div></p>
+</details>
+<p>接下来根据卡片结果来生成表面数据的缓存，该过程分为两趟：</p>
+<ul>
+<li>
+<p>第一趟：卡片捕捉</p>
+<ul>
+<li>固定每帧的纹素预算（512x512）</li>
+<li>按与摄像机的距离及 GPU 的反馈顺序排序</li>
+<li>捕获分辨率取决于卡片在屏幕上的投影（LOD），离相机近分辨率越高</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/63.png" width=90%>
+</div></p>
+<blockquote>
+<p>Albedo：反射率。</p>
+</blockquote>
+<ul>
+<li>
+<p>表面缓存的大小为 4096x4096，里面有多个 128x128 大小的物理页，在里面把每一个网格实例打包好</p>
+<ul>
+<li>若卡片捕捉 &gt;= 128x128，将其划分为多个 128x128 的物理页</li>
+<li>否则从 128x128 的物理页中分配一部分给它</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/66.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>第二趟：将卡片复制到表面缓存并压缩</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/64.png" width=90%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec21/65.png" width=90%>
+</div></p>
+</li>
+</ul>
+<p>接下来得考虑如何固定表面缓存中的光照。在计算命中点光照的时候，我们会遇到两个问题：</p>
+<ul>
+<li>像素是否在阴影中</li>
+<li>如何处理光线的多次弹射</li>
+</ul>
+<p>Lumen 的解决流程如下（简化版）：</p>
+<div style="text-align: center">
+    <img src="images/lec21/67.png" width=80%>
+</div>
+
+<ol>
+<li>
+<p>根据表面缓存（和阴影图）计算每个像素的直接光照</p>
+<ul>
+<li>将 128x128 的页划分为 8x8 的块</li>
+<li>使用 8x8 的块来剔除光源</li>
+<li>每个块选择前 8 个光源</li>
+<li>1 位阴影掩码</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec21/68.png" width=80%>
+</div></p>
+<ul>
+<li>
+<p>假设一个块可以被多个光源照亮，那么可叠加光照效果</p>
+<p><div style="text-align: center">
+    <img src="images/lec21/69.png" width=90%>
+</div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>在世界坐标中计算上一帧的体素光照</p>
+</li>
+<li>得到的最终光照作为下一帧计算的依据</li>
+</ol>
+<p>对于场景中较远的点，要知道光源命中该点时会进过哪些物体是比较困难的事，因为远处物体用到的是<strong>全局 SDF</strong>，它不记录网格信息，只记录命中位置和法线。因此使用体素光照来采样的结果如下：</p>
+<p><img align="right" alt="" src="images/lec21/72.png" width="25%" /></p>
+<div style="text-align: center">
+    <img src="images/lec21/71.png" width=70%>
+</div>
+
+<p>解决方法是构建对于整个场景的辐射度缓存的体素裁剪图，具体来说是构建大小为 64x64x64 的 4 级裁剪图：</p>
+<ul>
+<li>每个体素在 6 个方向上的辐射度</li>
+<li>通过法线采样并插值 3 个方向</li>
+<li>假如裁剪图 0 覆盖 50 立方米，体素尺寸为 0.78 米</li>
+<li>存储在 3D 纹理中</li>
+</ul>
+<p>裁剪图更新频率的规则：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">裁剪图0</th>
+<th style="text-align: left;">裁剪图1</th>
+<th style="text-align: left;">裁剪图2</th>
+<th style="text-align: left;">裁剪图3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">起始帧</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">更新间隔</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-3-build-a-lot-of-probes-with-different-kinds">Phase 3: Build a lot of Probes with Different Kinds</h3>
+<h4 id="screen-space-probe">Screen Space Probe</h4>
+<h4 id="importance-sampling">Importance Sampling</h4>
+<h4 id="denoising-and-spatial-probe-filtering">Denoising and Spatial Probe Filtering</h4>
+<h4 id="world-space-probes-and-ray-connecting">World Space Probes and Ray Connecting</h4>
+<h3 id="phase-4-shading-full-pixels-with-screen-space-probes">Phase 4: Shading Full Pixels with Screen Space Probes</h3>
 
 
 
@@ -1420,7 +2714,7 @@
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright" style="margin-left: 33.5%">
+      <div class="md-copyright" style="margin-left: 38%">
     
       <div class="md-copyright__highlight" style="text-align: center">
         Copyright &copy; 2026 NoughtQ
@@ -1453,6 +2747,17 @@
     
     <a href="https://noughtq.top" target="_blank" rel="noopener" title="noughtq.top" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://note.noughtq.top" target="_blank" rel="noopener" title="note.noughtq.top" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"/></svg>
     </a>
   
     
