@@ -22,7 +22,7 @@
     - [x] [Introduction](1.md)
     - [x] [Recap of CG Basics](2.md)
     - [x] [Real-Time Shadows](3.md)
-    - [ ] [Real-Time Environment Mapping](4.md)
+    - [x] [Real-Time Environment Mapping](4.md)
     - [ ] [Real-Time Global Illumination](5.md)
     - [ ] [Real-Time Physically-Based Materials](6.md)
     - [ ] [Real-Time Ray Tracing](7.md)

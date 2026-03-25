@@ -2507,7 +2507,7 @@ C_{\mathrm{dst}} &amp; \leftarrow C_{\mathrm{dst}}+\left(1-\alpha_{\mathrm{dst}}
 
 <ol>
 <li>
-<p>根据表面缓存（和阴影图）计算每个像素的直接光照</p>
+<p>根据表面缓存（和阴影贴图）计算每个像素的直接光照</p>
 <ul>
 <li>将 128x128 的页划分为 8x8 的块</li>
 <li>使用 8x8 的块来剔除光源</li>
@@ -2539,9 +2539,9 @@ C_{\mathrm{dst}} &amp; \leftarrow C_{\mathrm{dst}}+\left(1-\alpha_{\mathrm{dst}}
 
 <p>解决方法是构建对于整个场景的辐射度缓存的体素裁剪图，具体来说是构建大小为 64x64x64 的 4 级裁剪图：</p>
 <ul>
-<li>每个体素在 6 个方向上的辐射度</li>
-<li>通过法线采样并插值 3 个方向</li>
-<li>假如裁剪图 0 覆盖 50 立方米，体素尺寸为 0.78 米</li>
+<li>存储每个体素在 6 个方向上的辐射度</li>
+<li>对法线采样并沿 3 个方向插值</li>
+<li>裁剪图 0 覆盖 50 立方米的体积，且体素尺寸为 0.78 米</li>
 <li>存储在 3D 纹理中</li>
 </ul>
 <p>裁剪图更新频率的规则：</p>
@@ -2572,6 +2572,36 @@ C_{\mathrm{dst}} &amp; \leftarrow C_{\mathrm{dst}}+\left(1-\alpha_{\mathrm{dst}}
 </tr>
 </tbody>
 </table>
+<p>然后通过<strong>短射线投射</strong>(short ray cast)来构建纹素面：</p>
+<ul>
+<li>在每个体素上沿 6 个方向追踪网格 DF</li>
+<li>记录命中网格的 ID 和命中距离</li>
+<li>射线起点 = 体素中心 - 轴向单位向量 × 体素半径</li>
+<li>射线终点 = 体素中心 + 轴向单位向量 × 体素半径</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/73.png" width=80%>
+</div>
+
+<p>接下来将空间划分为 4x4x4 的块(tile)，以滤除大多数物体。</p>
+<div style="text-align: center">
+    <img src="images/lec21/74.png" width=80%>
+</div>
+
+<p>目前我们已经求出了空间中体素的表达和光线命中点，于是下一步便是求体素受到的光照，也就是将光注入到裁剪图中。</p>
+<ul>
+<li>清除整个 Clipmap 中的所有体素光照</li>
+<li>压缩 Clipmap 中所有有效的 VisBuffer</li>
+<li>从 VisBuffer 中采样 FinalLighting 并注入光照</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec21/75.png" width=90%>
+</div>
+
+<div class="admonition warning">
+<p class="admonition-title">后面不想写了</p>
+<p>因为我的理解能力有限 + 个人感觉后面实在讲的太乱了，所以实在没动力整理下去了 QAQ。也许后面会补上？</p>
+</div>
 <h3 id="phase-3-build-a-lot-of-probes-with-different-kinds">Phase 3: Build a lot of Probes with Different Kinds</h3>
 <h4 id="screen-space-probe">Screen Space Probe</h4>
 <h4 id="importance-sampling">Importance Sampling</h4>

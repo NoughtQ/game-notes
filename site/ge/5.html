@@ -2657,7 +2657,7 @@ L_o(\bm{x}, \omega_o) = L_e(\bm{x}, \omega_o) + \int_{H^2} f_r(\bm{x}, \omega_o,
 <p><strong>百分比接近过滤</strong>(percentage closer filtering, <strong>PCF</strong>)：</p>
 <ul>
 <li>要解决的问题：来自阴影映射的阴影走样严重</li>
-<li>从当前像素周围的阴影图中取样，并将其深度与所有样本进行比较</li>
+<li>从当前像素周围的阴影贴图中取样，并将其深度与所有样本进行比较</li>
 <li>通过平均结果，我们得到光与影之间更平滑的线条</li>
 </ul>
 <p><div style="text-align: center">
@@ -2671,7 +2671,7 @@ L_o(\bm{x}, \omega_o) = L_e(\bm{x}, \omega_o) + \int_{H^2} f_r(\bm{x}, \omega_o,
 <p><strong>百分比接近软阴影</strong>(percentage closer soft shadows, PCSS)</p>
 <ul>
 <li>要解决的问题：走样 + 采样不足的问题</li>
-<li>搜索阴影图并平均与光源更接近的深度</li>
+<li>搜索阴影贴图并平均与光源更接近的深度</li>
 <li>使用平行平面近似</li>
 </ul>
 </li>

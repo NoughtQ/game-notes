@@ -760,6 +760,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Distance Field Soft Shadows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distance-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-usages-of-distance-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Usages of Distance Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-field-soft-shadows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Field Soft Shadows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1120,6 +1159,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Distance Field Soft Shadows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distance-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-usages-of-distance-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Usages of Distance Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-field-soft-shadows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance Field Soft Shadows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1209,7 +1287,7 @@
 <p>它是一种<strong>两趟</strong>(2-pass)<strong>算法</strong></p>
 <ul>
 <li>
-<p>第一趟：从光源位置出发看向场景，生成<strong>阴影图</strong>（SM），即来自光源的「深度纹理」</p>
+<p>第一趟：从光源位置出发看向场景，生成<strong>阴影贴图</strong>（SM），即来自光源的「深度纹理」</p>
 <p><div style="text-align: center">
     <img src="images/lec3/1.png" width=40%>
 </div></p>
@@ -1307,7 +1385,7 @@
 <div class="tabbed-block">
 <ul>
 <li>左图中虽然人物的阴影是正常的，但是地面上却有一圈圈的纹路。这并非摩尔纹（即不是采样问题），而是由<strong>数值精度</strong>导致的问题。</li>
-<li>来看右边的示意图，光源照射场景后会得到图中用红色线条标出的阴影图，它是离散的，且每个点的深度即为光源到该点的距离。</li>
+<li>来看右边的示意图，光源照射场景后会得到图中用红色线条标出的阴影贴图，它是离散的，且每个点的深度即为光源到该点的距离。</li>
 <li>现在从眼睛处看向某一点，然后取该点和光源的连线（蓝色虚线）。但由于数值精度问题，实际上该点的深度位于橙色线条标记的地方，也就是说光源对应的深度实际上会更浅。这就导致了橙色线条处的地板「挡住了」该点，误以为该点处在阴影中。</li>
 <li><strong>掠射角</strong>(grazing angle)越大，该问题越严重（所以垂直照射时问题最小）。</li>
 </ul>
@@ -1340,14 +1418,14 @@
 </ul>
 </div>
 <div class="tabbed-block">
-<p>阴影图的分辨率有限，如果分辨率不够大，很容易出现锯齿状的阴影。</p>
+<p>阴影贴图的分辨率有限，如果分辨率不够大，很容易出现锯齿状的阴影。</p>
 <p><div style="text-align: center">
     <img src="images/lec3/13.png" width=60%>
 </div></p>
 <p>解决方案有：</p>
 <ul>
-<li><strong>级联阴影映射</strong>(cascaded shadow mapping)：为阴影图的不同位置设置不同分辨率，在工业界中得到应用</li>
-<li>动态分辨率的阴影图</li>
+<li><strong>级联阴影映射</strong>(cascaded shadow mapping)：为阴影贴图的不同位置设置不同分辨率，在工业界中得到应用</li>
+<li>动态分辨率的阴影贴图</li>
 </ul>
 </div>
 </div>
@@ -1410,7 +1488,7 @@ L_o(p,\omega_o) \approx \boxed{\dfrac{\int_{\Omega^+} V(p, \omega_i) d\omega_i}{
 </ul>
 </li>
 <li>
-<p><strong>不直接对阴影图做滤波</strong>的原因：</p>
+<p><strong>不直接对阴影贴图做滤波</strong>的原因：</p>
 <ul>
 <li>（第一趟中）这样的纹理滤波仅对颜色分量计算平均值，这导致先会得到一个模糊的阴影贴图（比如把物体本身边缘给模糊掉了）</li>
 <li>（第二趟中）而计算深度值平均值后再进行比较，则仍然得到的是<strong>二元</strong>可见性（硬阴影），并没有起到模糊阴影的效果</li>
@@ -1527,7 +1605,7 @@ V(x) = \sum\limits_{q \in \mathcal{N}(p)} w(p, q) \cdot \chi^+ [D_{\text{SM}}(q)
 <p>通过这个公式，我们就能理解之前为什么说</p>
 <ul>
 <li>
-<p>PCF != 先对阴影图滤波再比较的结果</p>
+<p>PCF != 先对阴影贴图滤波再比较的结果</p>
 <div class="arithmatex">\[
 V(x) \ne \chi^+ \{[w * D_{\text{SM}}](q) - D_{\text{scene}}(x)\}
 \]</div>
@@ -1561,7 +1639,7 @@ V(x) \ne \sum\limits_{q \in \mathcal{N}(p)} w(p, q) V(q)
 <ul>
 <li><span class="arithmatex">\(\text{Var}(X) = E(X^2) - E^2(X)\)</span></li>
 <li>所以只需额外计算深度平方的均值</li>
-<li>也就是说只要生成另一张阴影图，记录深度的平方值（不会产生很多额外的开销）</li>
+<li>也就是说只要生成另一张阴影贴图，记录深度的平方值（不会产生很多额外的开销）</li>
 </ul>
 </li>
 </ul>
@@ -1586,7 +1664,7 @@ P(x &gt; t) \le \dfrac{\sigma^2}{\sigma^2 + (t - \mu)^2}
 
 <p>总结一下 VSSM 在第三步中的改进：</p>
 <ul>
-<li>阴影图生成：<ul>
+<li>阴影贴图生成：<ul>
 <li>「平方深度图」：和普通的深度图并行计算，计算量取决于像素个数</li>
 <li>计算均值：MIPMAP 或 SAT（稍后介绍）</li>
 </ul>
@@ -1669,7 +1747,7 @@ P(x &gt; t) \le \dfrac{\sigma^2}{\sigma^2 + (t - \mu)^2}
     <img src="images/lec3/34.png" width=50%>
 </div></p>
 </details>
-<p>矩阴影映射的做法和 VSSM 极其相似，但它要生成关于 <span class="arithmatex">\(z, z^2, z^3, z^4\)</span> 的阴影图（4 张），并在执行遮挡物搜索和 PCF 期间恢复 CDF。</p>
+<p>矩阴影映射的做法和 VSSM 极其相似，但它要生成关于 <span class="arithmatex">\(z, z^2, z^3, z^4\)</span> 的阴影贴图（4 张），并在执行遮挡物搜索和 PCF 期间恢复 CDF。</p>
 <div class="admonition success">
 <p class="admonition-title">优点：能产生非常好的结果。</p>
 </div>
@@ -1684,6 +1762,120 @@ P(x &gt; t) \le \dfrac{\sigma^2}{\sigma^2 + (t - \mu)^2}
 </div></p>
 </div>
 <h2 id="distance-field-soft-shadows">Distance Field Soft Shadows</h2>
+<details class="example" open="open">
+<summary>例子（距离场软阴影的效果）</summary>
+<p><div style="text-align: center">
+    <img src="images/lec3/36.png" width=80%>
+</div></p>
+</details>
+<h3 id="distance-function">Distance Function</h3>
+<p>先来回顾一下<strong>距离函数</strong>(distance functions)的概念。它是指在任何时刻给出到物体上最近位置的最小距离（可以是带符号的距离）。比如对于下图的字母 A，距离函数便是点到字母轮廓的最近距离，并且右图以可视化的方式呈现计算结果。</p>
+<div style="text-align: center">
+    <img src="images/lec3/37.png" width=70%>
+</div>
+
+<details class="example" open="open">
+<summary>例子（对移动边界进行混合（线性插值））</summary>
+<p><div style="text-align: center">
+    <img src="images/lec3/38.png" width=80%>
+</div></p>
+<ul>
+<li>SDF == 0 =&gt; 边界</li>
+<li>可以看到，如果只是简单的线性插值，只能得到中间的灰色区域，而不会产生新的黑白边界</li>
+<li>但如果是对两幅图的 SDF 进行线性插值，还原后的图像的中间就有明显的边界了</li>
+</ul>
+</details>
+<p>实际上可以通过混合任意两个距离函数 d1, d2 来混合任意形状的物体：</p>
+<div style="text-align: center">
+    <img src="images/lec3/39.png" width=90%>
+</div>
+
+<div class="admonition info">
+<p class="admonition-title">注</p>
+<p>SDF 和<strong>最优传输</strong>(optimal transport)理论密切相关，建议课后学习一下。</p>
+</div>
+<h3 id="the-usages-of-distance-fields">The Usages of Distance Fields</h3>
+<p>距离场的用途有：</p>
+<ul>
+<li>
+<p>通过<strong>光线行进</strong>(ray marching)（球体追踪(sphere tracing)）来执行光线和 SDF 的求交计算(ray-SDF intersection)</p>
+<ul>
+<li>背后蕴含了一个非常聪明的思想：<strong>SDF 的值 == 周围的「安全」距离</strong></li>
+<li>因此每次在点 p 处只需行进 SDF(p) 的距离，这样保证不会和任何物体相交</li>
+<li>当 SDF 小到一定程度后（也就是说离物体足够接近时），或者行进很长一段距离后还是没有碰到物体时停止行进</li>
+<li>可以处理运动的物体，但不适合用在有能产生形变的物体的场景中（需根据形变程度重新计算）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec3/40.png" width=60%>
+</div></p>
+</li>
+<li>
+<p>使用 SDF 确定（近似的）<strong>遮挡百分比</strong>(percentage of occlusion)</p>
+<ul>
+<li><strong>SDF 的值 == 眼睛看到的「安全」角度</strong></li>
+<li>观察：更小的安全角度 &lt;-&gt; 更小的可见性</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec3/41.png" width=50%>
+</div></p>
+</li>
+</ul>
+<h3 id="distance-field-soft-shadows_1">Distance Field Soft Shadows</h3>
+<p>现在正式来看如何计算距离场软阴影：在光线行进阶段的每一步中计算来自眼睛的「安全」角度，并保留最小值。</p>
+<p><img align="right" alt="" src="images/lec3/43.png" width="40%" /></p>
+<div style="text-align: center">
+    <img src="images/lec3/42.png" width=50%>
+</div>
+
+<p>也许读者会想利用圆的切线来求解安全角度，这样的话计算公式便是 <span class="arithmatex">\(\arcsin \dfrac{\text{SDF}(p)}{p - o}\)</span>。但在着色阶段中，人们通常希望能避免像反三角函数这样复杂的计算。因此实际上会用这个公式来算：<span class="arithmatex">\(\min\left\{ \dfrac{k \cdot \text{SDF}(p)}{p - o}, 1.0 \right\}\)</span>。</p>
+<ul>
+<li><span class="arithmatex">\(\dfrac{k \cdot \text{SDF}(p)}{p - o}\)</span> 用于近似表示反三角函数，加上 <span class="arithmatex">\(\min\)</span> 使该值不超过 1</li>
+<li><span class="arithmatex">\(k\)</span> 值越大，意味着安全角度很大，半影将更早被裁剪，因而让阴影变得更硬</li>
+</ul>
+<details class="example" open="open">
+<summary>距离场的可视化结果</summary>
+<p><div style="text-align: center">
+    <img src="images/lec3/44.png" width=80%>
+</div></p>
+</details>
+<div class="admonition success">
+<p class="admonition-title">优点</p>
+<ul>
+<li>
+<p>快速</p>
+<ul>
+<li>应该说生成 SDF 比生成阴影贴图更快，运行时查询的时候两者速度应该差不多</li>
+</ul>
+</li>
+<li>
+<p>高质量</p>
+</li>
+</ul>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>需要预计算</li>
+<li>
+<p>需要大量存储，不过也有一些缓解措施</p>
+<ul>
+<li>使用 KD 树、八叉树等对空间划分，只去计算场景中较近区域的 SDF</li>
+<li>有人尝试过用深度学习方法压缩，但这样做反而增加解压的时间，因此不太可能在实际中得到应用</li>
+</ul>
+</li>
+<li>
+<p>接缝处可能存在瑕疵</p>
+</li>
+</ul>
+</div>
+<details class="info">
+<summary>一个有趣的应用</summary>
+<p>在 RTR 中实现了抗锯齿/无限分辨率的字符。</p>
+<p><div style="text-align: center">
+    <img src="images/lec3/45.png" width=60%>
+</div></p>
+<p>GitHub 链接：<a href="https://github.com/protectwise/troika/tree/master/packages/troika-three-text">https://github.com/protectwise/troika/tree/master/packages/troika-three-text</a></p>
+</details>
 
 
 
