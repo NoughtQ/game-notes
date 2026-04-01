@@ -795,6 +795,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Screen Space Ambient Occlusion (SSAO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizon-based-ambient-occlusion-hbao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Horizon Based Ambient Occlusion (HBAO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1105,6 +1122,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Screen Space Ambient Occlusion (SSAO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizon-based-ambient-occlusion-hbao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Horizon Based Ambient Occlusion (HBAO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1332,9 +1366,340 @@ E_p(x, n) = \Phi_p \frac{\max\{0, \langle n_p | x - x_p \rangle\} \max\{0, \lang
 </ul>
 </div>
 <h3 id="light-propagation-volumes-lpv">Light Propagation Volumes (LPV)</h3>
+<p><strong>光传播体积</strong>(light propagation volume, <strong>LPV</strong>)技术在 CryEngine 3 被首次引入（用于游戏《孤岛危机》中（<del>显卡危机说是</del>）），它在保持高性能的同时能实现高质量的渲染结果。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/11.png" width=80%>
+</div></p>
+</details>
+<p>LPV 要解决的关键问题是查询任意着色点在任意方向上的辐射度。其思路是：光（辐射度）沿直线传播且不改变方向。对应的实现方案为采用 3D 网格（每个格子就是一个体素(voxel)），将辐射从直接被光照到的表面传播至其他任何位置上。</p>
+<div style="text-align: center">
+    <img src="images/lec5/12.png" width=40%>
+</div>
+
+<p>具体步骤如下：</p>
+<p><img align="right" alt="" src="images/lec5/13.png" width="30%" /></p>
+<ul>
+<li>生成辐射点集的场景表示<ul>
+<li>寻找被直接照亮的表面</li>
+<li>使用 RSM 就足够了</li>
+<li>可以采用更少的漫反射面片数（虚拟光源）</li>
+</ul>
+</li>
+</ul>
+<p><br/></p>
+<p><img align="right" alt="" src="images/lec5/14.png" width="30%" /></p>
+<ul>
+<li>将虚拟光源点云（接收到直接光照的点）注入到辐射体积中<ul>
+<li>将场景预分割为 3D 网格</li>
+<li>对每个网格单元，找出其内部包含的虚拟光源</li>
+<li>对不同朝向的辐射度分布求和</li>
+<li>投影至前两阶 SH 函数（共 4 个基函数）来压缩</li>
+</ul>
+</li>
+</ul>
+<p><br/><br/></p>
+<p><img align="right" alt="" src="images/lec5/15.png" width="30%" /></p>
+<ul>
+<li>
+<p>体素化辐射传播</p>
+<ul>
+<li>对于每个网格单元，收集从其六个面接收到的辐射度</li>
+<li>求和后，再次用 SH 表示</li>
+<li>重复此传播过程数次，直至体积内的状态趋于稳定（一般迭代四五次就稳定了）</li>
+</ul>
+</li>
+<li>
+<p>使用最终光传播体积进行场景照明</p>
+<ul>
+<li>对于任意着色点，确定其所在的网格单元</li>
+<li>获取该网格单元中的入射辐射度（来自所有方向）</li>
+<li>着色</li>
+</ul>
+</li>
+</ul>
+<details class="bug" open="open">
+<summary>问题</summary>
+<p>如下图所示，假设 p 点是能被直接照明的，那么在 p 点反射的光线一定是向左运动的，不可能照亮墙壁右侧。但问题是墙的左右两侧都在同一个网格内，所以墙的右侧和 p 点的辐射度是一样的，那么右侧就会被照亮，这显然是不合理的。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/16.png" width=30%>
+</div></p>
+<p>也就是说，只要模型几何体比划分的网格还要细，就会出现<strong>漏光</strong>(light leaking)现象。解决方法是将网格划分得更细，但会带来额外的存储开销以及计算传播的开销。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/17.png" width=80%>
+</div></p>
+</details>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/18.gif" width=80%>
+</div></p>
+</details>
 <h3 id="voxel-global-illumination-vxgi">Voxel Global Illumination (VXGI)</h3>
+<p>第三种方法是<strong>体素全局光照</strong>(voxel global illumination, <strong>VXGI</strong>)。它和 RSM 一样是一种两趟算法，但和 RSM 有两点不同：</p>
+<ul>
+<li>
+<p>直接照亮的像素（面片）-&gt;（分层的）体素</p>
+<ul>
+<li>体素化整个场景（下图所示的一个个小格子）</li>
+<li>构建一个分层结构（类似 BVH）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec5/20.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>在 RSM 上采样（可能不准确）-&gt; 从相机出发，在 3D 空间中追踪反射锥体</p>
+</li>
+</ul>
+<p>VXGI 的两趟过程具体为：</p>
+<ol>
+<li>
+<p>来自光源</p>
+<ul>
+<li>在每个体素中存储入射光线与法线的分布情况</li>
+<li>在层级结构上进行更新</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec5/21.png" width=70%>
+</div></p>
+</li>
+<li>
+<p>来自相机</p>
+<ul>
+<li>对于金属光泽表面，沿反射方向追踪一个锥体</li>
+<li>根据（不断增大的）锥体大小查询层级结构</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec5/22.png" width=80%>
+</div></p>
+<ul>
+<li>对于漫反射，需追踪多个锥体（比如 8 个）</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec5/23.png" width=50%>
+</div></p>
+</li>
+</ol>
+<details class="example">
+<summary>例子</summary>
+<p>可以看到渲染结果的质量很高，近乎媲美光线追踪。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/24.gif" width=80%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec5/25.gif" width=80%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec5/26.gif" width=80%>
+</div></p>
+</details>
+<p>但由于开销较大（对整个场景体素化，若考虑到动态物体则问题还要复杂），因此 VXGI 的应用有限。</p>
 <h2 id="gi-in-screen-space">GI in Screen Space</h2>
+<p>「<strong>屏幕空间</strong>」(screen space)的意思是指仅使用来自屏幕的信息，即对已存在的渲染结果（直接光照）进行<strong>后处理</strong>(post processing)。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/27.png" width=70%>
+</div></p>
+</details>
 <h3 id="screen-space-ambient-occlusion-ssao">Screen Space Ambient Occlusion (SSAO)</h3>
+<p>和 LPV 一样，<strong>屏幕空间环境光遮蔽</strong>(screen space ambient occlusion, <strong>SSAO</strong>)技术也是由 Crytek 公司首次引入。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/28.png" width=80%>
+</div></p>
+</details>
+<p>之所以要用到环境光遮蔽（AO），是因为这种技术实现成本低，但同时能增强玩家对物体相对位置的感知。</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>显然，左边这列图用到了 AO，右边这列没用到。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/29.png" width=70%>
+</div></p>
+</details>
+<p>而 SSAO 是在屏幕空间上实现 GI 近似表示的一种方法。它的关键思路包括：</p>
+<ul>
+<li>
+<p>由于我们无法得知入射的间接光照，所以先假设对于每个着色点，对于所有方向的光照都是恒定的（这就和 Blinn-Phong 反射模型的假设一样）</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/30.png" width=30%>
+</div></p>
+</li>
+<li>
+<p>考虑到不同着色点在不同方向上的<strong>可见性差异</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec5/32.png" width=70%>
+</div></p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/31.png" width=80%>
+</div></p>
+</details>
+</li>
+<li>
+<p>假设材质是漫反射的</p>
+</li>
+</ul>
+<p>接下来我们深入 SSAO 的理论部分——依旧渲染方程起手：</p>
+<div class="arithmatex">\[
+L_{o}(\mathrm{p}, \omega_{o}) = \int_{\Omega^{+}} L_{i}(\mathrm{p}, \omega_{i}) f_{r}(\mathrm{p}, \omega_{i}, \omega_{o}) V(\mathrm{p}, \omega_{i}) \cos \theta_{i} \mathrm{d} \omega_{i}
+\]</div>
+<p>并且利用经典的「RTR 近似公式」（这是闫老师取的黑话，正式场合中不要这么叫）<span class="arithmatex">\(\int_{\Omega} f(x)g(x) \,\mathrm{d}x \approx \dfrac{\int_{\Omega_G} f(x) \,\mathrm{d}x}{\int_{\Omega_G} \,\mathrm{d}x} \cdot \int_{\Omega} g(x) \,\mathrm{d}x\)</span>，将可见性项分离出来：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L_o(\mathrm{p}, \omega_o) \approx &amp; \color{cornflowerblue}{\frac{\int_{\Omega^+} V(\mathrm{p}, \omega_i) \cos \theta_i \mathrm{d} \omega_i}{\int_{\Omega^+} \cos \theta_i \mathrm{d} \omega_i}} \cdot \\
+&amp; \color{orange}{\int_{\Omega^+} L_i(\mathrm{p}, \omega_i) f_r(\mathrm{p}, \omega_i, \omega_o) \cos \theta_i \mathrm{d} \omega_i}
+\end{aligned}
+\]</div>
+<ul>
+<li>蓝色部分 <span class="arithmatex">\(\stackrel{\triangle}{=} k_A = \dfrac{\int_{\Omega^+} V(p, \omega_i) \cos \theta_i \text{d} \omega_i}{\pi}\)</span>（即来自所有方向的加权平均可见性值 <span class="arithmatex">\(\overline{V}\)</span>）</li>
+<li>橙色部分 = <span class="arithmatex">\(L_i^{\text{indir}}(p) \cdot \dfrac{\rho}{\pi} \cdot \pi = L_i^{\text{indir}}(p) \cdot \rho\)</span>（对 AO 而言是常量）</li>
+</ul>
+<p>因此环境光就被近似表达为<strong>可见性均值与某个常量的乘积</strong>。接下来我们进行更深一步的理解：</p>
+<ul>
+<li>
+<p>RTR 近似公式可以简写为：</p>
+<div class="arithmatex">\[
+\int_\Omega f(x)g(x) \text{d}x \approx \overline{f(x)} \cdot \int_\Omega g(x) \text{d}x
+\]</div>
+<p>其中 <span class="arithmatex">\(\overline{f(x)}\)</span> 就是 <span class="arithmatex">\(f(x)\)</span> 在积分区间 <span class="arithmatex">\(G\)</span> 上的平均值。由于 <span class="arithmatex">\(G = L \cdot f_r\)</span> 就是一个常数（<span class="arithmatex">\(L\)</span> 为间接光照），因此在 AO 中，这种近似实际上是能得到准确值的。</p>
+</li>
+<li>
+<p>另一个问题是可以看到近似后的渲染方程中三个 <span class="arithmatex">\(\text{d}\omega_i\)</span> 前都有一个 <span class="arithmatex">\(\cos \theta_i\)</span> 项，其中蓝色部分的两项是不能消去的，因为 <span class="arithmatex">\(\cos \theta_i \text{d}\omega_i\)</span> 合在一起表示一个<strong>投影立体角</strong>(projected solid angle) <span class="arithmatex">\(\text{d}x_\perp\)</span></p>
+<ul>
+<li>单位半球 -&gt; 单位圆盘</li>
+<li>投影立体角的积分 == 单位圆盘的面积 == <span class="arithmatex">\(\pi\)</span>，这就解释了橙色部分的计算</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec5/33.png" width=50%>
+</div></p>
+</li>
+</ul>
+<p>现在让我们以更简单的视角来理解整个过程：</p>
+<ul>
+<li>均匀入射光照 <span class="arithmatex">\(L_i\)</span> 是常量</li>
+<li>漫反射 BRDF <span class="arithmatex">\(f_r = \dfrac{\rho}{\pi}\)</span> 也是常量</li>
+<li>
+<p>因此将这两项从积分中提取出来，得到：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L_{o}\left(\mathrm{p}, \omega_{o}\right) &amp; =\int_{\Omega^{+}} L_{i}\left(\mathrm{p}, \omega_{i}\right) f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}\right) V\left(\mathrm{p}, \omega_{i}\right) \cos \theta_{i} \mathrm{~d} \omega_{i} \\
+&amp; =\frac{\rho}{\pi} \cdot L_{i}(p) \cdot \int_{\Omega^{+}} V\left(\mathrm{p}, \omega_{i}\right) \cos \theta_{i} \mathrm{~d} \omega_{i}
+\end{aligned}
+\]</div>
+</li>
+</ul>
+<p>接下来该考虑如何实时计算遮挡值 <span class="arithmatex">\(k_A(p)\)</span>。先来比较对象空间和屏幕空间各自的特点：</p>
+<ul>
+<li>
+<p>在对象空间中（世界坐标系）</p>
+<ul>
+<li>对几何体进行射线投射(raycast)</li>
+<li>速度慢，需要简化，以及/或者空间数据结构</li>
+<li>取决于场景复杂度</li>
+</ul>
+</li>
+<li>
+<p>在屏幕空间中</p>
+<ul>
+<li>在渲染后处理中完成</li>
+<li>无需预处理</li>
+<li>不依赖场景复杂度</li>
+<li>简单</li>
+<li>非物理精确</li>
+</ul>
+</li>
+</ul>
+<p>一个比较直观的方法是：对于着色点，在半径为 <span class="arithmatex">\(R\)</span> 的半球范围内计算局部遮挡。这种方法在室内场景等封闭区域中效率更高且效果更好。</p>
+<div style="text-align: center">
+    <img src="images/lec5/34.png" width=60%>
+</div>
+
+<p>而 SSAO 的做法是利用现成的<strong>深度缓冲区</strong>（z-buffer）作为场景几何的近似：在每个像素周围的球体内采样，并与缓冲区进行对比测试。</p>
+<div style="text-align: center">
+    <img src="images/lec5/35.png" width=80%>
+</div>
+
+<ul>
+<li>若超过半数采样点位于内部，则应用 AO，其强度取决于通过和未通过深度测试的采样点比例</li>
+<li>由于无法获取法线信息，此处使用整个球体而非半球体进行采样</li>
+<li>
+<p><strong>虚假遮挡</strong>(false occlusions)：由于是对场景几何的近似，所以可能存在判定错误的情况，比如下图红线后的那个点明明是看得到的，却被认为是在内部的</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/36.png" width=80%>
+</div></p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>可以看到，由于只能获取屏幕信息，所以 SSAO 误以为石凳会对地板有一个 AO，所以石凳在地板上产生阴影，这看起来很不真实。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/37.png" width=80%>
+</div></p>
+</details>
+</li>
+<li>
+<p>虽然采样点未按余弦加权（因此物理上不准确），但视觉效果上没啥问题</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">采样点选择的注意事项</p>
+<ul>
+<li>采样点越多，精度越高</li>
+<li>所以要想获得良好渲染效果就需要大量采样点，但出于性能考虑，通常仅使用 16 个左右</li>
+<li>采用随机纹理位置以避免带状伪影问题</li>
+<li>
+<p>若结果带有噪点，可通过对边缘进行模糊处理</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">模糊前</label><label for="__tabbed_2_2">模糊后</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/38.png" width=70%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/39.png" width=70%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+</li>
+</ul>
+</div>
+<h4 id="horizon-based-ambient-occlusion-hbao">Horizon Based Ambient Occlusion (HBAO)</h4>
+<p>如果得知每个着色点的法线信息，那我们就可以实现更加精确的 AO，这种方法就是<strong>基于水平线的环境光遮蔽</strong>(horizon based ambient occlusion, <strong>HBAO</strong>)。相比 SSAO，它借助法线信息，只在与法线垂直的平面上方的半球区域内采样（可通过余弦加权实现）。</p>
+<div style="text-align: center">
+    <img src="images/lec5/40.png" width=50%>
+</div>
+
+<details class="example" open="open">
+<summary>效果比对</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">无 SSAO</label><label for="__tabbed_3_2">SSAO</label><label for="__tabbed_3_3">HBAO</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/41.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/42.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/43.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
 <h3 id="screen-space-directional-occlusion-ssdo">Screen Space Directional Occlusion (SSDO)</h3>
 <h3 id="screen-space-reflection-ssr">Screen Space Reflection (SSR)</h3>
 
