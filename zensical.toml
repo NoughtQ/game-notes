@@ -49,8 +49,9 @@ Copyright &copy; 2026 NoughtQ
 # Read more: https://zensical.org/docs/setup/navigation/
 use_directory_urls = false  # 加上这句后才能显示用 html img 相对路径插入的图片
 nav = [
-    { "主页" = "index.md" },
-    { "计算机图形学" = [
+    { "🏠主页" = "index.md" },
+    { "📦学习资源汇总" = "links.md" },
+    { "🖼️计算机图形学" = [
         "cg/index.md",
         "cg/1.md",
         "cg/2.md",
@@ -65,7 +66,7 @@ nav = [
         "cg/11.md",
         "cg/12.md"
     ]},
-    { "实时渲染" = [
+    { "🖌️实时渲染" = [
         "rtr/index.md",
         "rtr/1.md",
         "rtr/2.md",
@@ -76,7 +77,7 @@ nav = [
         "rtr/7.md",
         "rtr/8.md"
     ]},
-    { "游戏引擎" = [
+    { "🎮游戏引擎" = [
         "ge/index.md",
         "ge/1.md",
         "ge/2.md",

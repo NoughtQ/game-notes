@@ -238,7 +238,23 @@
       <a href="../index.html" class="md-tabs__link">
         
   
-  主页
+  🏠主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../links.html" class="md-tabs__link">
+        
+  
+  📦学习资源汇总
 
       </a>
     </li>
@@ -256,7 +272,7 @@
         <a href="../cg/index.html" class="md-tabs__link">
           
   
-  计算机图形学
+  🖼️计算机图形学
 
         </a>
       </li>
@@ -277,7 +293,7 @@
         <a href="./index.html" class="md-tabs__link">
           
   
-  实时渲染
+  🖌️实时渲染
 
         </a>
       </li>
@@ -296,7 +312,7 @@
         <a href="../ge/index.html" class="md-tabs__link">
           
   
-  游戏引擎
+  🎮游戏引擎
 
         </a>
       </li>
@@ -363,7 +379,34 @@
   <span class="md-ellipsis">
     
   
-    主页
+    🏠主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📦学习资源汇总
   
 
     
@@ -504,7 +547,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -515,7 +558,7 @@
   <span class="md-ellipsis">
     
   
-    实时渲染
+    🖌️实时渲染
   
 
     
@@ -526,18 +569,18 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
-    实时渲染
+    🖌️实时渲染
   
 
           </label>
@@ -833,6 +876,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Screen Space Reflection (SSR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1161,6 +1232,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Screen Space Reflection (SSR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1196,7 +1295,7 @@
       <a href="../index.html" class="md-path__link">
         
   <span class="md-ellipsis">
-    主页
+    🏠主页
   </span>
 
       </a>
@@ -1214,7 +1313,7 @@
         <a href="./index.html" class="md-path__link">
           
   <span class="md-ellipsis">
-    实时渲染
+    🖌️实时渲染
   </span>
 
         </a>
@@ -1317,7 +1416,7 @@ L_{o}\left(\mathrm{p}, \omega_{o}\right) &amp; =\int_{\Omega_{\text {patch }}} L
 <li>
 <p>因此公式可以简化为：</p>
 <div class="arithmatex">\[
-E_p(x, n) = \Phi_p \frac{\max\{0, \langle n_p | x - x_p \rangle\} \max\{0, \langle n | x_p - x \rangle\}}{\|x - x_p\|^2}
+E_p(x, n) = \Phi_p \frac{\max\{0, \langle n_p | x - x_p \rangle\} \max\{0, \langle n | x_p - x \rangle\}}{\|x - x_p\|^4}
 \]</div>
 </li>
 </ul>
@@ -1701,7 +1800,261 @@ L_{o}\left(\mathrm{p}, \omega_{o}\right) &amp; =\int_{\Omega^{+}} L_{i}\left(\ma
 </div>
 </details>
 <h3 id="screen-space-directional-occlusion-ssdo">Screen Space Directional Occlusion (SSDO)</h3>
+<p><strong>屏幕空间方向性遮挡</strong>(screen space directional occlusion, <strong>SSDO</strong>)技术是对 SSAO 的一种改进，考虑了（更多）真实的间接光照。</p>
+<p>其关键思路是利用已经知道的一些关于间接光照的信息，而非假设间接光照是均匀的。具体来说，SSDO 利用了来自相机（而非 RSM）的直接光照的渲染结果.</p>
+<div style="text-align: center">
+    <img src="images/lec5/44.png" width=80%>
+</div>
+
+<p><img align="right" alt="" src="images/lec5/45.png" width="30%" /></p>
+<p>这和路径追踪的思路很像：</p>
+<ul>
+<li>从着色点 p 处发射一条随机射线</li>
+<li>若未击中障碍物，则为直接光照</li>
+<li>若击中障碍物，则为间接光照</li>
+</ul>
+<p>与 SSAO 的比较：</p>
+<ul>
+<li>AO：<span style="color: red">间接光照</span> + <span style="color: orange">无间接光照</span></li>
+<li>DO：<span style="color: red">无间接光照</span> + <span style="color: orange">间接光照</span>（与路径追踪相同）</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec5/46.png" width=80%>
+</div>
+
+<p>回到渲染方程，我们分别考虑未遮挡（直接光照）和已遮挡（间接光照）的方向：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L_{o}^{\text{dir}}(\text{p}, \omega_{o}) &amp; = \int_{\Omega^{+}, \color{cornflowerblue}{V=1}} L_{i}^{\color{cornflowerblue}{\text{dir}}}(\text{p}, \omega_{i}) f_{r}(\text{p}, \omega_{i}, \omega_{o}) \cos \theta_{i} \, \text{d}\omega_{i} \\
+L_{o}^{\text{indir}}(\text{p}, \omega_{o}) &amp; = \int_{\Omega^{+}, \color{orange}{V=0}} L_{i}^{\color{orange}{\text{indir}}}(\text{p}, \omega_{i}) f_{r}(\text{p}, \omega_{i}, \omega_{o}) \cos \theta_{i} \, \text{d}\omega_{i}
+\end{aligned}
+\]</div>
+<blockquote>
+<p>之前已推导过来自像素（面片）的间接光照。</p>
+</blockquote>
+<p>类似于 HBAO，测试采样点在局部半球中的深度。</p>
+<div style="text-align: center">
+    <img src="images/lec5/47.png" width=80%>
+</div>
+
+<ul>
+<li>对于左侧两幅示意图，A, B, D 三点对 P 点的间接光照做出贡献</li>
+<li>对于最右侧的示意图，虽然 A, B 两点到 P 点之间都没有被挡住，但相机看不到 A 点且 B 点对应的像素深度不在 P 点的判定范围内，所以这两点无法对 P 点做出贡献</li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">优点：质量上和离线渲染接近</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>
+<p>只能表示小范围的 GI</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/50.png" width=80%>
+</div></p>
+<ul>
+<li>如果这幅图用 SSDO 方法来渲染的话，图中的黑点部分不太会考虑到绿墙的贡献</li>
+</ul>
+</li>
+<li>
+<p>可见性是基于相机到着色点的可见性来判断的，有时不太准确</p>
+</li>
+<li>
+<p>屏幕空间的问题：未观察到的表面信息缺失</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/49.png" width=80%>
+</div></p>
+</li>
+</ul>
+</div>
 <h3 id="screen-space-reflection-ssr">Screen Space Reflection (SSR)</h3>
+<p><strong>屏幕空间反射</strong>(screen space reflection, <strong>SSR</strong>)也是一种 RTR 领域的全局光照方法。它是在屏幕空间上进行光线追踪，但又不需要 3D 图元信息（三角形等）。</p>
+<p>SSR 的两项基本任务是：</p>
+<ul>
+<li><strong>相交</strong>：<strong>任意</strong>光线与场景之间的交点</li>
+<li><strong>着色</strong>：相交像素对着色点的贡献</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/53.png" width=80%>
+</div></p>
+</details>
+<details class="info" open="open">
+<summary>动机</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/54.png" width=70%>
+</div></p>
+<p>可以看到雨后的街道上有很强烈的反射光，反射出来的倒影（白色区域）正是街边的建筑（红色区域）。</p>
+</details>
+<p>最基本的 SSR 算法是直接做<strong>镜面反射</strong>(mirror reflection)——对于每一个片元：</p>
+<ul>
+<li>计算反射光线</li>
+<li>沿光线方向追踪（使用深度缓冲）</li>
+<li>取交点颜色作为反射颜色</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">例1</label><label for="__tabbed_4_2">例2</label><label for="__tabbed_4_3">例3</label><label for="__tabbed_4_4">例4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>镜面反射：</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/55.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>类似金属表面反射：</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/56.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/58.png" width=80%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/59.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<p>整个流程如下：</p>
+<div style="text-align: center">
+    <img src="images/lec5/60.png" width=80%>
+</div>
+
+<h4 id="intersection">Intersection</h4>
+<p>那么对于地面上的一个点，要想知道它的反射光与场景中的哪个像素相交，可以通过<strong>线性射线匹配</strong>(linear raymatch)的方法来实现。</p>
+<ul>
+<li>每一步检查深度值</li>
+<li>渲染质量取决于步长</li>
+<li>能够被细化</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec5/61.png" width=50%>
+</div>
+
+<div style="text-align: center">
+    <img src="images/lec5/62.png" width=70%>
+</div>
+
+<p>由于步长过大过小都不好，于是人们研究出动态调整步长的方法。首先得到深度图的 mip-map，但这个 mip-map 记录的是多个像素对应深度的<strong>最小值</strong>（最近）而非平均值。</p>
+<div style="text-align: center">
+    <img src="images/lec5/63.png" width=80%>
+</div>
+
+<ul>
+<li>这和 3D 空间中的层级结构（BVH、KD 树）非常相似，能够快速批量排除不相交的情况</li>
+<li>最小操作确保了逻辑的保守性<ul>
+<li>如果一条射线连较大的节点都无法相交，那么它绝不会与该节点的任何子节点相交</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec5/64.png" width=90%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec5/65.gif" width=80%>
+</div></p>
+</details>
+<details class="bug" open="open">
+<summary>问题</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">问题1</label><label for="__tabbed_5_2">问题2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/66.png" width=80%>
+</div></p>
+<p>可以看到，由于只利用了屏幕空间的信息，手心的倒影就没有在桌面上出现，因为相机看不到手心。</p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/67.png" width=80%>
+</div></p>
+<p>类似地，这块窗帘的顶部在屏幕空间之外，所以地面倒影中的窗帘也只有看到的那部分，顶部被截断了。解决方法是沿着反射光的距离进行衰减操作，把太远物体的反射光给虚化掉。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/68.png" width=80%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<h4 id="shading">Shading</h4>
+<p>SSR 的着色部分可完全沿用<strong>路径追踪</strong>的那套计算。我们还是假设<strong>反射物是漫反射材质</strong>（次级光源）的。</p>
+<div class="arithmatex">\[
+L_{o}(\mathrm{p}, \omega_{o}) = \int_{\Omega^{+}} L_{i}(\mathrm{p}, \omega_{i}) f_{r}(\mathrm{p}, \omega_{i}, \omega_{o}) \cos \theta_{i} \mathrm{d} \omega_{i}
+\]</div>
+<blockquote>
+<p>其中 <span class="arithmatex">\(L_{i}(\mathrm{p}, \omega_{i}) = L_o(q, q \to p)\)</span>。</p>
+</blockquote>
+<ul>
+<li>无需引入平方衰减</li>
+<li>能很好地处理着色点和次级光源之间的遮挡问题</li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:4"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><input id="__tabbed_6_4" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">锐化和模糊反射(sharp and blurry reflection)</label><label for="__tabbed_6_2">接触硬化(contact hardening)</label><label for="__tabbed_6_3">镜面拉伸(specular elongation)</label><label for="__tabbed_6_4">逐像素粗糙与法线(per-pixel roughness and normal)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/69.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/70.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/71.png" width=50%>
+</div></p>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <img src="images/lec5/72.png" width=50%>
+</div></p>
+</div>
+</div>
+</div>
+</details>
+<details class="info">
+<summary>提高部分</summary>
+<p>原来，对于每一个着色点，计算 BRDF 时要考虑一个 lobe 范围内反射光，进行随机采样。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/73.png" width=70%>
+</div></p>
+<p>一种节省开销的方法是复用命中点邻居范围内的计算结果。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/74.png" width=70%>
+</div></p>
+<p>这就相当于对采样点进行预滤波操作（取均值），然后按 BRDF 进行加权计算。</p>
+<p><div style="text-align: center">
+    <img src="images/lec5/75.png" width=70%>
+</div></p>
+</details>
+<div class="admonition success">
+<p class="admonition-title">优点</p>
+<ul>
+<li>在金属光泽与镜面反射材质上计算反射速度快</li>
+<li>渲染质量优良</li>
+<li>无尖峰和遮挡问题</li>
+</ul>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>在漫反射情况下效率较低</li>
+<li>屏幕外信息缺失</li>
+</ul>
+</div>
 
 
 
