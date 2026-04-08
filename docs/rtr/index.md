@@ -24,9 +24,7 @@
     - [x] [Real-Time Shadows](3.md)
     - [x] [Real-Time Environment Mapping](4.md)
     - [x] [Real-Time Global Illumination](5.md)
-    - [ ] [Real-Time Physically-Based Materials](6.md)
+    - [x] [Real-Time Physically-Based Materials](6.md)
     - [ ] [Real-Time Ray Tracing](7.md)
     - [ ] [A Glimpse of Industrial Solutions](8.md)
-
-    TBD
 

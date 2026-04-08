@@ -840,23 +840,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disney-principled-brdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disney principled BRDF
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Disney principled BRDF">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#linearly-transformed-cosines-ltc" class="md-nav__link">
     <span class="md-ellipsis">
@@ -874,13 +857,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#non-photorealistic-rendering-npr" class="md-nav__link">
+  <a href="#disney-principled-brdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-photorealistic rendering (NPR)
+        Disney principled BRDF
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-photorealistic-rendering-npr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Photorealistic Rendering (NPR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Photorealistic Rendering (NPR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outline-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outline Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strokes-surface-stylization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strokes Surface Stylization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1111,23 +1144,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disney-principled-brdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disney principled BRDF
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Disney principled BRDF">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#linearly-transformed-cosines-ltc" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1145,13 +1161,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#non-photorealistic-rendering-npr" class="md-nav__link">
+  <a href="#disney-principled-brdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-photorealistic rendering (NPR)
+        Disney principled BRDF
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-photorealistic-rendering-npr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Photorealistic Rendering (NPR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Photorealistic Rendering (NPR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outline-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outline Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strokes-surface-stylization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strokes Surface Stylization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1410,9 +1476,288 @@ F_{\text{avg}} = \frac{\int_{0}^{1} F(\mu) \mu \mathrm{d}\mu}{\int_{0}^{1} \mu \
 <li>物理上完全不正确</li>
 <li>无法保证能量守恒（原来在 Kulla-Conty 法中得到修正，当然也可通过其他方法修正）</li>
 </ul>
-<h2 id="disney-principled-brdf">Disney principled BRDF</h2>
 <h3 id="linearly-transformed-cosines-ltc">Linearly Transformed Cosines (LTC)</h3>
-<h2 id="non-photorealistic-rendering-npr">Non-photorealistic rendering (NPR)</h2>
+<p>定义好为表面的 BRDF 后，接下来看如何给微表面着色。我们用到的方法是<strong>线性变换余弦</strong>(linearly transformed cosine, <strong>LTC</strong>)。</p>
+<ul>
+<li>虽然可以用在其他 NDF 上，但主要还是用在 GGX 上</li>
+<li>不考虑阴影</li>
+<li>处在<strong>多边形光照</strong>(polygon shaped lighting)下</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/16.png" width=70%>
+</div>
+
+<p>关键思路如下：</p>
+<ul>
+<li>任何出射的 2D BRDF lobe 均可转换为余弦形式</li>
+<li>光源的形状也可随之进行变换</li>
+<li>在（固定的）余弦 lobe 上对变换后的光源进行积分具有<strong>解析解</strong></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/17.png" width=70%>
+</div>
+
+<p><img align="right" alt="" src="images/lec6/18.png" width="55%" /></p>
+<p>观察发现：</p>
+<ul>
+<li>BRDF <span class="arithmatex">\(\xrightarrow{M^{-1}}\)</span> 余弦</li>
+<li>方向：<span class="arithmatex">\(\omega_i \xrightarrow{M^{-1}} \omega_i'\)</span></li>
+<li>积分域：<span class="arithmatex">\(P \xrightarrow{M^{-1}} P'\)</span></li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/19.png" width=80%>
+</div>
+
+<p>具体做法就是对变量的一个简单改动：<span class="arithmatex">\(\omega_i = \dfrac{M \omega_i'}{\|M \omega_i'\|}\)</span>（附带归一化处理），因此渲染方程变为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L\left(\omega_{o}\right) &amp; =L_{i} \cdot \int_{P} F\left(\omega_{i}\right) \mathrm{d} \omega_{i} \\
+&amp; =L_{i} \cdot \int_{P} \cos \left(\omega_{i}^{\prime}\right) \mathrm{d} \frac{M \omega_{i}^{\prime}}{\left\|M \omega_{i}^{\prime}\right\|} \\
+&amp; =L_{i} \cdot \int_{P^{\prime}} \cos \left(\omega_{i}^{\prime}\right) J \mathrm{~d} \omega_{i}^{\prime}
+\end{aligned}
+\]</div>
+<ul>
+<li>假设多边形光源的光是均匀分布的，所以把 <span class="arithmatex">\(L_i\)</span> 拿到积分外面来</li>
+<li>对于上述积分，可以求得解析解</li>
+</ul>
+<details class="example" open="open">
+<summary>结果</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/20.png" width=80%>
+</div></p>
+</details>
+<h2 id="disney-principled-brdf">Disney principled BRDF</h2>
+<details class="info" open="open">
+<summary>动机</summary>
+<ul>
+<li>基于物理的材质在表现所有真实材料方面并不完美，比如大多数微表面模型缺乏漫反射项</li>
+<li>基于物理的材质对艺术家不够友好，比如复杂的折射率 n-ik</li>
+</ul>
+<p>因此迪士尼原则下的 BRDF 的高层级设计目标是保证对艺术家友好，而不必满足物理上的正确性。</p>
+<blockquote>
+<p>这在 RTR 领域中经常被指代为 PBR。</p>
+</blockquote>
+</details>
+<p>BRDF 的设计遵循以下重要原则：</p>
+<ul>
+<li>应使用直观表示而非物理参数</li>
+<li>参数数量应尽可能少</li>
+<li>参数的合理取值范围应在 0 到 1 之间</li>
+<li>在合理情况下，允许参数超出其常规范围</li>
+<li>所有参数组合都应尽可能稳健且符合实际</li>
+</ul>
+<p>下面是一张显示各参数影响的表格：</p>
+<div style="text-align: center">
+    <img src="images/lec6/21.png" width=60%>
+</div>
+
+<ul>
+<li>横着的参数表示金属性</li>
+<li>随着参数空间的增长，部分参数的效果可能会有重合的地方</li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">优点</p>
+<ul>
+<li>易于理解/控制</li>
+<li>单个模型可以支持大量材质</li>
+<li>开源实现可用</li>
+</ul>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">缺点</p>
+<ul>
+<li>不基于物理（但并不是很大的问题）</li>
+<li>参数空间大</li>
+</ul>
+</div>
+<h2 id="non-photorealistic-rendering-npr">Non-Photorealistic Rendering (NPR)</h2>
+<p>最后来介绍一下<strong>非真实感渲染</strong>(non-photorealistic rendering, <strong>NPR</strong>)。它最大的特点是<strong>风格化</strong>(stylization)。而在 RTR 领域中，它还要求<strong>快速</strong>且<strong>可靠</strong>(reliable)。其目标是生成艺术风格的外观。</p>
+<div style="text-align: center">
+    <img src="images/lec6/23.png" width=60%>
+</div>
+
+<p>对应地有<strong>真实感渲染</strong>(photorealistic rendering)的概念。它的目标是渲染出和照片无法区分的结果，因此聚焦于光照、阴影、材质等的处理。</p>
+<div style="text-align: center">
+    <img src="images/lec6/22.png" width=80%>
+</div>
+
+<blockquote>
+<p>右图竖着劈成两半，一半是真实的，一半是渲染出来的。但原作者也忘记到底哪半边是真的...</p>
+</blockquote>
+<p>NPR 的特点有：</p>
+<ul>
+<li>始于真实感渲染</li>
+<li>运用抽象手法</li>
+<li>增强关键部分</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>
+<p>艺术</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/24.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>可视化</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/25.png" width=40%>
+</div></p>
+</li>
+<li>
+<p>指示</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/26.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>教育</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/27.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>娱乐</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/28.png" width=50%>
+</div></p>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>应用</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/29.png" width=80%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/30.png" width=60%>
+</div></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/31.png" width=60%>
+</div></p>
+</details>
+<p>我们可以总结出以下风格：</p>
+<ul>
+<li>粗犷轮廓（实为外框线条）</li>
+<li>色块</li>
+<li>表面笔触</li>
+</ul>
+<h3 id="outline-rendering">Outline Rendering</h3>
+<p><img align="right" alt="" src="images/lec6/32.png" width="30%" /></p>
+<p><strong>轮廓</strong>(outlines)不仅仅是外形(coutours)，还包括</p>
+<ul>
+<li>边界/边缘线(boundary/border edge)（B）</li>
+<li>折痕线(crease)（C）</li>
+<li>材质边缘线(material edge)（M）<ul>
+<li>图中蓝色和粉色部分代表两种不同材质</li>
+</ul>
+</li>
+<li>剪影边缘(silhouette edge)（S）</li>
+</ul>
+<p>轮廓渲染的方式有：</p>
+<ul>
+<li>
+<p><strong>着色</strong>(shading)：对法线轮廓边缘（剪影边缘）着色，即在着色法线与观察方向垂直的表面区域加深颜色</p>
+<ul>
+<li>问题：边缘粗细可能不同</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/33.png" width=70%>
+</div></p>
+</li>
+<li>
+<p><strong>几何</strong>(geometry)：背面加厚(backface fattening)</p>
+<ul>
+<li>正常渲染正面</li>
+<li>加厚背面，然后再次渲染</li>
+<li>扩展：沿顶点法线方向加厚</li>
+</ul>
+<p><div style="text-align: center">
+    <img src="images/lec6/34.png" width=80%>
+</div></p>
+</li>
+<li>
+<p><strong>图像</strong>(image)：边缘检测(edge detection)</p>
+<ul>
+<li>
+<p>通常使用 <strong>Sobel 检测器</strong></p>
+<p><div style="text-align: center">
+    <img src="images/lec6/35.png" width=80%>
+</div></p>
+</li>
+<li>
+<p>可能可以在不同信息上生效</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/36.png" width=80%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="color-blocks">Color Blocks</h3>
+<p>色块的两种不同实现方式：</p>
+<ul>
+<li><strong>硬着色</strong>(hard shading)：针对着色的阈值处理</li>
+<li><strong>色彩简化</strong>(posterization)：针对最终图像颜色的阈值处理</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/37.png" width=60%>
+</div>
+
+<p>我们可以设置多个阈值，而不是只有一个阈值，这便是<strong>量化</strong>(quantization)。</p>
+<div style="text-align: center">
+    <img src="images/lec6/38.png" width=80%>
+</div>
+
+<p>可以在不同部分上运用不同的量化方法：</p>
+<div style="text-align: center">
+    <img src="images/lec6/39.png" width=70%>
+</div>
+
+<h3 id="strokes-surface-stylization">Strokes Surface Stylization</h3>
+<p>有时我们不希望这种色块风，而想要素描风。思路是将逐点的着色替换为预生成的笔触纹理(stroke textures)。这时需要考虑密度和连续性的问题。</p>
+<div style="text-align: center">
+    <img src="images/lec6/40.png" width=50%>
+</div>
+
+<ul>
+<li><strong>密度</strong>(density)：格子的密度有多细，越细看起来越黑</li>
+<li><strong>连续性</strong>(continuity)</li>
+</ul>
+<p>人们研究出各种不同密度的纹理，形成下面这些<strong>色调艺术图</strong>(tonal art maps, <strong>TAM</strong>s)：</p>
+<ul>
+<li>包括不同密度的笔触</li>
+<li>每种密度均配有 MIPMAP</li>
+</ul>
+<div style="text-align: center">
+    <img src="images/lec6/41.png" width=80%>
+</div>
+
+<details class="example" open="open">
+<summary>例子</summary>
+<p><div style="text-align: center">
+    <img src="images/lec6/42.png" width=80%>
+</div></p>
+</details>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">注</p>
+<ul>
+<li>虽然 NPR 以艺术为导向，但还是需要具备将艺术家需求转化为渲染洞察的能力，比如对边缘的处理</li>
+<li>沟通至关重要，有时需逐角色，甚至逐部分考虑</li>
+<li>NPR 没有做好，很有可能是真实感模型就没搭建好——这对 NPR 而言至关重要！<ul>
+<li>
+<p>例子：布料</p>
+<p><div style="text-align: center">
+    <img src="images/lec6/43.png" width=70%>
+</div></p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 
 
 
