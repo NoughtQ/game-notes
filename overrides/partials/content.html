@@ -1,0 +1,32 @@
+{#-
+  This file mirrors Zensical's default content partial, with one data marker
+  for front-end page statistics.
+-#}
+<span class="statistics-config" data-counter="{{ page.meta.counter }}" hidden></span>
+<template class="statistics-template">
+  <p class="statistics">
+    <span class="statistics__item">
+      {% include ".icons/lucide/pen-line.svg" %}
+      <span>约 <span data-stat="words"></span> 个字</span>
+    </span>
+    <span class="statistics__item">
+      {% include ".icons/lucide/code-xml.svg" %}
+      <span><span data-stat="codeLines"></span> 行代码</span>
+    </span>
+    <span class="statistics__item" data-stat-section="readTime">
+      {% include ".icons/lucide/clock-3.svg" %}
+      <span>预计阅读时间 <span data-stat="readTime"></span> 分钟</span>
+    </span>
+  </p>
+</template>
+{% include "partials/actions.html" %}
+<div class="statistics-content">
+  {% if "\u003ch1" not in page.content %}
+    <h1 id="__skip">{{ page.title | d(config.site_name, true)}}</h1>
+  {% endif %}
+  {{ page.content }}
+</div>
+{% include "partials/tags.html" %}
+{% include "partials/source-file.html" %}
+{% include "partials/feedback.html" %}
+{% include "partials/comments.html" %}

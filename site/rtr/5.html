@@ -78,6 +78,8 @@
     
       <link rel="stylesheet" href="../css/sidebar.css">
     
+      <link rel="stylesheet" href="../css/statistics.css">
+    
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
       <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
@@ -1328,7 +1330,24 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  
+                  <span class="statistics-config" data-counter="true" hidden></span>
+<template class="statistics-template">
+  <p class="statistics">
+    <span class="statistics__item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-pen-line" viewBox="0 0 24 24"><path d="M13 21h8M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
+      <span>约 <span data-stat="words"></span> 个字</span>
+    </span>
+    <span class="statistics__item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-code-xml" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>
+      <span><span data-stat="codeLines"></span> 行代码</span>
+    </span>
+    <span class="statistics__item" data-stat-section="readTime">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-clock-3" viewBox="0 0 24 24"><path d="M12 6v6h4"/><circle cx="12" cy="12" r="10"/></svg>
+      <span>预计阅读时间 <span data-stat="readTime"></span> 分钟</span>
+    </span>
+  </p>
+</template>
+
   
     <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/rtr/5.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
       
@@ -1345,8 +1364,9 @@
     </a>
   
 
-
-<h1 id="real-time-global-illumination">Real-Time Global Illumination</h1>
+<div class="statistics-content">
+  
+  <h1 id="real-time-global-illumination">Real-Time Global Illumination</h1>
 <p><strong>全局光照</strong>(global illumination, <strong>GI</strong>)很重要，因为它能增强场景的真实感；但同时它也很复杂，如下图所示（来自某篇关于全局光照的综述论文的 teaser image）：</p>
 <div style="text-align: center">
     <img src="images/lec5/1.png" width=80%>
@@ -2055,6 +2075,7 @@ L_{o}(\mathrm{p}, \omega_{o}) = \int_{\Omega^{+}} L_{i}(\mathrm{p}, \omega_{i}) 
 <li>屏幕外信息缺失</li>
 </ul>
 </div>
+</div>
 
 
 
@@ -2295,6 +2316,8 @@ L_{o}(\mathrm{p}, \omega_{o}) = \int_{\Omega^{+}} L_{i}(\mathrm{p}, \omega_{i}) 
         <script src="../js/katex.js"></script>
       
         <script src="../js/toc.js"></script>
+      
+        <script src="../js/statistics.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       

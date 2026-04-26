@@ -78,6 +78,8 @@
     
       <link rel="stylesheet" href="../css/sidebar.css">
     
+      <link rel="stylesheet" href="../css/statistics.css">
+    
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
       <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
@@ -1496,7 +1498,24 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  
+                  <span class="statistics-config" data-counter="true" hidden></span>
+<template class="statistics-template">
+  <p class="statistics">
+    <span class="statistics__item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-pen-line" viewBox="0 0 24 24"><path d="M13 21h8M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
+      <span>约 <span data-stat="words"></span> 个字</span>
+    </span>
+    <span class="statistics__item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-code-xml" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>
+      <span><span data-stat="codeLines"></span> 行代码</span>
+    </span>
+    <span class="statistics__item" data-stat-section="readTime">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-clock-3" viewBox="0 0 24 24"><path d="M12 6v6h4"/><circle cx="12" cy="12" r="10"/></svg>
+      <span>预计阅读时间 <span data-stat="readTime"></span> 分钟</span>
+    </span>
+  </p>
+</template>
+
   
     <a href="https://github.com/NoughtQ/game-notes/edit/master/docs/ge/3.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
       
@@ -1513,8 +1532,9 @@
     </a>
   
 
-
-<h1 id="how-to-build-a-game-world">How to Build a Game World</h1>
+<div class="statistics-content">
+  
+  <h1 id="how-to-build-a-game-world">How to Build a Game World</h1>
 <p>要想构建一个游戏世界，我们得回答以下三个问题：</p>
 <ul>
 <li>游戏世界是由什么构成的？</li>
@@ -1777,6 +1797,7 @@
 <summary>渲染线程和逻辑线程如何同步？</summary>
 <p>游戏引擎通常将 tick logic 和 tick render 分成两个独立的线程。时间顺序上，<strong>tick logic 会略早于 tick render</strong>。但这种分离可能导致<strong>画面延迟</strong>(lag)，即逻辑跑完一帧后，画面可能会延迟一帧显示。现代游戏引擎需要通过复杂设计来降低输入到视觉反馈之间的总延迟。</p>
 </details>
+</div>
 
 
 
@@ -2017,6 +2038,8 @@
         <script src="../js/katex.js"></script>
       
         <script src="../js/toc.js"></script>
+      
+        <script src="../js/statistics.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       

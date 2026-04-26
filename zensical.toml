@@ -130,6 +130,7 @@ extra_css = [
     "css/custom.css",
     "css/header.css",
     "css/sidebar.css",
+    "css/statistics.css",
     "https://unpkg.com/katex@0/dist/katex.min.css",
     "https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css"
 ]
@@ -144,6 +145,7 @@ extra_javascript = [
     "js/anchor.js",
     "js/katex.js",
     "js/toc.js",
+    "js/statistics.js",
     "https://unpkg.com/katex@0/dist/katex.min.js",
     "https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"
 ]
