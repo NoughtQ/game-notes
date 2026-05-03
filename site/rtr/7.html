@@ -1803,7 +1803,122 @@ C^{(i)} = \alpha \bar{C}^{(i)} + &amp; (1 - \alpha) C^{(i-1)} \\
 </details>
 <h2 id="specific-filtering-approaches-for-rtrt">Specific Filtering Approaches for RTRT</h2>
 <h3 id="spatiotemporal-variance-guided-filtering-svgf">Spatiotemporal Variance-Guided Filtering (SVGF)</h3>
+<p><strong>时空方差引导滤波</strong>(spatialtemporal variance-guided filtering, <strong>SVGF</strong>)和基本的时空去噪方法非常类似，但它还引入了额外的<strong>方差分析</strong>和<strong>技巧</strong>。</p>
+<div style="text-align: center">
+    <img src="images/lec7/35.png" width=80%>
+</div>
+
+<blockquote>
+<p>上图被划分为三部分，从左到右依次为去噪前（1SPP）、去噪后的结果和基准事实（高 SPP，比如 1024）。</p>
+</blockquote>
+<p>该技术包含 3 个引导滤波的因素：</p>
+<p><img align="right" alt="" src="images/lec7/36.png" width="30%" /></p>
+<ul>
+<li><strong>深度</strong> <span class="arithmatex">\(w_z = \exp \left(-\dfrac{|z(p) - z(q)|}{\sigma_z |\nabla z(p) \cdot (p - q)| + \varepsilon}\right)\)</span><ul>
+<li>A 和 B 位于同一平面上，颜色相近，因此它们应该相互影响</li>
+<li>但 A 和 B 之间的深度差异很大</li>
+<li>因此最好使用相对于<strong>切平面</strong>(tangent plane)的深度差</li>
+</ul>
+</li>
+</ul>
+<p><br/><br/></p>
+<p><img align="right" alt="" src="images/lec7/37.png" width="30%" /></p>
+<ul>
+<li><strong>法线</strong> <span class="arithmatex">\(w_n = \max(0, n(p) \cdot n(q))^{\sigma_n}\)</span><ul>
+<li>不必是高斯分布</li>
+<li>如果存在法线贴图，请使用宏法线(macro normals)（即算出来的法线而非法线贴图提供的法线）</li>
+</ul>
+</li>
+</ul>
+<p><br/><br/><br/></p>
+<p><img align="right" alt="" src="images/lec7/38.png" width="30%" /></p>
+<ul>
+<li><strong>亮度</strong>(luminance)（灰度颜色值）<span class="arithmatex">\(w_l = \exp \left(-\dfrac{|l_i(p) - l_i(q)|}{\sigma_l \sqrt{g_{3 \times 3}(\text{Var}(l_i(p)))} + \varepsilon}\right)\)</span><ul>
+<li>在 7x7 大小的空间中计算方差</li>
+<li>使用运动向量在时间上求平均值</li>
+<li>在使用前再进行 3x3 的空间滤波</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>深度和亮度计算公式中分母的 <span class="arithmatex">\(\varepsilon\)</span> 是为了预防出现差值 = 0 时会除以 0 的情况。</p>
+</blockquote>
+<details class="example" open="open">
+<summary>结果</summary>
+<p><div style="text-align: center">
+    <img src="images/lec7/39.gif" width=80%>
+</div></p>
+</details>
+<details class="failure" open="open">
+<summary>失败案例</summary>
+<p><div style="text-align: center">
+    <img src="images/lec7/40.gif" width=80%>
+</div></p>
+<p>存在阴影残影现象，因为物体没动，光源动，运动向量为 0，阴影就会沿用上一帧的结果。</p>
+</details>
 <h3 id="recurrent-autoencoder-rae">Recurrent AutoEncoder (RAE)</h3>
+<p>另一种技术是<strong>循环自编码器</strong>(recurrent autoencoder, <strong>RAE</strong>)。</p>
+<ul>
+<li>它是一种做去噪的后处理网络</li>
+<li>需要借助 G-buffer</li>
+<li>它会自动执行时间累积</li>
+</ul>
+<p>关键的架构设计包括：</p>
+<ul>
+<li>
+<p><strong>自编码器</strong>（或 U-Net）结构：通过跳过/残差连接，实现更快更好的训练</p>
+<p><div style="text-align: center">
+    <img src="images/lec7/41.png" width=40%>
+</div></p>
+</li>
+<li>
+<p><strong>循环卷积块</strong>：积累（并逐渐忘记）来自先前帧的信息</p>
+<p><div style="text-align: center">
+    <img src="images/lec7/42.png" width=80%>
+</div></p>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>结果</summary>
+<p><div style="text-align: center">
+    <img src="images/lec7/43.gif" width=80%>
+</div></p>
+</details>
+<details class="abstract" open="open">
+<summary>比较</summary>
+<div align=center markdown>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>质量</th>
+<th>伪影</th>
+<th>性能</th>
+<th>可解释性</th>
+<th>论文发表地</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SVGF</td>
+<td><strong>干净</strong></td>
+<td>重影</td>
+<td><strong>快</strong></td>
+<td><strong>是</strong></td>
+<td>HPG</td>
+</tr>
+<tr>
+<td>RAE（刚提出时）</td>
+<td>过度模糊</td>
+<td>重影</td>
+<td>慢</td>
+<td>否</td>
+<td><strong>SIGGRAPH</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
 </div>
 
 
